@@ -1,3 +1,32 @@
-p {
-  color: red;
+body {
+  background-color: #fafafb;
+}
+
+:root {
+  --color-primary: rgba(254, 95, 85, 1);
+  --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
+  --color-primary-focus-background: rgb(183, 64, 55);
+}
+
+.auth-page {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.auth-container {
+  border-radius: 13px;
+  background-color: white;
+  padding: 70px 100px;
+
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.auth-button {
+  width: 100%;
+  color: white;
 }
