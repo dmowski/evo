@@ -1,0 +1,13 @@
+$primary: #fe5f55;
+$body-bg: #fafafb;
+$secondary: #8300d9;
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+:root {
+  --color-primary: #fe5f55;
+  --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
+  --color-primary-focus-background: rgb(183, 64, 55);
+}
+
+@import "./auth.scss";

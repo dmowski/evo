@@ -4,15 +4,19 @@
   "description": "example",
   "main": "App.js",
   "scripts": {
-    "start": "nodemon App.js",
-    "dev": "nodemon App.js"
+    "server": "nodemon App.js",
+    "sass": "sass",
+    "style": "sass --watch static/scss/main.scss:static/style/bundle.css",
+    "start": "concurrently npm:style npm:server"
   },
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^5.1.3",
+    "concurrently": "^7.1.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "sass": "^1.50.1"
   }
 }

@@ -1,0 +1,27 @@
+.auth {
+  &-page {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+
+  &-container {
+    border-radius: 13px;
+    background-color: white;
+    padding: 70px 100px;
+
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  &-part {
+    min-width: 400px;
+  }
+
+  &-button {
+    width: 100%;
+  }
+}
