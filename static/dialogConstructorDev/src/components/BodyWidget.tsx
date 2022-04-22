@@ -5,7 +5,7 @@ import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { DemoCanvasWidget } from "../helpers/DemoCanvasWidget";
+import { DemoCanvasWidget } from "../DemoCanvasWidget";
 import styled from "@emotion/styled";
 import { AdvancedPortModel } from "../links";
 
