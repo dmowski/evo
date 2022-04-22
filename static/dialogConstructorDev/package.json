@@ -7,9 +7,11 @@
   "typings": "./dist/@types/index",
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
+    "@emotion/react": "^11.9.0",
     "@projectstorm/react-diagrams": "^6.7.0",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
+    "lodash": "^4.17.21",
     "react-dom": "^17.0.2",
     "style-loader": "^3.3.1",
     "ts-loader": "^9.2.8",
