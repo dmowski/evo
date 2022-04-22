@@ -1,114 +1,117 @@
-import * as React from "react";
+import React, { useState } from "react";
 import * as _ from "lodash";
-import { TrayWidget } from "./TrayWidget";
-import { Application } from "../Application";
-import { TrayItemWidget } from "./TrayItemWidget";
+import { Application } from "./Application";
+
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { DemoCanvasWidget } from "../DemoCanvasWidget";
+import { DemoCanvasWidget } from "./DemoCanvasWidget";
+import { AdvancedPortModel } from "./links";
 import styled from "@emotion/styled";
-import { AdvancedPortModel } from "../links";
-
 export interface BodyWidgetProps {
   app: Application;
 }
 
-export const Body = styled.div`
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-`;
-
-export const Header = styled.div`
-  display: flex;
-  background: rgb(30, 30, 30);
-  flex-grow: 0;
-  flex-shrink: 0;
-  color: white;
-  font-family: Helvetica, Arial, sans-serif;
-  padding: 10px;
-  align-items: center;
-`;
-
-export const Content = styled.div`
-  display: flex;
-  flex-grow: 1;
-`;
-
-export const Layer = styled.div`
-  position: relative;
-  flex-grow: 1;
-`;
-
-export class BodyWidget extends React.Component<BodyWidgetProps> {
-  render() {
-    return (
-      <Body>
-        <Header>
-          <div className="title">Dialog constructor</div>
-        </Header>
-        <Content>
-          <TrayWidget>
-            <TrayItemWidget
-              model={{ type: "skill" }}
-              name="Skill"
-              color="rgb(192,255,0)"
-            />
-            <TrayItemWidget
-              model={{ type: "intent" }}
-              name="Intent"
-              color="rgb(0,192,255)"
-            />
-          </TrayWidget>
-          <Layer
-            onDrop={(event) => {
-              var data = JSON.parse(
-                event.dataTransfer.getData("storm-diagram-node")
-              );
-              var nodesCount = _.keys(
-                this.props.app.getDiagramEngine().getModel().getNodes()
-              ).length;
-
-              var node: DefaultNodeModel = null;
-              if (data.type === "skill") {
-                const message = `Hello
-                
-                as
-                asd
-                asd
-                asd`;
-                node = new DefaultNodeModel(
-                  "Skillsssssssssdsdsdsdsdsdsdsdsd " +
-                    message +
-                    (nodesCount + 1),
-                  "rgb(192,255,0)"
-                );
-                node.addPort(new AdvancedPortModel(true, "in", "in"));
-              } else {
-                node = new DefaultNodeModel(
-                  "intent " + (nodesCount + 1),
-                  "rgb(0,192,255)"
-                );
-                node.addPort(new AdvancedPortModel(false, "out", "out"));
-              }
-              var point = this.props.app
-                .getDiagramEngine()
-                .getRelativeMousePoint(event);
-              node.setPosition(point);
-              this.props.app.getDiagramEngine().getModel().addNode(node);
-              this.forceUpdate();
-            }}
-            onDragOver={(event) => {
-              event.preventDefault();
-            }}
-          >
-            <DemoCanvasWidget>
-              <CanvasWidget engine={this.props.app.getDiagramEngine()} />
-            </DemoCanvasWidget>
-          </Layer>
-        </Content>
-      </Body>
-    );
-  }
+function useForceUpdate() {
+  const [value, setValue] = useState(0);
+  return () => setValue((value) => value + 1);
 }
+
+export const Tray = styled.div<{ color: string }>(({ color }) => ({
+  color: "black",
+  padding: "5px 10px",
+  border: `1px solid  ${color}`,
+  backgroundColor: "white",
+  cursor: "pointer",
+}));
+
+export const BodyWidget = ({ app }: BodyWidgetProps) => {
+  const forceUpdate = useForceUpdate();
+
+  const dropHandler = (event) => {
+    var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
+    var nodesCount = _.keys(
+      app.getDiagramEngine().getModel().getNodes()
+    ).length;
+
+    var node: DefaultNodeModel = null;
+    if (data.type === "skill") {
+      node = new DefaultNodeModel(
+        "skill " + (nodesCount + 1),
+        "rgb(192,255,0)"
+      );
+      node.addPort(new AdvancedPortModel(true, "in", "in"));
+    } else {
+      node = new DefaultNodeModel(
+        "intent " + (nodesCount + 1),
+        "rgb(0,192,255)"
+      );
+      node.addPort(new AdvancedPortModel(false, "out", "out"));
+    }
+    var point = app.getDiagramEngine().getRelativeMousePoint(event);
+    node.setPosition(point);
+    app.getDiagramEngine().getModel().addNode(node);
+    forceUpdate();
+  };
+
+  return (
+    <div>
+      <div
+        style={{
+          height: "100vh",
+        }}
+        onDrop={dropHandler}
+        onDragOver={(event) => {
+          event.preventDefault();
+        }}
+      >
+        <DemoCanvasWidget
+          color="rgb(222, 222, 222)"
+          background="rgb(233, 233, 233)"
+        >
+          <CanvasWidget engine={app.getDiagramEngine()} />
+        </DemoCanvasWidget>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          borderRadius: "10px",
+          backgroundColor: "white",
+          gap: "10px",
+          padding: "25px 30px",
+          position: "fixed",
+          left: "20px",
+          bottom: "20px",
+        }}
+      >
+        <Tray
+          color="rgb(192,255,0)"
+          draggable={true}
+          onDragStart={(event) => {
+            event.dataTransfer.setData(
+              "storm-diagram-node",
+              JSON.stringify({ type: "skill" })
+            );
+          }}
+          className="tray-item"
+        >
+          Skill
+        </Tray>
+
+        <Tray
+          color="rgb(0,192,255)"
+          draggable={true}
+          onDragStart={(event) => {
+            event.dataTransfer.setData(
+              "storm-diagram-node",
+              JSON.stringify({ type: "intent" })
+            );
+          }}
+          className="tray-item"
+        >
+          Intent
+        </Tray>
+      </div>
+    </div>
+  );
+};
