@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./style/bundle.css" />
     <link rel="icon" href="./images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
     <title>Template</title>
   </head>
   <body class="auth-page">
@@ -13,8 +19,8 @@
       <img src="./images/logo-white.svg" alt="" />
       <h3>Вход</h3>
 
-      <div class="auth-part">
-        <label for="email" class="form-label">Email address</label>
+      <div class="auth-field-container">
+        <label for="email" class="form-label">E-mail</label>
         <input
           type="email"
           name="email"
@@ -24,8 +30,8 @@
         />
       </div>
 
-      <div class="auth-part">
-        <label for="password" class="form-label">Password</label>
+      <div class="auth-field-container">
+        <label for="password" class="form-label">Пароль</label>
         <input
           type="password"
           name="password"
@@ -35,15 +41,18 @@
         />
       </div>
 
-      <div class="auth-part">
-        <input
-          id="rememberme"
-          class="form-check-input mt-0"
-          type="checkbox"
-          value=""
-          aria-label="Checkbox for following text input"
-        />
-        <label for="rememberme" class="form-label">Remember me</label>
+      <div class="auth-action-container">
+        <div>
+          <input
+            id="rememberme"
+            class="form-check-input mt-0"
+            type="checkbox"
+            name="rememberme"
+            value=""
+            aria-label="Checkbox for following text input"
+          />
+          <label for="rememberme" class="form-label">Remember me</label>
+        </div>
 
         <a href="#" class="link-primary">Забыли пароль</a>
       </div>

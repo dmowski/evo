@@ -3,25 +3,41 @@
     display: grid;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
   }
 
   &-container {
     border-radius: 13px;
     background-color: white;
-    padding: 70px 100px;
 
     flex-direction: column;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 20px;
+    width: min(600px, 100vw);
+    min-height: 400px;
+    height: min(500px, 100vh);
+    padding-bottom: 40px;
   }
 
-  &-part {
-    min-width: 400px;
-  }
-
+  &-field-container,
+  &-action-container,
   &-button {
-    width: 100%;
+    min-width: min(400px, 90vw);
+  }
+
+  &-action-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    div {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    label {
+      margin: 0;
+    }
   }
 }

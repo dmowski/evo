@@ -8,6 +8,12 @@ $secondary: #ff9900;
   --color-primary: #fe5f55;
   --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
   --color-primary-focus-background: rgb(183, 64, 55);
+  --bs-font-sans-serif: "Nunito", sans-serif;
 }
 
 @import "./auth.scss";
+
+.btn-primary,
+.btn-primary:is(:focus, :hover) {
+  color: white;
+}

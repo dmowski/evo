@@ -26,6 +26,9 @@ async function start() {
 -------------------------------
 Server on: ${PORT}
 http://localhost:${PORT}/
+http://localhost:${PORT}/auth.html
+figma:
+https://www.figma.com/file/e6CPWViwJTFCZxUp18VT1u/AI-constructor?node-id=255%3A270
 -------------------------------
 `);
   });
