@@ -1,12 +1,13 @@
 import * as React from "react";
 import * as _ from "lodash";
 import { TrayWidget } from "./TrayWidget";
-import { AdvancedPortModel, Application } from "../Application";
+import { Application } from "../Application";
 import { TrayItemWidget } from "./TrayItemWidget";
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { DemoCanvasWidget } from "../helpers/DemoCanvasWidget";
 import styled from "@emotion/styled";
+import { AdvancedPortModel } from "../links";
 
 export interface BodyWidgetProps {
   app: Application;
