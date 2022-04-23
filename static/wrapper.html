@@ -24,28 +24,39 @@
         }
 
         .logout {
-            margin: 0 20px;
+            margin: 10px 20px;
         }
     </style>
 </head>
 <body>
 <header class="header">
     <nav class="navbar navbar-expand m-1 d-flex justify-content-between">
-        <div>
-            <a href="javascript:void(0)" class="sidebar-toggle"><i class="fa-solid fa-bars fa-xl"></i></a>
-            <img src="./images/logo.svg" alt="" class="logo"/>
-        </div>
-
-        <h3>
-          <span class="badge bg-primary" id="pagename">
-          </span>
-        </h3>
-
-        <div>
-            <img src="./images/avatar.png" alt="Avatar" class="avatar mr-4 username">
-            <h7 class="username">Alexander Ivanov</h7>
-            <a href="#" class="logout"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
-        </div>
+        <ul class="nav justify-content-start">
+            <li class="nav-item">
+                <a href="javascript:void(0)" class="nav-link sidebar-toggle">
+                    <i class="fa-solid fa-bars fa-xl"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <img src="./images/logo.svg" alt="" class="logo"/>
+            </li>
+        </ul>
+        <ul class="nav justify-content-center">
+            <li class="nav-item">
+                <div id="pagename"></div>
+            </li>
+        </ul>
+        <ul class="nav justify-content-end">
+            <li class="nav-item username">
+                <a class="nav-link" href="#">
+                    <img src="./images/avatar.png" alt="Avatar" class="avatar">
+                    <h7>Alexander Ivanov</h7>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link logout" href="#"><i class="fa-solid fa-right-from-bracket fa-xl"></i></a>
+            </li>
+        </ul>
 
     </nav>
 </header>
