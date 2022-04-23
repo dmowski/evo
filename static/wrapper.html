@@ -63,7 +63,7 @@
 <main role="main">
     <article class="d-flex">
         <aside>
-            <nav class="sidebar bg-white">
+            <nav class="sidebar bg-white hidden">
                 <ul class="list-unstyled">
                     <li class="active">
                         <a href="">
@@ -154,19 +154,13 @@
 </main>
 <script>
     sidebar = document.querySelector('.sidebar');
-    sidebar.userSet = false;
     const sidebarToggler = document.querySelector('.sidebar-toggle');
     sidebarToggler.addEventListener('click', () => {
         sidebar.classList.toggle('hidden');
-        sidebar.userSet = true
     })
-    window.addEventListener('resize', () => {
-        if (!sidebar.userSet) {
-            if (document.body.clientWidth >= 768) {
-                sidebar.removeClass('hidden');
-            } else {
-                sidebar.addClass('hidden');
-            }
+    window.addEventListener('load', () => {
+        if (document.body.clientWidth >= 768) {
+            sidebar.classList.toggle('hidden');
         }
     })
 </script>
