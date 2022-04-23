@@ -7,6 +7,7 @@ import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { DemoCanvasWidget } from "./DemoCanvasWidget";
 import { AdvancedPortModel } from "./links";
 import styled from "@emotion/styled";
+import { CustomNodeModel } from "./Node/CustomNodeModel";
 export interface BodyWidgetProps {
   app: Application;
 }
@@ -33,13 +34,10 @@ export const BodyWidget = ({ app }: BodyWidgetProps) => {
       app.getDiagramEngine().getModel().getNodes()
     ).length;
 
-    var node: DefaultNodeModel = null;
+    var node: DefaultNodeModel | CustomNodeModel = null;
     if (data.type === "skill") {
-      node = new DefaultNodeModel(
-        "skill " + (nodesCount + 1),
-        "rgb(192,255,0)"
-      );
-      node.addPort(new AdvancedPortModel(true, "in", "in"));
+      const name = "skill " + (nodesCount + 1);
+      node = new CustomNodeModel(name, "skill", true);
     } else {
       node = new DefaultNodeModel(
         "intent " + (nodesCount + 1),

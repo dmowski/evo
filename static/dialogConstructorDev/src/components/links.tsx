@@ -34,7 +34,6 @@ const CustomLinkArrowWidget = (props) => {
       180) /
       Math.PI;
 
-  //translate(50, -10),
   return (
     <g
       className="arrow"

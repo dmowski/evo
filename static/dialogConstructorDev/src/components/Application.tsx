@@ -3,7 +3,7 @@ import createEngine, {
   DiagramEngine,
 } from "@projectstorm/react-diagrams";
 import { AdvancedLinkFactory } from "./links";
-
+import { CustomNodeFactory } from "./Node/CustomNodeFactory";
 export class Application {
   protected activeModel: DiagramModel;
   protected diagramEngine: DiagramEngine;
@@ -13,6 +13,9 @@ export class Application {
     this.diagramEngine
       .getLinkFactories()
       .registerFactory(new AdvancedLinkFactory());
+    this.diagramEngine
+      .getNodeFactories()
+      .registerFactory(new CustomNodeFactory());
     this.newModel();
   }
 
