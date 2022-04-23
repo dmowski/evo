@@ -29,7 +29,7 @@
             <a href="javascript:void(0)" class="sidebar-toggle mr-4"><i class="fa-solid fa-bars fa-xl"></i></a>
             <img src="./images/logo.svg" alt=""/>
         </div>
-        <h3 class="ml-auto"><span class="badge bg-primary">Дашборд</span></h3>
+        <h3 class="ml-auto"><span class="badge bg-primary" id="pagename"></span></h3>
         <div class="ml-auto">
             <img src="./images/avatar.png" alt="Avatar" class="avatar mr-3">
             <a class="text-dark mr-5">
@@ -108,6 +108,11 @@
             }
         }
     })
+</script>
+<script>
+    currentPage = document.querySelector('.active');
+    pageName = document.querySelector('#pagename');
+    pageName.textContent = currentPage.textContent;
 </script>
 <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
