@@ -35,12 +35,17 @@
 .navbar-white .navbar-nav .nav-link:hover {
   color: var(--color-primary);
 }
-
+.header{
+  background: white;
+  border-bottom: #CDCDCD solid 1px;
+}
 .sidebar {
   min-width: 243px;
   max-width: 243px;
-  min-height: calc(100vh - 110px);
-  max-height: calc(100vh - 110px);
+  box-shadow: 0px -8px 0px 0px rgb(255, 255, 255);
+  border-top: white 4px solid;
+  min-height: calc(100vh - 94px);
+  max-height: calc(100vh - 94px);
   transition: all 0.25s;
   overflow-y: auto
 }
@@ -51,12 +56,15 @@
     position: absolute
   }
 }
-
+hr{
+  margin: 0;
+}
 .sidebar ul {
   margin-left: 30px;
 }
 
 .sidebar ul li a {
+  font-weight: bold;
   font-size: 90%;
   display: block;
   padding: .8rem;
@@ -103,7 +111,6 @@
   text-decoration: none;
   font-weight: bold;
   background: white;
-  border-bottom: 1px rgba(255, 255, 255, 0.19) solid
 }
 
 .sidebar.hidden {
