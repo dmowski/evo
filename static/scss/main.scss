@@ -5,6 +5,7 @@ $secondary: #ff9900;
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 :root {
+  --header-height: 85px;
   --color-primary: #fe5f55;
   --color-gray: #9A9AA9;
   --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
