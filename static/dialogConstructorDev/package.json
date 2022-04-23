@@ -3,8 +3,6 @@
     "start": "./node_modules/.bin/webpack serve --open",
     "build": "./node_modules/.bin/webpack"
   },
-  "main": "./dist/index.js",
-  "typings": "./dist/@types/index",
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
     "@emotion/react": "^11.9.0",
