@@ -44,8 +44,8 @@
   max-width: 243px;
   box-shadow: 0px -8px 0px 0px rgb(255, 255, 255);
   border-top: white 4px solid;
-  min-height: calc(100vh - 94px);
-  max-height: calc(100vh - 94px);
+  min-height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
   transition: all 0.25s;
   overflow-y: auto
 }
@@ -76,7 +76,9 @@ hr{
 .sidebar ul .active a {
   color: var(--color-primary);
 }
-
+.sidebar ul i {
+  margin-right: .5em;
+}
 .sidebar ul ul a {
   background: white;
   color: var(--color-gray);
@@ -119,7 +121,7 @@ hr{
 
 .content {
   width: 100%;
-  min-height: calc(100vh - 110px);
-  max-height: calc(100vh - 110px);
+  min-height: calc(100vh - 70px);
+  max-height: calc(100vh - 70px);
   overflow-y: auto
 }
