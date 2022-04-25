@@ -8,7 +8,7 @@ import { GraphCanvas } from "./GraphCanvas";
 import { AdvancedPortModel } from "./links";
 import styled from "@emotion/styled";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
-export interface BodyWidgetProps {
+export interface MainLayoutProps {
   app: Application;
 }
 
@@ -25,7 +25,7 @@ export const Tray = styled.div<{ color: string }>(({ color }) => ({
   cursor: "pointer",
 }));
 
-export const BodyWidget = ({ app }: BodyWidgetProps) => {
+export const MainLayout = ({ app }: MainLayoutProps) => {
   const forceUpdate = useForceUpdate();
 
   const dropHandler = (event) => {
