@@ -1,6 +1,10 @@
 import * as React from "react";
 import { CustomNodeModel } from "./CustomNodeModel";
-import { DiagramEngine, PortWidget } from "@projectstorm/react-diagrams";
+import {
+  DiagramEngine,
+  NodeModel,
+  PortWidget,
+} from "@projectstorm/react-diagrams";
 import styled from "@emotion/styled";
 
 export interface CustomNodeWidgetProps {
@@ -35,17 +39,41 @@ export const CustomNodeWidget = ({
       className={"custom-node"}
       style={{
         position: "relative",
-        width: "200px",
-        height: "100px",
+        minWidth: "250px",
+        minHeight: "140px",
+        backgroundColor: "white",
+        display: "flex",
+        flexDirection: "column",
+        fontFamily: "sans-serif",
+        gap: "6px",
       }}
     >
-      <textarea style={{ width: "80%", height: "80%", border: "none" }}>
+      <p
+        style={{
+          borderBottom: "1px solid #d7d7d7",
+          width: "100%",
+          padding: "5px",
+          boxSizing: "border-box",
+        }}
+      >
+        <b>Type:</b> {type}
+      </p>
+      <textarea
+        style={{
+          width: "100%",
+          height: "100%",
+          border: "none",
+          padding: "5px",
+          resize: "none",
+          boxSizing: "border-box",
+        }}
+      >
         Hello
       </textarea>
       <PortWidget
         style={{
-          top: 100 / 2 - 8,
-          left: -8,
+          top: "6px",
+          left: -16,
           position: "absolute",
         }}
         port={node.getPort(isIn ? "in" : "out")}
@@ -53,6 +81,36 @@ export const CustomNodeWidget = ({
       >
         <Port />
       </PortWidget>
+      <div
+        style={{
+          bottom: "-20px",
+          left: "-20px",
+          position: "absolute",
+          cursor: "pointer",
+          padding: "3px",
+          border: "1px solid #c3c3c3",
+          width: "15px",
+          height: "20px",
+          backgroundColor: "white",
+        }}
+        onClick={() => {
+          const confirmResult = confirm("Delete this element?");
+          if (!confirmResult) {
+            return;
+          }
+          engine
+            .getModel()
+            .getSelectedEntities()
+            .forEach((item) => {
+              if (item instanceof NodeModel) {
+                engine.getModel().removeNode(item);
+                engine.repaintCanvas();
+              }
+            });
+        }}
+      >
+        🗑
+      </div>
     </div>
   );
 };

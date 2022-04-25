@@ -12,11 +12,6 @@ export interface MainLayoutProps {
   app: Application;
 }
 
-function useForceUpdate() {
-  const [value, setValue] = useState(0);
-  return () => setValue((value) => value + 1);
-}
-
 export const Tray = styled.div<{ color: string }>(({ color }) => ({
   padding: "5px 10px",
   border: `1px solid ${color}`,
@@ -82,8 +77,6 @@ export const DeleteControllButton = styled.div<{ color: string }>(
 );
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
-  const forceUpdate = useForceUpdate();
-
   const dropHandler = (event) => {
     var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
     var nodesCount = _.keys(app.diagramEngine.getModel().getNodes()).length;
@@ -102,7 +95,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
     app.diagramEngine.getModel().addNode(node);
-    forceUpdate();
+    app.diagramEngine.repaintCanvas();
   };
 
   return (
@@ -173,6 +166,10 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
       <DeleteControllButton
         onClick={() => {
+          const confirmResult = confirm("Delete this element?");
+          if (!confirmResult) {
+            return;
+          }
           app.diagramEngine
             .getModel()
             .getSelectedEntities()
@@ -185,7 +182,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
                 app.diagramEngine.getModel().removeLink(item);
               }
             });
-          forceUpdate();
+          app.diagramEngine.repaintCanvas();
         }}
       >
         🗑
