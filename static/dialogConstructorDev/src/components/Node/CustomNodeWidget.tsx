@@ -111,6 +111,24 @@ export const CustomNodeWidget = ({
       >
         🗑
       </div>
+
+      <div
+        style={{
+          bottom: "-10px",
+          right: "-10px",
+          position: "absolute",
+          cursor: "pointer",
+          padding: "3px",
+          border: "1px solid #c3c3c3",
+          width: "20px",
+          height: "20px",
+          borderRadius: "40px",
+          backgroundColor: "white",
+          textAlign: "center",
+        }}
+      >
+        9
+      </div>
     </div>
   );
 };

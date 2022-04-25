@@ -25,7 +25,7 @@ export const ZoomControllButton = styled.div<{ color: string }>(
   ({ color }) => ({
     display: "flex",
     padding: "15px 20px 18px 20px",
-    fontSize: "30px",
+    fontSize: "20px",
     fontFamily: "sans-serif",
     color: "#222",
     cursor: "pointer",
@@ -53,7 +53,7 @@ export const DeleteControllButton = styled.div<{ color: string }>(
   ({ color }) => ({
     display: "flex",
     padding: "15px 20px 18px 20px",
-    fontSize: "30px",
+    fontSize: "20px",
     fontFamily: "sans-serif",
     color: "#222",
     cursor: "pointer",
@@ -112,6 +112,45 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
           <CanvasWidget engine={app.diagramEngine} />
         </GraphCanvas>
+      </div>
+
+      <div
+        style={{
+          display: "flex",
+          borderRadius: "14px",
+          gap: "16px",
+          position: "fixed",
+          left: "20px",
+          top: "20px",
+        }}
+      >
+        <select
+          name="dialogs"
+          id=""
+          style={{
+            padding: "10px 15px",
+            backgroundColor: "white",
+            border: "1px solid #c2c2c2",
+            borderRadius: "4px",
+          }}
+        >
+          <option value="a">asda sd asd</option>
+          <option value="a1">asda sd asd</option>
+          <option value="a2">FFffFF</option>
+          <option value="a3">asda sd asd</option>
+        </select>
+
+        <button
+          style={{
+            padding: "10px 15px",
+            backgroundColor: "white",
+            border: "1px solid #c2c2c2",
+            borderRadius: "4px",
+            cursor: "pointer",
+          }}
+        >
+          Добавить диалог
+        </button>
       </div>
 
       <div
