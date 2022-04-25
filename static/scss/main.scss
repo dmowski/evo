@@ -5,7 +5,9 @@ $secondary: #ff9900;
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 :root {
-  --header-height: 85px;
+  --sidebar-hidden: -243px;
+  --sidebar-size: 243px;
+  --header-height: 72px;
   --color-primary: #fe5f55;
   --color-gray: #9A9AA9;
   --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
@@ -15,7 +17,7 @@ $secondary: #ff9900;
 
 @import "./auth.scss";
 @import "wrapper";
-
+@import "./newWrapper.scss";
 
 
 .btn-primary,
