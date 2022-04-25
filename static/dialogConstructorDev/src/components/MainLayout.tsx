@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import * as _ from "lodash";
 import { Application } from "./Application";
 
-import { DefaultNodeModel, NodeModel } from "@projectstorm/react-diagrams";
+import {
+  DefaultNodeModel,
+  LinkModel,
+  NodeModel,
+} from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { GraphCanvas } from "./GraphCanvas";
 import { AdvancedLinkModel, AdvancedPortModel } from "./LinksSettings";
@@ -86,11 +90,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       const name = "skill " + (nodesCount + 1);
       node = new CustomNodeModel(name, "skill", true);
     } else {
-      node = new DefaultNodeModel(
-        "intent " + (nodesCount + 1),
-        "rgb(0,192,255)"
-      );
-      node.addPort(new AdvancedPortModel(false, "out", "out"));
+      const name = "intent " + (nodesCount + 1);
+      node = new CustomNodeModel(name, "intent", false);
     }
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
@@ -217,7 +218,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
               if (item instanceof NodeModel) {
                 app.diagramEngine.getModel().removeNode(item);
-              } else if (item instanceof AdvancedLinkModel) {
+              } else if (item instanceof LinkModel) {
                 app.diagramEngine.getModel().removeLink(item);
               }
             });

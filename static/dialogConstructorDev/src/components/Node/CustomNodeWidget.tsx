@@ -72,8 +72,8 @@ export const CustomNodeWidget = ({
       </textarea>
       <PortWidget
         style={{
-          top: "6px",
-          left: -16,
+          top: "-10px",
+          left: 100,
           position: "absolute",
         }}
         port={node.getPort(isIn ? "in" : "out")}
