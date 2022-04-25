@@ -46,8 +46,9 @@ module.exports = {
   },
 
   devServer: {
-    host: "0.0.0.0",
+    host: "localhost",
     compress: true,
+    port: "34567",
     disableHostCheck: true,
     overlay: true,
   },

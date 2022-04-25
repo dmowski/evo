@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import * as _ from "lodash";
 import { Application } from "./Application";
 
@@ -12,73 +12,25 @@ import { GraphCanvas } from "./GraphCanvas";
 import { AdvancedLinkModel, AdvancedPortModel } from "./LinksSettings";
 import styled from "@emotion/styled";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
+import { DeleteControllButton, Tray, ZoomControllButton } from "./style";
 export interface MainLayoutProps {
   app: Application;
 }
 
-export const Tray = styled.div<{ color: string }>(({ color }) => ({
-  padding: "5px 10px",
-  border: `1px solid ${color}`,
-  backgroundColor: color,
-  fontFamily: "sans-serif",
-  color: "white",
-  cursor: "pointer",
-}));
+export interface GraphShortInfo {
+  id: string;
+  title: string;
+}
 
-export const ZoomControllButton = styled.div<{ color: string }>(
-  ({ color }) => ({
-    display: "flex",
-    padding: "15px 20px 18px 20px",
-    fontSize: "20px",
-    fontFamily: "sans-serif",
-    color: "#222",
-    cursor: "pointer",
-    height: "40px",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "14px",
-    backgroundColor: "white",
-    border: "1px solid #EBEBEB",
-    position: "fixed",
-    left: "0",
-    right: "0",
-    bottom: "20px",
-    margin: "auto",
-    width: "200px",
+const baseUrl = location.host.startsWith("localhost:34567")
+  ? "http://localhost:62544/"
+  : location.origin + "/";
 
-    ":hover": {
-      backgroundColor: "rgba(255,255,255,0.8)",
-    },
-  })
-);
-
-export const DeleteControllButton = styled.div<{ color: string }>(
-  ({ color }) => ({
-    display: "flex",
-    padding: "15px 20px 18px 20px",
-    fontSize: "20px",
-    fontFamily: "sans-serif",
-    color: "#222",
-    cursor: "pointer",
-    height: "40px",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "14px",
-    backgroundColor: "white",
-    border: "1px solid #EBEBEB",
-    position: "fixed",
-    right: "20px",
-    bottom: "20px",
-    margin: "auto",
-    width: "50px",
-
-    ":hover": {
-      backgroundColor: "rgba(255,255,255,0.8)",
-    },
-  })
-);
+const getListOfGraphs = async () => {
+  const req = await fetch(baseUrl + "api/v1/dialo_graph.list");
+  const listOfNodes = await req.json();
+  return listOfNodes?.graph_list || [];
+};
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const dropHandler = (event) => {
@@ -98,6 +50,15 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     app.diagramEngine.getModel().addNode(node);
     app.diagramEngine.repaintCanvas();
   };
+
+  const [graphList, setGrapList] = useState<GraphShortInfo[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      const graphList = await getListOfGraphs();
+      setGrapList(graphList);
+    })();
+  }, []);
 
   return (
     <div>
@@ -135,10 +96,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
             borderRadius: "4px",
           }}
         >
-          <option value="a">asda sd asd</option>
-          <option value="a1">asda sd asd</option>
-          <option value="a2">FFffFF</option>
-          <option value="a3">asda sd asd</option>
+          {graphList.map((graphInfo) => {
+            return <option value={graphInfo.id}>{graphInfo.title}</option>;
+          })}
         </select>
 
         <button
