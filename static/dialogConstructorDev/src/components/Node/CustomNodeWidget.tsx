@@ -30,10 +30,6 @@ export const CustomNodeWidget = ({
   name,
   isIn,
 }: CustomNodeWidgetProps) => {
-  console.log(name);
-  console.log(type);
-  console.log(isIn);
-
   return (
     <div
       className={"custom-node"}
