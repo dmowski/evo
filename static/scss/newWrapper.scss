@@ -45,9 +45,13 @@
     margin: 0 16px
   }
 
-  ul li ul li {
-    padding-top: 20px
+  .submenu {
+    li {
+      padding-top: 15px;
+      padding-bottom: 0;
+    }
   }
+
 
   ul li a:hover {
     color: var(--color-primary);
