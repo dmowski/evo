@@ -5,7 +5,7 @@ import { Application } from "./Application";
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { GraphCanvas } from "./GraphCanvas";
-import { AdvancedPortModel } from "./links";
+import { AdvancedPortModel } from "./LinksSettings";
 import styled from "@emotion/styled";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 export interface MainLayoutProps {

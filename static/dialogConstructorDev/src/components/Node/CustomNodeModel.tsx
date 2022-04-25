@@ -1,5 +1,5 @@
 import { NodeModel, NodeModelGenerics } from "@projectstorm/react-diagrams";
-import { AdvancedPortModel } from "../links";
+import { AdvancedPortModel } from "../LinksSettings";
 
 export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
   constructor(name: string, type: string, isIn: boolean) {

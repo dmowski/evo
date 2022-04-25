@@ -2,7 +2,7 @@ import createEngine, {
   DiagramModel,
   DiagramEngine,
 } from "@projectstorm/react-diagrams";
-import { AdvancedLinkFactory } from "./links";
+import { AdvancedLinkFactory } from "./LinksSettings";
 import { CustomNodeFactory } from "./Node/CustomNodeFactory";
 export class Application {
   protected activeModel: DiagramModel;
