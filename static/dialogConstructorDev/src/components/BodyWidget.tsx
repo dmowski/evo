@@ -4,7 +4,7 @@ import { Application } from "./Application";
 
 import { DefaultNodeModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { DemoCanvasWidget } from "./DemoCanvasWidget";
+import { GraphCanvas } from "./GraphCanvas";
 import { AdvancedPortModel } from "./links";
 import styled from "@emotion/styled";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
@@ -62,12 +62,9 @@ export const BodyWidget = ({ app }: BodyWidgetProps) => {
           event.preventDefault();
         }}
       >
-        <DemoCanvasWidget
-          color="rgb(222, 222, 222)"
-          background="rgb(233, 233, 233)"
-        >
+        <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
           <CanvasWidget engine={app.getDiagramEngine()} />
-        </DemoCanvasWidget>
+        </GraphCanvas>
       </div>
 
       <div
