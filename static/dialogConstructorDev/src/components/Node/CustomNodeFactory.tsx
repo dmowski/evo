@@ -13,13 +13,18 @@ export class CustomNodeFactory extends AbstractReactFactory<
   }
 
   generateReactWidget(event): JSX.Element {
-    console.log();
-
     const { type, name, isIn } = event.model.options?.extras;
-
+    console.log(event);
+    const isSelected = this.engine
+      .getModel()
+      .getSelectedEntities()
+      .find((selectedElement) => {
+        return selectedElement.getID() == event.model.options.id;
+      });
     return (
       <CustomNodeWidget
         type={type}
+        isSelected={!!isSelected}
         name={name}
         isIn={isIn}
         engine={this.engine}

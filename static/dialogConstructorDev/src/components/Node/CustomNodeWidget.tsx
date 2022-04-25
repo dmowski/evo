@@ -13,6 +13,7 @@ export interface CustomNodeWidgetProps {
   type: string;
   name: string;
   isIn: boolean;
+  isSelected: boolean;
 }
 
 export const Port = styled.div`
@@ -27,53 +28,62 @@ export const Port = styled.div`
   }
 `;
 
+export const GraphNode = styled.div<{ activeColor: string }>(
+  ({ activeColor }) => ({
+    position: "relative",
+    minWidth: "250px",
+    minHeight: "140px",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    ">p": {
+      backgroundColor: activeColor,
+      color: "white",
+      width: "100%",
+      padding: "5px",
+      boxSizing: "border-box",
+    },
+    fontFamily: "sans-serif",
+    textarea: {
+      width: "100%",
+      height: "100%",
+      border: "none",
+      padding: "5px",
+      resize: "none",
+      fontFamily: "sans-serif",
+      boxSizing: "border-box",
+      ":focus": {
+        boxShadow: `0 0 3px ${activeColor}`,
+        outline: "none",
+      },
+    },
+    "&.is-selected": {
+      boxShadow: `0 0 10px ${activeColor}`,
+    },
+  })
+);
+
 export const CustomNodeWidget = ({
   engine,
   node,
   type,
   name,
   isIn,
+  isSelected,
 }: CustomNodeWidgetProps) => {
+  const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
+
   return (
-    <div
-      className={"custom-node"}
-      style={{
-        position: "relative",
-        minWidth: "250px",
-        minHeight: "140px",
-        backgroundColor: "white",
-        display: "flex",
-        flexDirection: "column",
-        fontFamily: "sans-serif",
-        gap: "6px",
-      }}
+    <GraphNode
+      activeColor={activeColor}
+      className={`custom-node ${isSelected ? "is-selected" : ""}`}
     >
-      <p
-        style={{
-          borderBottom: "1px solid #d7d7d7",
-          width: "100%",
-          padding: "5px",
-          boxSizing: "border-box",
-        }}
-      >
-        <b>Type:</b> {type}
-      </p>
-      <textarea
-        style={{
-          width: "100%",
-          height: "100%",
-          border: "none",
-          padding: "5px",
-          resize: "none",
-          boxSizing: "border-box",
-        }}
-      >
-        Hello
-      </textarea>
+      <p>{type}</p>
+      <textarea>Hello</textarea>
       <PortWidget
         style={{
           top: "-10px",
-          left: 100,
+          left: 120,
           position: "absolute",
         }}
         port={node.getPort(isIn ? "in" : "out")}
@@ -129,6 +139,6 @@ export const CustomNodeWidget = ({
       >
         9
       </div>
-    </div>
+    </GraphNode>
   );
 };
