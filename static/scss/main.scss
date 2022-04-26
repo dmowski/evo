@@ -1,30 +1,29 @@
 $primary: #fe5f55;
 $body-bg: #fafafb;
 $secondary: #ff9900;
-
-@import "../../node_modules/bootstrap/scss/bootstrap.scss";
-
 :root {
   --sidebar-size: 243px;
-  --header-height: 72px;
+  --header-height: 80px;
+  --main-content-padding: 20px;
+
   --color-primary: #fe5f55;
-  --color-gray: #9A9AA9;
+  --color-gray: #9a9aa9;
   --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
   --color-primary-focus-background: rgb(183, 64, 55);
   --bs-font-sans-serif: "Nunito", sans-serif;
 }
 
+@media screen and (max-width: 790px) {
+  :root {
+    --header-height: 50px;
+  }
+}
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+
+@import "./bootstrapReset.scss";
 @import "./auth.scss";
-@import "./newWrapper.scss";
+@import "./header.scss";
+@import "./mainMenu.scss";
 
-
-.btn-primary,
-.btn-primary:is(:focus, :hover) {
-  color: white;
-}
-
-.dialog-constructor {
-  width: 100%;
-  height: 100%;
-  position: relative;
-}
+@import "./content.scss";

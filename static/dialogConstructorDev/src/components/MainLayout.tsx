@@ -174,8 +174,6 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
             .getModel()
             .getSelectedEntities()
             .forEach((item) => {
-              console.log("item", item);
-
               if (item instanceof NodeModel) {
                 app.diagramEngine.getModel().removeNode(item);
               } else if (item instanceof LinkModel) {

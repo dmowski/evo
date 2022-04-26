@@ -197,7 +197,7 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "static", "components.html"));
+  res.sendFile(path.join(__dirname, "static", "baseComponentStructure.html"));
 });
 
 const PORT = "62544";
@@ -208,6 +208,7 @@ async function start() {
 Server on: ${PORT}
 http://localhost:${PORT}/
 http://localhost:${PORT}/auth.html
+http://localhost:${PORT}/baseComponentStructure.html
 http://localhost:${PORT}/dialogConstructor.html
 figma:
 https://www.figma.com/file/e6CPWViwJTFCZxUp18VT1u/AI-constructor?node-id=255%3A270

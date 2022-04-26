@@ -1,12 +1,12 @@
 .auth {
-  &-page {
+  &__page {
     display: grid;
     align-items: center;
     justify-content: center;
     min-height: 100vh;
   }
 
-  &-container {
+  &__container {
     border-radius: 13px;
     background-color: white;
 
@@ -21,13 +21,13 @@
     padding-bottom: 40px;
   }
 
-  &-field-container,
-  &-action-container,
-  &-button {
+  &__field-container,
+  &__action-container,
+  &__button {
     min-width: min(400px, 90vw);
   }
 
-  &-action-container {
+  &__action-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
