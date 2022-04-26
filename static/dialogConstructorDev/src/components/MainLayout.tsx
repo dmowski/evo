@@ -9,8 +9,6 @@ import {
 } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { GraphCanvas } from "./GraphCanvas";
-import { AdvancedLinkModel, AdvancedPortModel } from "./LinksSettings";
-import styled from "@emotion/styled";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import { DeleteControllButton, Tray, ZoomControllButton } from "./style";
 export interface MainLayoutProps {
@@ -97,7 +95,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           }}
         >
           {graphList.map((graphInfo) => {
-            return <option value={graphInfo.id}>{graphInfo.title}</option>;
+            return (
+              <option defaultValue={graphInfo.id} key={graphInfo.id}>
+                {graphInfo.title}
+              </option>
+            );
           })}
         </select>
 

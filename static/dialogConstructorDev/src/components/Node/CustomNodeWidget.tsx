@@ -79,7 +79,7 @@ export const CustomNodeWidget = ({
       className={`custom-node ${isSelected ? "is-selected" : ""}`}
     >
       <p>{type}</p>
-      <textarea>Hello</textarea>
+      <textarea defaultValue="hello"></textarea>
       <PortWidget
         style={{
           top: "-10px",
