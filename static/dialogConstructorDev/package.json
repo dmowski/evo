@@ -1,7 +1,8 @@
 {
   "scripts": {
-    "start": "./node_modules/.bin/webpack serve --open",
-    "build": "./node_modules/.bin/webpack"
+    "start": "webpack serve --open",
+    "build": "webpack",
+    "webpack": "webpack"
   },
   "dependencies": {
     "@babel/preset-react": "^7.16.7",
