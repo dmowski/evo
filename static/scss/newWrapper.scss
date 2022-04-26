@@ -22,45 +22,44 @@
   padding-top: 60px;
   transition: all 0.25s;
 
-  ul {
-    padding: 0 0 0 14px;
-    margin: 0;
-  }
-
-  ul li {
-    list-style-type: none;
-    padding-bottom: 32px;
-  }
-
-  ul li a {
-    color: var(--color-gray);
-    text-decoration: none;
-  }
-
   .active a {
     color: var(--color-primary)
   }
 
-  ul li a i {
-    margin: 0 16px
-  }
+  ul {
+    padding: 0 0 0 14px;
+    margin: 0;
 
-  .submenu {
+    .submenu {
+      li {
+        padding-top: 15px;
+        padding-bottom: 0;
+      }
+    }
+
     li {
-      padding-top: 15px;
-      padding-bottom: 0;
+      list-style-type: none;
+      padding-bottom: 32px;
+
+      a {
+        color: var(--color-gray);
+        text-decoration: none;
+
+        &:hover {
+          color: var(--color-primary);
+        }
+
+        i {
+          margin: 0 16px
+        }
+      }
+
     }
   }
-
-
-  ul li a:hover {
-    color: var(--color-primary);
-  }
-
 }
 
 .main-menu.hidden {
-  margin-left: var(--sidebar-hidden);
+  margin-left: calc(var(--sidebar-size) * -1);
 }
 
 .logo {
@@ -79,13 +78,14 @@
   a {
     color: var(--color-gray);
     margin-right: 40px;
+
+    &:hover {
+      color: var(--color-primary)
+
+    }
   }
 
-  a:hover {
-    color: var(--color-primary)
-  }
-
-  #user {
+  .user {
     color: black;
     text-decoration: none;
   }
@@ -108,13 +108,10 @@
   justify-content: space-between;
   align-items: center;
 
-  #page-title {
+  .page-title {
     padding-left: 35px;
+    margin: 0;
   }
-}
-
-.dev {
-  height: 2000px;
 }
 
 .main-menu-header {
@@ -130,13 +127,14 @@
   overflow-y: auto;
   position: absolute;
   background: #E5E5E5;
-  padding-top: calc(var(--header-height) + 22px);
+  padding-top: calc(var(--header-height) + 22px + 24px);
+  padding-left: 58px;
   height: 100%;
   margin-left: var(--sidebar-size);
   width: calc(100vw - var(--sidebar-size));
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 790px) {
   .header {
     background: white;
     width: 100%;
@@ -171,10 +169,10 @@
     position: absolute;
   }
 
-  .main-header #page-title {
+  .page-title {
     display: none;
   }
-  .user-menu #user {
+  .user {
     display: none;
   }
   .header {
