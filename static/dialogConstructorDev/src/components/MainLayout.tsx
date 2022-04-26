@@ -81,7 +81,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           display: "flex",
           borderRadius: "14px",
           gap: "16px",
-          position: "fixed",
+          position: "absolute",
           left: "20px",
           top: "20px",
         }}
@@ -122,7 +122,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           gap: "16px",
           padding: "20px 25px",
           border: "1px solid #EBEBEB",
-          position: "fixed",
+          position: "absolute",
           left: "20px",
           bottom: "20px",
         }}
