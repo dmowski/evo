@@ -1,7 +1,7 @@
 const path = require("path");
-const production = true;
+const production = false;
 process.env.NODE_ENV === "production";
-const TerserPlugin = require("terser-webpack-plugin");
+// const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: production ? "production" : "development",
@@ -14,7 +14,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
-  optimization: {
+  /*optimization: {
     minimizer: [
       new TerserPlugin({
         parallel: true,
@@ -23,7 +23,7 @@ module.exports = {
         },
       }),
     ],
-  },
+  },*/
   module: {
     rules: [
       {
