@@ -4,6 +4,7 @@ import {
   ActionEvent,
   InputType,
 } from "@projectstorm/react-canvas-core";
+import { LinkModel, PointModel } from "@projectstorm/react-diagrams";
 
 export interface CustomActionOptions {
   keyCodes?: number[];
@@ -18,25 +19,36 @@ export class CustomItemsAction extends Action {
     super({
       type: InputType.KEY_DOWN,
       fire: (event: ActionEvent<React.KeyboardEvent>) => {
-        if (options.keyCodes.indexOf(event.event.keyCode) !== -1) {
-          console.log("Keypress: Custom delete handler2");
+        if (event.event.target.tagName === "TEXTAREA") {
+          return;
+        }
 
-          /*
-            const selectedEntities = this.engine.getModel().getSelectedEntities();
-            if (selectedEntities.length > 0) {
-              const confirm = window.confirm("Are you sure you want to delete?");
-  
-              if (confirm) {
-                selectedEntities.forEach((model) => {
-                  debugger;
-                  if (!model.isLocked()) {
-                    model.remove();
-                  }
-                });
-                this.engine.repaintCanvas();
+        if (options.keyCodes.indexOf(event.event.keyCode) !== -1) {
+          const selectedLinks = this.engine
+            .getModel()
+            .getSelectedEntities()
+            .filter((item) => {
+              const isLink = item instanceof LinkModel;
+              const isPoint = item instanceof PointModel;
+              return isLink || isPoint;
+            })
+            .map((item) => {
+              const isPoint = item instanceof PointModel;
+              if (isPoint) {
+                return item.getParent();
               }
+              return item;
+            });
+
+          if (selectedLinks.length > 0) {
+            const confirm = window.confirm("Are you sure you want to delete?");
+            if (confirm) {
+              selectedLinks.forEach((model) => {
+                model.remove();
+              });
+              this.engine.repaintCanvas();
             }
-            */
+          }
         }
       },
     });

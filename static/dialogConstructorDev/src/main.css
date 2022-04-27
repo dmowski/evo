@@ -8,6 +8,7 @@ body,
 #dialogConstructorContainer {
   height: 100%;
   overflow: hidden;
+  font-family: sans-serif;
 }
 
 .diagram-container {

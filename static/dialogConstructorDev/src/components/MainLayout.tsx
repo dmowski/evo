@@ -3,16 +3,19 @@ import * as _ from "lodash";
 import { Application } from "./Application";
 
 import {
-  DefaultNodeModel,
+  DiagramEngine,
   LinkModel,
   NodeModel,
 } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
+  AddDialogButton,
   DeleteControlButton,
+  DialogConstructorHeader,
   GraphCanvas,
-  Tray,
+  NodeControlElement,
+  NodeControlPanel,
   ZoomControlButton,
 } from "./style";
 export interface MainLayoutProps {
@@ -23,6 +26,18 @@ export interface GraphShortInfo {
   id: string;
   title: string;
 }
+
+const deleteUnusedLines = (engine: DiagramEngine) => {
+  engine
+    .getModel()
+    .getLinks()
+    .forEach((link) => {
+      if (!link.getTargetPort() || !link.getSourcePort()) {
+        engine.getModel().removeLink(link);
+      }
+    });
+  engine.repaintCanvas();
+};
 
 const baseUrl = location.host.startsWith("localhost:34567")
   ? "http://localhost:62544/"
@@ -78,26 +93,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         </GraphCanvas>
       </div>
 
-      <div
-        style={{
-          display: "flex",
-          borderRadius: "14px",
-          gap: "16px",
-          position: "absolute",
-          left: "20px",
-          top: "20px",
-        }}
-      >
-        <select
-          name="dialogs"
-          id=""
-          style={{
-            padding: "10px 15px",
-            backgroundColor: "white",
-            border: "1px solid #c2c2c2",
-            borderRadius: "4px",
-          }}
-        >
+      <DialogConstructorHeader>
+        <select name="dialogs">
           {graphList.map((graphInfo) => {
             return (
               <option defaultValue={graphInfo.id} key={graphInfo.id}>
@@ -107,33 +104,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           })}
         </select>
 
-        <button
-          style={{
-            padding: "10px 15px",
-            backgroundColor: "white",
-            border: "1px solid #c2c2c2",
-            borderRadius: "4px",
-            cursor: "pointer",
-          }}
-        >
-          Добавить диалог
-        </button>
-      </div>
+        <AddDialogButton>Добавить диалог</AddDialogButton>
+      </DialogConstructorHeader>
 
-      <div
-        style={{
-          display: "flex",
-          borderRadius: "14px",
-          backgroundColor: "white",
-          gap: "16px",
-          padding: "20px 25px",
-          border: "1px solid #EBEBEB",
-          position: "absolute",
-          left: "20px",
-          bottom: "20px",
-        }}
-      >
-        <Tray
+      <NodeControlPanel>
+        <NodeControlElement
           color="#1A1A4E"
           draggable={true}
           onDragStart={(event) => {
@@ -145,9 +120,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           className="tray-item"
         >
           Intent
-        </Tray>
+        </NodeControlElement>
 
-        <Tray
+        <NodeControlElement
           color="#FF7A00"
           draggable={true}
           onDragStart={(event) => {
@@ -159,8 +134,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           className="tray-item"
         >
           Skill
-        </Tray>
-      </div>
+        </NodeControlElement>
+      </NodeControlPanel>
 
       <ZoomControlButton
         onClick={() => {
@@ -172,21 +147,12 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
       <DeleteControlButton
         onClick={() => {
-          const confirmResult = confirm("Delete this element?");
-          if (!confirmResult) {
-            return;
+          const confirm = window.confirm(
+            "Are you sure you want to delete Dialog?"
+          );
+          if (confirm) {
+            console.log("Send request");
           }
-          app.diagramEngine
-            .getModel()
-            .getSelectedEntities()
-            .forEach((item) => {
-              if (item instanceof NodeModel) {
-                app.diagramEngine.getModel().removeNode(item);
-              } else if (item instanceof LinkModel) {
-                app.diagramEngine.getModel().removeLink(item);
-              }
-            });
-          app.diagramEngine.repaintCanvas();
         }}
       >
         🗑

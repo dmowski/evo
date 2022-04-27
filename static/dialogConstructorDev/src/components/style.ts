@@ -3,14 +3,31 @@ import * as _ from "lodash";
 
 import styled from "@emotion/styled";
 
-export const Tray = styled.div<{ color: string }>(({ color }) => ({
-  padding: "5px 10px",
-  border: `1px solid ${color}`,
-  backgroundColor: color,
-  fontFamily: "sans-serif",
-  color: "white",
-  cursor: "pointer",
+export const DialogConstructorHeader = styled.div(() => ({
+  display: "flex",
+  borderRadius: "14px",
+  gap: "16px",
+  position: "absolute",
+  left: "20px",
+  top: "20px",
+  select: {
+    padding: "10px 15px",
+    backgroundColor: "white",
+    border: "1px solid #c2c2c2",
+    borderRadius: "4px",
+  },
 }));
+
+export const NodeControlElement = styled.div<{ color: string }>(
+  ({ color }) => ({
+    padding: "5px 10px",
+    border: `1px solid ${color}`,
+    backgroundColor: color,
+    fontFamily: "sans-serif",
+    color: "white",
+    cursor: "pointer",
+  })
+);
 
 export const ZoomControlButton = styled.div<{ color: string }>(({ color }) => ({
   display: "flex",
@@ -37,6 +54,26 @@ export const ZoomControlButton = styled.div<{ color: string }>(({ color }) => ({
     backgroundColor: "rgba(255,255,255,0.8)",
   },
 }));
+
+export const AddDialogButton = styled.div({
+  padding: "10px 15px",
+  backgroundColor: "white",
+  border: "1px solid #c2c2c2",
+  borderRadius: "4px",
+  cursor: "pointer",
+});
+
+export const NodeControlPanel = styled.div({
+  display: "flex",
+  borderRadius: "14px",
+  backgroundColor: "white",
+  gap: "16px",
+  padding: "20px 25px",
+  border: "1px solid #EBEBEB",
+  position: "absolute",
+  left: "20px",
+  bottom: "20px",
+});
 
 export const DeleteControlButton = styled.div<{ color: string }>(
   ({ color }) => ({
