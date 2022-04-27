@@ -53,12 +53,12 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     app.diagramEngine.repaintCanvas();
   };
 
-  const [graphList, setGrapList] = useState<GraphShortInfo[]>([]);
+  const [graphList, setGraphList] = useState<GraphShortInfo[]>([]);
 
   useEffect(() => {
     (async () => {
       const graphList = await getListOfGraphs();
-      setGrapList(graphList);
+      setGraphList(graphList);
     })();
   }, []);
 
