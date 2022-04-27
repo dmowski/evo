@@ -12,35 +12,33 @@ export const Tray = styled.div<{ color: string }>(({ color }) => ({
   cursor: "pointer",
 }));
 
-export const ZoomControllButton = styled.div<{ color: string }>(
-  ({ color }) => ({
-    display: "flex",
-    padding: "15px 20px 18px 20px",
-    fontSize: "20px",
-    fontFamily: "sans-serif",
-    color: "#222",
-    cursor: "pointer",
-    height: "40px",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "14px",
-    backgroundColor: "white",
-    border: "1px solid #EBEBEB",
-    position: "absolute",
-    left: "0",
-    right: "0",
-    bottom: "20px",
-    margin: "auto",
-    width: "200px",
+export const ZoomControlButton = styled.div<{ color: string }>(({ color }) => ({
+  display: "flex",
+  padding: "15px 20px 18px 20px",
+  fontSize: "20px",
+  fontFamily: "sans-serif",
+  color: "#222",
+  cursor: "pointer",
+  height: "40px",
+  textAlign: "center",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "14px",
+  backgroundColor: "white",
+  border: "1px solid #EBEBEB",
+  position: "absolute",
+  left: "0",
+  right: "0",
+  bottom: "20px",
+  margin: "auto",
+  width: "200px",
 
-    ":hover": {
-      backgroundColor: "rgba(255,255,255,0.8)",
-    },
-  })
-);
+  ":hover": {
+    backgroundColor: "rgba(255,255,255,0.8)",
+  },
+}));
 
-export const DeleteControllButton = styled.div<{ color: string }>(
+export const DeleteControlButton = styled.div<{ color: string }>(
   ({ color }) => ({
     display: "flex",
     padding: "15px 20px 18px 20px",

@@ -10,10 +10,10 @@ import {
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
-  DeleteControllButton,
+  DeleteControlButton,
   GraphCanvas,
   Tray,
-  ZoomControllButton,
+  ZoomControlButton,
 } from "./style";
 export interface MainLayoutProps {
   app: Application;
@@ -162,15 +162,15 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         </Tray>
       </div>
 
-      <ZoomControllButton
+      <ZoomControlButton
         onClick={() => {
           app.diagramEngine.zoomToFitSelectedNodes({ margin: 100 });
         }}
       >
         Zoom to fit
-      </ZoomControllButton>
+      </ZoomControlButton>
 
-      <DeleteControllButton
+      <DeleteControlButton
         onClick={() => {
           const confirmResult = confirm("Delete this element?");
           if (!confirmResult) {
@@ -190,7 +190,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         }}
       >
         🗑
-      </DeleteControllButton>
+      </DeleteControlButton>
     </div>
   );
 };
