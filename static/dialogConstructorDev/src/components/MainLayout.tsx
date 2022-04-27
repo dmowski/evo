@@ -51,17 +51,10 @@ const getListOfGraphs = async () => {
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const dropHandler = (event) => {
-    var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
-    var nodesCount = _.keys(app.diagramEngine.getModel().getNodes()).length;
-
-    var node: CustomNodeModel = null;
-    if (data.type === "skill") {
-      const name = "skill " + (nodesCount + 1);
-      node = new CustomNodeModel(name, "skill", true);
-    } else {
-      const name = "intent " + (nodesCount + 1);
-      node = new CustomNodeModel(name, "intent", false);
-    }
+    var type = event.dataTransfer.getData("storm-diagram-node-type");
+    const nodeName = `${type} #${Math.round(Math.random() * 1000)}`;
+    const isIn = type === "skill";
+    const node = new CustomNodeModel(nodeName, type, isIn);
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
     app.diagramEngine.getModel().addNode(node);
@@ -112,10 +105,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           color="#1A1A4E"
           draggable={true}
           onDragStart={(event) => {
-            event.dataTransfer.setData(
-              "storm-diagram-node",
-              JSON.stringify({ type: "intent" })
-            );
+            event.dataTransfer.setData("storm-diagram-node-type", "intent");
           }}
           className="tray-item"
         >
@@ -126,10 +116,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           color="#FF7A00"
           draggable={true}
           onDragStart={(event) => {
-            event.dataTransfer.setData(
-              "storm-diagram-node",
-              JSON.stringify({ type: "skill" })
-            );
+            event.dataTransfer.setData("storm-diagram-node-type", "skill");
           }}
           className="tray-item"
         >
