@@ -39,7 +39,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     var data = JSON.parse(event.dataTransfer.getData("storm-diagram-node"));
     var nodesCount = _.keys(app.diagramEngine.getModel().getNodes()).length;
 
-    var node: DefaultNodeModel | CustomNodeModel = null;
+    var node: CustomNodeModel = null;
     if (data.type === "skill") {
       const name = "skill " + (nodesCount + 1);
       node = new CustomNodeModel(name, "skill", true);
