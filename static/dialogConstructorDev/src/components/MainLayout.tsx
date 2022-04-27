@@ -27,18 +27,6 @@ export interface GraphShortInfo {
   title: string;
 }
 
-const deleteUnusedLines = (engine: DiagramEngine) => {
-  engine
-    .getModel()
-    .getLinks()
-    .forEach((link) => {
-      if (!link.getTargetPort() || !link.getSourcePort()) {
-        engine.getModel().removeLink(link);
-      }
-    });
-  engine.repaintCanvas();
-};
-
 const baseUrl = location.host.startsWith("localhost:34567")
   ? "http://localhost:62544/"
   : location.origin + "/";
