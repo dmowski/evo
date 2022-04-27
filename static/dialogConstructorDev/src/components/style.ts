@@ -66,3 +66,42 @@ export const DeleteControllButton = styled.div<{ color: string }>(
     },
   })
 );
+
+export const GraphCanvas = styled.div<{
+  color: string;
+  background: string;
+}>(({ color, background }) => ({
+  height: `100%`,
+  backgroundColor: `${background}`,
+  backgroundSize: `50px 50px`,
+  display: `flex`,
+  "> *": {
+    height: `100%`,
+    minHeight: `100%`,
+    width: `100%`,
+  },
+  backgroundImage: `linear-gradient(
+      0deg,
+      transparent 24%,
+      ${color} 25%,
+      ${color} 26%,
+      transparent 27%,
+      transparent 74%,
+      ${color} 75%,
+      ${color} 76%,
+      transparent 77%,
+      transparent
+    ),
+    linear-gradient(
+      90deg,
+      transparent 24%,
+      ${color} 25%,
+      ${color} 26%,
+      transparent 27%,
+      transparent 74%,
+      ${color} 75%,
+      ${color} 76%,
+      transparent 77%,
+      transparent
+    )`,
+}));

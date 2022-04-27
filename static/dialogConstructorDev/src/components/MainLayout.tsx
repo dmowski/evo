@@ -8,9 +8,13 @@ import {
   NodeModel,
 } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
-import { GraphCanvas } from "./GraphCanvas";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
-import { DeleteControllButton, Tray, ZoomControllButton } from "./style";
+import {
+  DeleteControllButton,
+  GraphCanvas,
+  Tray,
+  ZoomControllButton,
+} from "./style";
 export interface MainLayoutProps {
   app: Application;
 }
