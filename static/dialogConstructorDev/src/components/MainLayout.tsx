@@ -52,27 +52,30 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const saveGraph = ({ id, title }: { id: string; title: string }) => {
-    const serialisedData = app.diagramEngine.getModel().serialize();
-    const nodeDates = Object.values(serialisedData.layers[1].models);
-    const arrowsDates = Object.values(serialisedData.layers[0].models);
-    const names = nodeDates.map((i) => {
-      return { id: i.id, name: i.extras.name };
+    const serializedData = app.diagramEngine.getModel().serialize();
+    const nodeData = Object.values(serializedData.layers[1].models);
+    const arrowsData = Object.values(serializedData.layers[0].models);
+
+    const names = nodeData.map((node) => {
+      return { id: node.id, name: node.extras.name };
     });
-    const momChild = arrowsDates.map((m) => {
+
+    const momChild = arrowsData.map((arrow) => {
       return {
-        mom: m.source,
-        child: m.target,
-        childName: names.find((name) => name.id === m.target).name,
+        mom: arrow.source,
+        child: arrow.target,
+        childName: names.find((name) => name.id === arrow.target)?.name,
       };
     });
-    const graph = nodeDates.map((node) => {
+
+    const graph = nodeData.map((node) => {
       return {
         node_type: node.extras.type,
         node_name: node.extras.name,
         node_content: node.extras.content,
         node_links: momChild
           .filter((item) => item.mom === node.id)
-          .map((i) => i.childName),
+          .map((item) => item.childName),
         node_views: 0,
       };
     });
