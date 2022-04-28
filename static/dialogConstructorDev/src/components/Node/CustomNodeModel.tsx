@@ -2,7 +2,7 @@ import { NodeModel, NodeModelGenerics } from "@projectstorm/react-diagrams";
 import { AdvancedPortModel } from "../LinksSettings";
 
 export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
-  constructor(name: string, type: string, isIn: boolean) {
+  constructor(name: string, type: string, isIn: boolean, content: string) {
     super({
       type: "custom",
     });
@@ -11,6 +11,7 @@ export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
       type,
       name,
       isIn,
+      content
     };
     if (isIn) {
       this.addPort(new AdvancedPortModel(true, "in", "in"));
@@ -45,5 +46,8 @@ export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
 
     this.options.extras.name = newName;
     return "";
+  }
+  setNewNodeContent(newSpeech:string) {
+    this.options.extras.content = newSpeech;
   }
 }
