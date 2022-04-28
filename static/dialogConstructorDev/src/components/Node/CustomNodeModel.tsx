@@ -18,4 +18,32 @@ export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
       this.addPort(new AdvancedPortModel(false, "out", "out"));
     }
   }
+
+  setNewNodeName(newName): string {
+    const currentId = this.options.id;
+    const currentType = this.options.extras.type;
+
+    const allNodes = this.getParent().getModels();
+    const keys = Object.keys(allNodes);
+
+    const isCopy = keys.find((key) => {
+      const node = allNodes[key];
+      const isSameId = node.options.id === currentId;
+      if (isSameId) {
+        return;
+      }
+
+      const isSameName = node.options.extras.name == newName;
+      const isSameType = node.options.extras.type == currentType;
+
+      return isSameName && isSameType;
+    });
+
+    if (isCopy) {
+      return "Node with the same name already exists";
+    }
+
+    this.options.extras.name = newName;
+    return "";
+  }
 }

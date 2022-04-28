@@ -12,21 +12,16 @@ export const Port = styled.div({
   },
 });
 
-export const GraphNode = styled.div<{ activeColor: string }>(
-  ({ activeColor }) => ({
+export const GraphNode = styled.div<{ activeColor: string; isError: string }>(
+  ({ activeColor, isError }) => ({
     position: "relative",
     minWidth: "250px",
     minHeight: "140px",
     backgroundColor: "white",
     display: "flex",
     flexDirection: "column",
-    ">p": {
-      backgroundColor: activeColor,
-      color: "white",
-      width: "100%",
-      padding: "5px",
-      boxSizing: "border-box",
-    },
+    outline: isError ? `red solid 5px` : "",
+
     fontFamily: "sans-serif",
     textarea: {
       width: "100%",
@@ -37,8 +32,8 @@ export const GraphNode = styled.div<{ activeColor: string }>(
       fontFamily: "sans-serif",
       boxSizing: "border-box",
       ":focus": {
-        boxShadow: `0 0 3px ${activeColor}`,
         outline: "none",
+        boxShadow: `inset 0 0 0 1px black`,
       },
     },
     "&.is-selected": {
@@ -46,6 +41,11 @@ export const GraphNode = styled.div<{ activeColor: string }>(
     },
   })
 );
+
+export const GraphNodeErrorMessage = styled.p({
+  color: "red",
+  fontSize: "11px",
+});
 
 export const NodeViews = styled.div({
   bottom: "-10px",
@@ -72,3 +72,28 @@ export const DeleteNodeButton = styled.div({
   height: "20px",
   backgroundColor: "white",
 });
+
+export const GraphNodeHeader = styled.div<{ activeColor: string }>(
+  ({ activeColor }) => ({
+    display: "flex",
+    backgroundColor: activeColor,
+    color: "white",
+    width: "100%",
+    height: "35px",
+    boxSizing: "border-box",
+    alignItems: "center",
+    justifyContent: "space-between",
+    padding: "0 0 0 5px ",
+    input: {
+      backgroundColor: "rgba(255,255,255,0.2)",
+      padding: "0 10px",
+      color: "white",
+      height: "100%",
+      border: "none",
+      outline: "none",
+      "&:focus": {
+        boxShadow: `inset 0 0 0 1px black`,
+      },
+    },
+  })
+);

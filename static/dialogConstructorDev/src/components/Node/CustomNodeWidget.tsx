@@ -5,7 +5,14 @@ import {
   NodeModel,
   PortWidget,
 } from "@projectstorm/react-diagrams";
-import { DeleteNodeButton, GraphNode, NodeViews, Port } from "./style";
+import {
+  DeleteNodeButton,
+  GraphNode,
+  GraphNodeErrorMessage,
+  GraphNodeHeader,
+  NodeViews,
+  Port,
+} from "./style";
 
 export interface CustomNodeWidgetProps {
   node: CustomNodeModel;
@@ -24,13 +31,38 @@ export const CustomNodeWidget = ({
   isIn,
   isSelected,
 }: CustomNodeWidgetProps) => {
+  const [nameValue, setName] = React.useState(name);
+  const [errorName, setErrorName] = React.useState("");
+  const setNewNodeName = (name: string) => {
+    const newNameResultError = node.setNewNodeName(name);
+    if (newNameResultError) {
+      setErrorName(newNameResultError);
+    } else {
+      setErrorName("");
+    }
+    setName(name);
+  };
+
   const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
   return (
     <GraphNode
       activeColor={activeColor}
+      isError={!!errorName}
       className={`custom-node ${isSelected ? "is-selected" : ""}`}
     >
-      <p>{type}</p>
+      <GraphNodeHeader activeColor={activeColor}>
+        <p>{type}</p>
+        <input
+          value={nameValue}
+          onChange={(e) => setNewNodeName(e.target.value)}
+        />
+      </GraphNodeHeader>
+      {errorName && (
+        <GraphNodeErrorMessage>
+          Error with name: {errorName}
+        </GraphNodeErrorMessage>
+      )}
+
       <textarea defaultValue="hello"></textarea>
       <PortWidget
         style={{
