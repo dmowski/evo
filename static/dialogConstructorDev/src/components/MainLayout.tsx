@@ -38,6 +38,12 @@ const getListOfGraphs = async () => {
   return listOfNodes?.graph_list || [];
 };
 
+const getOneGraph = async (id: string) => {
+  const req = await fetch(baseUrl + "api/v1/dialo_graph.get?graph_id=" + id);
+  const graphData = await req.json();
+  return graphData;
+};
+
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const dropHandler = (event) => {
     var type = event.dataTransfer.getData("storm-diagram-node-type");
@@ -97,6 +103,20 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     })();
   }, []);
   const [selectGraph, setSelectGraph] = useState(graphList[0]);
+
+  const changeGraph = async (newGraph: GraphShortInfo) => {
+    if (selectGraph === newGraph) {
+      return;
+    }
+    const confirm = window.confirm("Are you sure you want to change Dialog?");
+    if (confirm) {
+      const oneGraphData = await getOneGraph(newGraph.id);
+      // TODO: clear current graph
+      // TODO: set new data
+      setSelectGraph(newGraph);
+    }
+  };
+
   return (
     <div>
       <div
@@ -117,7 +137,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         <select
           name="dialogs"
           onChange={(e) => {
-            setSelectGraph(graphList[e.target.value]);
+            changeGraph(graphList[e.target.value]);
           }}
         >
           {graphList.map((graphInfo, key) => {
