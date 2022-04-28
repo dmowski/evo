@@ -1,4 +1,4 @@
-import { NodeModel, NodeModelGenerics } from "@projectstorm/react-diagrams";
+import { LinkModel, LinkModelGenerics, NodeModel, NodeModelGenerics } from '@projectstorm/react-diagrams';
 import { AdvancedPortModel } from "../LinksSettings";
 
 export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
@@ -49,5 +49,8 @@ export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
   }
   setNewNodeContent(newSpeech:string) {
     this.options.extras.content = newSpeech;
+  }
+  getName(){
+    return this.options.extras.name
   }
 }
