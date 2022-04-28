@@ -70,6 +70,7 @@ export const CustomNodeWidget = ({
 
       <textarea
         defaultValue={content}
+        placeholder="Node content"
         onChange={(e) => setNewNodeContent(e.target.value)}
       ></textarea>
       <PortWidget

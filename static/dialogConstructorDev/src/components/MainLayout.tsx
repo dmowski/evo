@@ -35,12 +35,7 @@ const baseUrl = location.host.startsWith("localhost:34567")
 const getListOfGraphs = async () => {
   const req = await fetch(baseUrl + "api/v1/dialo_graph.list");
   const listOfNodes = await req.json();
-  return (
-    listOfNodes?.graph_list || [
-      { id: 1, title: "title" },
-      { id: 2, title: "213123" },
-    ]
-  );
+  return listOfNodes?.graph_list || [];
 };
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
@@ -48,7 +43,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     var type = event.dataTransfer.getData("storm-diagram-node-type");
     const nodeName = `${type} #${Math.round(Math.random() * 1000)}`;
     const isIn = type === "skill";
-    const content = "hello";
+    const content = "";
     const node = new CustomNodeModel(nodeName, type, isIn, content);
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
