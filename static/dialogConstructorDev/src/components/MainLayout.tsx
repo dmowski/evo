@@ -18,6 +18,7 @@ import {
   NodeControlPanel,
   ZoomControlButton,
 } from "./style";
+
 export interface MainLayoutProps {
   app: Application;
 }
@@ -42,16 +43,48 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     var type = event.dataTransfer.getData("storm-diagram-node-type");
     const nodeName = `${type} #${Math.round(Math.random() * 1000)}`;
     const isIn = type === "skill";
-    const node = new CustomNodeModel(nodeName, type, isIn);
+    const content = "";
+    const node = new CustomNodeModel(nodeName, type, isIn, content);
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
     app.diagramEngine.getModel().addNode(node);
     app.diagramEngine.repaintCanvas();
   };
 
-  const saveGraph = () => {
-    const serialisedData = app.diagramEngine.getModel().serialize();
-    //TODO: convert to backend API format
+  const saveGraph = ({ id, title }: { id: string; title: string }) => {
+    const serializedData = app.diagramEngine.getModel().serialize();
+    const nodeData = Object.values(serializedData.layers[1].models);
+    const arrowsData = Object.values(serializedData.layers[0].models);
+
+    const names = nodeData.map((node) => {
+      return { id: node.id, name: node.extras.name };
+    });
+
+    const momChild = arrowsData.map((arrow) => {
+      return {
+        mom: arrow.source,
+        child: arrow.target,
+        childName: names.find((name) => name.id === arrow.target)?.name,
+      };
+    });
+
+    const graph = nodeData.map((node) => {
+      return {
+        node_type: node.extras.type,
+        node_name: node.extras.name,
+        node_content: node.extras.content,
+        node_links: momChild
+          .filter((item) => item.mom === node.id)
+          .map((item) => item.childName),
+        node_views: 0,
+      };
+    });
+    const result = {
+      id,
+      title,
+      graph,
+    };
+    console.log(result);
   };
 
   const [graphList, setGraphList] = useState<GraphShortInfo[]>([]);
@@ -60,9 +93,10 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     (async () => {
       const graphList = await getListOfGraphs();
       setGraphList(graphList);
+      setSelectGraph(graphList[0]);
     })();
   }, []);
-
+  const [selectGraph, setSelectGraph] = useState(graphList[0]);
   return (
     <div>
       <div
@@ -80,10 +114,15 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       </div>
 
       <DialogConstructorHeader>
-        <select name="dialogs">
-          {graphList.map((graphInfo) => {
+        <select
+          name="dialogs"
+          onChange={(e) => {
+            setSelectGraph(graphList[e.target.value]);
+          }}
+        >
+          {graphList.map((graphInfo, key) => {
             return (
-              <option defaultValue={graphInfo.id} key={graphInfo.id}>
+              <option value={key} key={graphInfo.id}>
                 {graphInfo.title}
               </option>
             );
@@ -92,7 +131,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
         <AddDialogButton>Добавить диалог</AddDialogButton>
 
-        <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>
+        <AddDialogButton onClick={() => saveGraph({ ...selectGraph })}>
+          Сохранить граф
+        </AddDialogButton>
       </DialogConstructorHeader>
 
       <NodeControlPanel>

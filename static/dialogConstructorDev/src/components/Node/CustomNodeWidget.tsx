@@ -19,6 +19,7 @@ export interface CustomNodeWidgetProps {
   engine: DiagramEngine;
   type: string;
   name: string;
+  content: string;
   isIn: boolean;
   isSelected: boolean;
 }
@@ -30,6 +31,7 @@ export const CustomNodeWidget = ({
   name,
   isIn,
   isSelected,
+  content,
 }: CustomNodeWidgetProps) => {
   const [nameValue, setName] = React.useState(name);
   const [errorName, setErrorName] = React.useState("");
@@ -41,6 +43,9 @@ export const CustomNodeWidget = ({
       setErrorName("");
     }
     setName(name);
+  };
+  const setNewNodeContent = (nodeContent: string) => {
+    node.setNewNodeContent(nodeContent);
   };
 
   const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
@@ -63,7 +68,11 @@ export const CustomNodeWidget = ({
         </GraphNodeErrorMessage>
       )}
 
-      <textarea defaultValue="hello"></textarea>
+      <textarea
+        defaultValue={content}
+        placeholder="Node content"
+        onChange={(e) => setNewNodeContent(e.target.value)}
+      ></textarea>
       <PortWidget
         style={{
           top: "-10px",
