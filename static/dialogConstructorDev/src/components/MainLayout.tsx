@@ -49,6 +49,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     app.diagramEngine.repaintCanvas();
   };
 
+  const saveGraph = () => {
+    const serialisedData = app.diagramEngine.getModel().serialize();
+    //TODO: convert to backend API format
+  };
+
   const [graphList, setGraphList] = useState<GraphShortInfo[]>([]);
 
   useEffect(() => {
@@ -86,6 +91,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         </select>
 
         <AddDialogButton>Добавить диалог</AddDialogButton>
+
+        <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>
       </DialogConstructorHeader>
 
       <NodeControlPanel>
