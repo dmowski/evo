@@ -2,8 +2,11 @@ import React, { useState, useEffect } from "react";
 import * as _ from "lodash";
 import { Application } from "./Application";
 
-import {
+import createEngine, {
+  DefaultLinkModel,
+  DefaultPortModel,
   DiagramEngine,
+  DiagramModel,
   LinkModel,
   NodeModel,
 } from "@projectstorm/react-diagrams";
@@ -40,7 +43,17 @@ const getListOfGraphs = async () => {
 
 const getOneGraph = async (id: string) => {
   const req = await fetch(baseUrl + "api/v1/dialo_graph.get?graph_id=" + id);
-  const graphData = await req.json();
+  const graphData: {
+    id: string;
+    title: string;
+    graph: {
+      node_type: string;
+      node_name: string;
+      node_content: string;
+      node_links: string[];
+      node_views: number;
+    }[];
+  } = await req.json();
   return graphData;
 };
 
@@ -111,8 +124,66 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     const confirm = window.confirm("Are you sure you want to change Dialog?");
     if (confirm) {
       const oneGraphData = await getOneGraph(newGraph.id);
-      // TODO: clear current graph
-      // TODO: set new data
+      const intents = oneGraphData.graph.filter(
+        (d) => d.node_type === "intent"
+      );
+      const skills = oneGraphData.graph.filter((d) => d.node_type === "skill");
+      let all = [];
+      const nodesIntent = intents.map((data) => {
+        const node = new CustomNodeModel(
+          data.node_name,
+          data.node_type,
+          false,
+          data.node_content
+        );
+        all.push(node);
+        return node;
+      });
+      const nodeSkills = skills.map((data) => {
+        const node = new CustomNodeModel(
+          data.node_name,
+          data.node_type,
+          true,
+          data.node_content
+        );
+        all.push(node);
+        return node;
+      });
+      intents.map((d, index) => {
+        const portCurrentNode = nodesIntent[index].getPort("out");
+        d.node_links.map((nodeLink) => {
+          const childs = nodeSkills.filter(
+            (node) => node.getName() === nodeLink
+          );
+          const link = new DefaultLinkModel();
+          childs
+            .map((ch) => ch.getPort("in"))
+            .map((p) => {
+              link.setSourcePort(portCurrentNode);
+              link.setTargetPort(p);
+              all.push(link);
+            });
+        });
+      });
+      skills.map((d, index) => {
+        const portCurrentNode = nodesIntent[index].getPort("in");
+        d.node_links.map((nodeLink) => {
+          const childs = nodesIntent.filter(
+            (node) => node.getName() === nodeLink
+          );
+          const link = new DefaultLinkModel();
+          childs
+            .map((ch) => ch.getPort("out"))
+            .map((p) => {
+              link.setSourcePort(portCurrentNode);
+              link.setTargetPort(p);
+            });
+          all.push(link);
+        });
+      });
+      const model = new DiagramModel();
+      model.addAll(...all);
+      app.diagramEngine.setModel(model);
       setSelectGraph(newGraph);
     }
   };
