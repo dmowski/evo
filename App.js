@@ -301,7 +301,7 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("*", function (req, res) {
-  res.sendFile(path.join(__dirname, "static", "baseComponentStructure.html"));
+  res.sendFile(path.join(__dirname, "static", "auth.html"));
 });
 
 async function start() {

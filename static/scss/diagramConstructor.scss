@@ -1,5 +1,6 @@
 .diagram-constructor {
   position: relative;
   overflow: hidden;
-  max-height: calc(100vh - var(--header-height) - var(--main-content-padding));
+  max-height: calc(100vh - var(--header-height));
+  max-width: 100%;
 }
