@@ -8,7 +8,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
-
+const PORT = process.env.PORT || "62544";
 app.get("/api/v1/ping", (req, res) => {
   res.json({ message: "ok" });
 });
@@ -304,7 +304,6 @@ app.get("*", function (req, res) {
   res.sendFile(path.join(__dirname, "static", "baseComponentStructure.html"));
 });
 
-const PORT = "62544";
 async function start() {
   app.listen(PORT, () => {
     console.log(`

@@ -8,22 +8,12 @@ module.exports = {
   devtool: "inline-source-map",
   entry: "./src/main.tsx",
   output: {
-    path: path.join(__dirname, "dist"),
+    path: path.join(__dirname, "../js/dist"),
     filename: "bundle.js",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
-  /*optimization: {
-    minimizer: [
-      new TerserPlugin({
-        parallel: true,
-        terserOptions: {
-          ecma: 6,
-        },
-      }),
-    ],
-  },*/
   module: {
     rules: [
       {

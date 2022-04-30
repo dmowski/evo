@@ -3,11 +3,19 @@
   "version": "1.0.0",
   "description": "example",
   "main": "App.js",
+  "engines": {
+    "node": ">=14.15.0"
+  },
   "scripts": {
-    "server": "nodemon App.js",
+    "watch": "nodemon App.js",
+    "start-dialog-constructor": "cd static/dialogConstructorDev && npm run start",
     "sass": "sass",
+    "build-style": "sass static/scss/main.scss:static/style/bundle.css",
+    "build": "npm run build-style && cd static/dialogConstructorDev && npm run build",
+    "postinstall": "cd static/dialogConstructorDev && npm install",
     "style": "sass --watch static/scss/main.scss:static/style/bundle.css",
-    "start": "concurrently npm:style npm:server"
+    "dev": "concurrently npm:start-dialog-constructor npm:watch",
+    "start": "nodemon App.js"
   },
   "license": "ISC",
   "dependencies": {
