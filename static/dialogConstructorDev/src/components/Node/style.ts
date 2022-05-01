@@ -73,27 +73,25 @@ export const DeleteNodeButton = styled.div({
   backgroundColor: "white",
 });
 
-export const GraphNodeHeader = styled.div<{ activeColor: string }>(
-  ({ activeColor }) => ({
-    display: "flex",
-    backgroundColor: activeColor,
+export const GraphNodeHeader = styled.div<{ activeColor: string }>(({ activeColor }) => ({
+  display: "flex",
+  backgroundColor: activeColor,
+  color: "white",
+  width: "100%",
+  height: "35px",
+  boxSizing: "border-box",
+  alignItems: "center",
+  justifyContent: "space-between",
+  padding: "0 0 0 5px ",
+  input: {
+    backgroundColor: "rgba(255,255,255,0.2)",
+    padding: "0 10px",
     color: "white",
-    width: "100%",
-    height: "35px",
-    boxSizing: "border-box",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "0 0 0 5px ",
-    input: {
-      backgroundColor: "rgba(255,255,255,0.2)",
-      padding: "0 10px",
-      color: "white",
-      height: "100%",
-      border: "none",
-      outline: "none",
-      "&:focus": {
-        boxShadow: `inset 0 0 0 1px black`,
-      },
+    height: "100%",
+    border: "none",
+    outline: "none",
+    "&:focus": {
+      boxShadow: `inset 0 0 0 1px black`,
     },
-  })
-);
+  },
+}));

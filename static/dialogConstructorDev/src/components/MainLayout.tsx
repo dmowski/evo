@@ -74,9 +74,7 @@ const addNewGraph = async (graphData: BackendGraph): Promise<BackendGraph> => {
   }
 };
 
-const updateGraphInBD = async (
-  graphData: BackendGraph
-): Promise<BackendGraph> => {
+const updateGraphInBD = async (graphData: BackendGraph): Promise<BackendGraph> => {
   const response = await fetch(baseUrl + "api/v1/dialo_graph.update", {
     method: "POST",
     headers: {
@@ -130,9 +128,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         node_type: node.extras.type,
         node_name: node.extras.name,
         node_content: node.extras.content,
-        node_links: momChild
-          .filter((item) => item.mom === node.id)
-          .map((item) => item.childName),
+        node_links: momChild.filter((item) => item.mom === node.id).map((item) => item.childName),
         node_views: 0,
         position_x: node.x,
         position_y: node.y,
@@ -199,12 +195,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       const graphFullData = await getOneGraph(newGraphId);
       const backendNodes = graphFullData.graph || [];
 
-      const intents = backendNodes.filter(
-        (backendNode) => backendNode.node_type === "intent"
-      );
-      const skills = backendNodes.filter(
-        (backendNode) => backendNode.node_type === "skill"
-      );
+      const intents = backendNodes.filter((backendNode) => backendNode.node_type === "intent");
+      const skills = backendNodes.filter((backendNode) => backendNode.node_type === "skill");
 
       const allModels = [];
       const intentModels = intents.map((backendNode) => {
@@ -215,9 +207,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           backendNode.node_content
         );
 
-        nodeModel.setPosition(
-          new Point(backendNode.position_x, backendNode.position_y)
-        );
+        nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
         allModels.push(nodeModel);
         return nodeModel;
       });
@@ -230,9 +220,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           backendNode.node_content
         );
 
-        nodeModel.setPosition(
-          new Point(backendNode.position_x, backendNode.position_y)
-        );
+        nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
         allModels.push(nodeModel);
         return nodeModel;
       });
@@ -277,8 +265,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const newGraph = async () => {
-    const confirmMessage =
-      "Создать новый диалог? Введенные данные будут утеряны";
+    const confirmMessage = "Создать новый диалог? Введенные данные будут утеряны";
 
     if (selectGraph && !window.confirm(confirmMessage)) {
       return;
@@ -312,10 +299,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         }}
       >
         {selectGraph && (
-          <GraphCanvas
-            color="rgb(222, 222, 222)"
-            background="rgb(233, 233, 233)"
-          >
+          <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
             <CanvasWidget engine={app.diagramEngine} />
           </GraphCanvas>
         )}
@@ -341,13 +325,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddDialogButton onClick={newGraph}>
-          Добавить новый диалог
-        </AddDialogButton>
+        <AddDialogButton onClick={newGraph}>Добавить новый диалог</AddDialogButton>
 
-        {selectGraph && (
-          <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>
-        )}
+        {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
       </DialogConstructorHeader>
 
       {selectGraph && (
@@ -386,9 +366,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
           <DeleteControlButton
             onClick={() => {
-              const confirm = window.confirm(
-                "Are you sure you want to delete Dialog?"
-              );
+              const confirm = window.confirm("Are you sure you want to delete Dialog?");
               if (confirm) {
                 console.log("Send request");
               }
