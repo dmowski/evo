@@ -13,7 +13,7 @@ export interface BackendGraphNode {
     position_y: number;
 }
 
-export const dataForPost = (model:  DiagramModel<DiagramModelGenerics>) => {
+export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
     const serializedData = model.serialize();
     const nodeData = Object.values(serializedData.layers[1].models);
     const arrowsData = Object.values(serializedData.layers[0].models);
@@ -46,12 +46,12 @@ export const dataForPost = (model:  DiagramModel<DiagramModelGenerics>) => {
     return graph;
 };
 
-export const receivedData = (backendNodes: BackendGraphNode[])=>{
+export const receivedData = (backendNodes: BackendGraphNode[]) => {
     const intents = backendNodes.filter(
-        (backendNode) => backendNode.node_type === "intent"
+        (backendNode) => backendNode.node_type === 'intent',
     );
     const skills = backendNodes.filter(
-        (backendNode) => backendNode.node_type === "skill"
+        (backendNode) => backendNode.node_type === 'skill',
     );
 
     const allModels = [];
@@ -60,11 +60,11 @@ export const receivedData = (backendNodes: BackendGraphNode[])=>{
             backendNode.node_name,
             backendNode.node_type,
             false,
-            backendNode.node_content
+            backendNode.node_content,
         );
 
         nodeModel.setPosition(
-            new Point(backendNode.position_x, backendNode.position_y)
+            new Point(backendNode.position_x, backendNode.position_y),
         );
         allModels.push(nodeModel);
         return nodeModel;
@@ -75,11 +75,11 @@ export const receivedData = (backendNodes: BackendGraphNode[])=>{
             backendNode.node_name,
             backendNode.node_type,
             true,
-            backendNode.node_content
+            backendNode.node_content,
         );
 
         nodeModel.setPosition(
-            new Point(backendNode.position_x, backendNode.position_y)
+            new Point(backendNode.position_x, backendNode.position_y),
         );
         allModels.push(nodeModel);
         return nodeModel;
@@ -92,8 +92,8 @@ export const receivedData = (backendNodes: BackendGraphNode[])=>{
                 .filter((node) => node.getName() === nodeLink)
                 .forEach((intentModel) => {
                     const link = new AdvancedLinkModel();
-                    link.setSourcePort(skillModel.getPort("in"));
-                    link.setTargetPort(intentModel.getPort("out"));
+                    link.setSourcePort(skillModel.getPort('in'));
+                    link.setTargetPort(intentModel.getPort('out'));
                     allModels.push(link);
                 });
         });
@@ -107,11 +107,11 @@ export const receivedData = (backendNodes: BackendGraphNode[])=>{
                 .filter((node) => node.getName() === nodeLink)
                 .map((skillModel) => {
                     const link = new AdvancedLinkModel();
-                    link.setSourcePort(intentModel.getPort("out"));
-                    link.setTargetPort(skillModel.getPort("in"));
+                    link.setSourcePort(intentModel.getPort('out'));
+                    link.setTargetPort(skillModel.getPort('in'));
                     allModels.push(link);
                 });
         });
     });
     return allModels;
-}
+};
