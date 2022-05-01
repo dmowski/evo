@@ -18,5 +18,11 @@
     padding-top: calc(var(--header-height));
     padding-left: calc(var(--sidebar-size));
     padding-right: 0;
+    @media screen and (max-width: 790px) {
+      padding-left: 0;
+    }
+  }
+  img {
+    max-width: 100%;
   }
 }
