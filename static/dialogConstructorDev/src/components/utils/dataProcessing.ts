@@ -1,120 +1,117 @@
-import {
-  DiagramModel,
-  DiagramModelGenerics,
-} from "@projectstorm/react-diagrams";
-import { CustomNodeModel } from "../Node/CustomNodeModel";
-import { Point } from "@projectstorm/geometry";
-import { AdvancedLinkModel } from "../LinksSettings";
+import { DiagramModel, DiagramModelGenerics } from '@projectstorm/react-diagrams';
+import { CustomNodeModel } from '../Node/CustomNodeModel';
+import { Point } from '@projectstorm/geometry';
+import { AdvancedLinkModel } from '../LinksSettings';
 
 export interface BackendGraphNode {
-  node_type: string;
-  node_name: string;
-  node_content: string;
-  node_links: string[];
-  node_views: number;
-  position_x: number;
-  position_y: number;
+    node_type: string;
+    node_name: string;
+    node_content: string;
+    node_links: string[];
+    node_views: number;
+    position_x: number;
+    position_y: number;
 }
 
-export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
-  const serializedData = model.serialize();
-  const nodeData = Object.values(serializedData.layers[1].models);
-  const arrowsData = Object.values(serializedData.layers[0].models);
+export const dataForPost = (model:  DiagramModel<DiagramModelGenerics>) => {
+    const serializedData = model.serialize();
+    const nodeData = Object.values(serializedData.layers[1].models);
+    const arrowsData = Object.values(serializedData.layers[0].models);
 
-  const names = nodeData.map((node) => {
-    return { id: node.id, name: node.extras.name };
-  });
+    const names = nodeData.map((node) => {
+        return { id: node.id, name: node.extras.name };
+    });
 
-  const momChild = arrowsData.map((arrow) => {
-    return {
-      mom: arrow.source,
-      child: arrow.target,
-      childName: names.find((name) => name.id === arrow.target)?.name,
-    };
-  });
+    const momChild = arrowsData.map((arrow) => {
+        return {
+            mom: arrow.source,
+            child: arrow.target,
+            childName: names.find((name) => name.id === arrow.target)?.name,
+        };
+    });
 
-  const graph = nodeData.map((node) => {
-    return {
-      node_type: node.extras.type,
-      node_name: node.extras.name,
-      node_content: node.extras.content,
-      node_links: momChild
-        .filter((item) => item.mom === node.id)
-        .map((item) => item.childName),
-      node_views: 0,
-      position_x: node.x,
-      position_y: node.y,
-    };
-  });
-  return graph;
+    const graph = nodeData.map((node) => {
+        return {
+            node_type: node.extras.type,
+            node_name: node.extras.name,
+            node_content: node.extras.content,
+            node_links: momChild
+                .filter((item) => item.mom === node.id)
+                .map((item) => item.childName),
+            node_views: 0,
+            position_x: node.x,
+            position_y: node.y,
+        };
+    });
+    return graph;
 };
 
-export const receivedData = (backendNodes: BackendGraphNode[]) => {
-  const intents = backendNodes.filter(
-    (backendNode) => backendNode.node_type === "intent"
-  );
-  const skills = backendNodes.filter(
-    (backendNode) => backendNode.node_type === "skill"
-  );
-
-  const allModels = [];
-  const intentModels = intents.map((backendNode) => {
-    const nodeModel = new CustomNodeModel(
-      backendNode.node_name,
-      backendNode.node_type,
-      false,
-      backendNode.node_content
+export const receivedData = (backendNodes: BackendGraphNode[])=>{
+    const intents = backendNodes.filter(
+        (backendNode) => backendNode.node_type === "intent"
+    );
+    const skills = backendNodes.filter(
+        (backendNode) => backendNode.node_type === "skill"
     );
 
-    nodeModel.setPosition(
-      new Point(backendNode.position_x, backendNode.position_y)
-    );
-    allModels.push(nodeModel);
-    return nodeModel;
-  });
+    const allModels = [];
+    const intentModels = intents.map((backendNode) => {
+        const nodeModel = new CustomNodeModel(
+            backendNode.node_name,
+            backendNode.node_type,
+            false,
+            backendNode.node_content
+        );
 
-  const skillsModels = skills.map((backendNode) => {
-    const nodeModel = new CustomNodeModel(
-      backendNode.node_name,
-      backendNode.node_type,
-      true,
-      backendNode.node_content
-    );
+        nodeModel.setPosition(
+            new Point(backendNode.position_x, backendNode.position_y)
+        );
+        allModels.push(nodeModel);
+        return nodeModel;
+    });
 
-    nodeModel.setPosition(
-      new Point(backendNode.position_x, backendNode.position_y)
-    );
-    allModels.push(nodeModel);
-    return nodeModel;
-  });
+    const skillsModels = skills.map((backendNode) => {
+        const nodeModel = new CustomNodeModel(
+            backendNode.node_name,
+            backendNode.node_type,
+            true,
+            backendNode.node_content
+        );
 
-  skills.map((skillBackendNode, index) => {
-    skillBackendNode.node_links.map((nodeLink) => {
-      const skillModel = skillsModels[index];
-      intentModels
-        .filter((node) => node.getName() === nodeLink)
-        .forEach((intentModel) => {
-          const link = new AdvancedLinkModel();
-          link.setSourcePort(skillModel.getPort("in"));
-          link.setTargetPort(intentModel.getPort("out"));
-          allModels.push(link);
+        nodeModel.setPosition(
+            new Point(backendNode.position_x, backendNode.position_y)
+        );
+        allModels.push(nodeModel);
+        return nodeModel;
+    });
+
+    skills.map((skillBackendNode, index) => {
+        skillBackendNode.node_links.map((nodeLink) => {
+            const skillModel = skillsModels[index];
+            intentModels
+                .filter((node) => node.getName() === nodeLink)
+                .forEach((intentModel) => {
+                    const link = new AdvancedLinkModel();
+                    link.setSourcePort(skillModel.getPort("in"));
+                    link.setTargetPort(intentModel.getPort("out"));
+                    allModels.push(link);
+                });
         });
     });
-  });
 
-  intents.forEach((intentBackendNode, index) => {
-    intentBackendNode.node_links.map((nodeLink) => {
-      const intentModel = intentModels[index];
+    intents.forEach((intentBackendNode, index) => {
+        intentBackendNode.node_links.map((nodeLink) => {
+            const intentModel = intentModels[index];
 
-      skillsModels
-        .filter((node) => node.getName() === nodeLink)
-        .map((skillModel) => {
-          const link = new AdvancedLinkModel();
-          link.setSourcePort(intentModel.getPort("out"));
-          link.setTargetPort(skillModel.getPort("in"));
-          allModels.push(link);
+            skillsModels
+                .filter((node) => node.getName() === nodeLink)
+                .map((skillModel) => {
+                    const link = new AdvancedLinkModel();
+                    link.setSourcePort(intentModel.getPort("out"));
+                    link.setTargetPort(skillModel.getPort("in"));
+                    allModels.push(link);
+                });
         });
     });
-  });
-  return allModels;
-};
+    return allModels;
+}
