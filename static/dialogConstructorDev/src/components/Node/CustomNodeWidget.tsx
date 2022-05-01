@@ -1,10 +1,6 @@
 import * as React from "react";
 import { CustomNodeModel } from "./CustomNodeModel";
-import {
-  DiagramEngine,
-  NodeModel,
-  PortWidget,
-} from "@projectstorm/react-diagrams";
+import { DiagramEngine, NodeModel, PortWidget } from "@projectstorm/react-diagrams";
 import {
   DeleteNodeButton,
   GraphNode,
@@ -57,16 +53,9 @@ export const CustomNodeWidget = ({
     >
       <GraphNodeHeader activeColor={activeColor}>
         <p>{type}</p>
-        <input
-          value={nameValue}
-          onChange={(e) => setNewNodeName(e.target.value)}
-        />
+        <input value={nameValue} onChange={(e) => setNewNodeName(e.target.value)} />
       </GraphNodeHeader>
-      {errorName && (
-        <GraphNodeErrorMessage>
-          Error with name: {errorName}
-        </GraphNodeErrorMessage>
-      )}
+      {errorName && <GraphNodeErrorMessage>Error with name: {errorName}</GraphNodeErrorMessage>}
 
       <textarea
         defaultValue={content}

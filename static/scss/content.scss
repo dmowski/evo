@@ -4,15 +4,12 @@
   position: relative;
   padding-top: calc(var(--header-height) + var(--content-top-padding));
   padding-left: calc(
-    var(--sidebar-size) + var(--main-content-padding) +
-      var(--main-content-padding)
+    var(--sidebar-size) + var(--main-content-padding) + var(--main-content-padding)
   );
   padding-right: var(--main-content-padding);
 
   @media screen and (max-width: 790px) {
-    padding-left: calc(
-      var(--main-content-padding) + var(--main-content-padding)
-    );
+    padding-left: calc(var(--main-content-padding) + var(--main-content-padding));
   }
   &_dialog-constructor {
     padding-top: calc(var(--header-height));

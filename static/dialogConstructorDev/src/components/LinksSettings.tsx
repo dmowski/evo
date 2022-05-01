@@ -37,13 +37,7 @@ const CustomLinkArrowWidget = (props) => {
   return (
     <g
       className="arrow"
-      transform={
-        "translate(" +
-        point.getPosition().x +
-        ", " +
-        point.getPosition().y +
-        ")"
-      }
+      transform={"translate(" + point.getPosition().x + ", " + point.getPosition().y + ")"}
     >
       <g style={{ transform: "rotate(" + angle + "deg)" }}>
         <g transform={"translate(0, -3)"}>
@@ -101,18 +95,12 @@ export class AdvancedLinkWidget extends DefaultLinkWidget {
     }
 
     if (this.props.link.getTargetPort() !== null) {
-      paths.push(
-        this.generateArrow(points[points.length - 1], points[points.length - 2])
-      );
+      paths.push(this.generateArrow(points[points.length - 1], points[points.length - 2]));
     } else {
       paths.push(this.generatePoint(points[points.length - 1]));
     }
 
-    return (
-      <g data-default-link-test={this.props.link.getOptions().testName}>
-        {paths}
-      </g>
-    );
+    return <g data-default-link-test={this.props.link.getOptions().testName}>{paths}</g>;
   }
 }
 
@@ -126,8 +114,6 @@ export class AdvancedLinkFactory extends DefaultLinkFactory {
   }
 
   generateReactWidget(event): JSX.Element {
-    return (
-      <AdvancedLinkWidget link={event.model} diagramEngine={this.engine} />
-    );
+    return <AdvancedLinkWidget link={event.model} diagramEngine={this.engine} />;
   }
 }

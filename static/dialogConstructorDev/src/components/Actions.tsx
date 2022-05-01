@@ -1,9 +1,5 @@
 import * as React from "react";
-import {
-  Action,
-  ActionEvent,
-  InputType,
-} from "@projectstorm/react-canvas-core";
+import { Action, ActionEvent, InputType } from "@projectstorm/react-canvas-core";
 import { LinkModel, PointModel } from "@projectstorm/react-diagrams";
 
 export interface CustomActionOptions {

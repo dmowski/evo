@@ -15,7 +15,8 @@
     "postinstall": "cd static/dialogConstructorDev && npm install",
     "watch-style": "sass --watch static/scss/main.scss:static/style/bundle.css",
     "dev": "concurrently npm:watch-*",
-    "start": "nodemon App.js"
+    "start": "nodemon App.js",
+    "prepare": "husky install"
   },
   "license": "ISC",
   "dependencies": {
@@ -26,5 +27,13 @@
     "express": "^4.17.1",
     "nodemon": "^2.0.7",
     "sass": "^1.50.1"
+  },
+  "devDependencies": {
+    "husky": "^7.0.4",
+    "lint-staged": "^12.4.1",
+    "prettier": "2.6.2"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }

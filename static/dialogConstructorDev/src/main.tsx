@@ -10,8 +10,5 @@ const DragAndDropComponent = () => {
 };
 
 document.addEventListener("DOMContentLoaded", () => {
-  ReactDOM.render(
-    <DragAndDropComponent />,
-    document.querySelector("#dialogConstructorContainer")
-  );
+  ReactDOM.render(<DragAndDropComponent />, document.querySelector("#dialogConstructorContainer"));
 });

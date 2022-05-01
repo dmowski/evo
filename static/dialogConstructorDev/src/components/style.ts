@@ -18,16 +18,14 @@ export const DialogConstructorHeader = styled.div(() => ({
   },
 }));
 
-export const NodeControlElement = styled.div<{ color: string }>(
-  ({ color }) => ({
-    padding: "5px 10px",
-    border: `1px solid ${color}`,
-    backgroundColor: color,
-    fontFamily: "sans-serif",
-    color: "white",
-    cursor: "pointer",
-  })
-);
+export const NodeControlElement = styled.div<{ color: string }>(({ color }) => ({
+  padding: "5px 10px",
+  border: `1px solid ${color}`,
+  backgroundColor: color,
+  fontFamily: "sans-serif",
+  color: "white",
+  cursor: "pointer",
+}));
 
 export const ZoomControlButton = styled.div<{ color: string }>(({ color }) => ({
   display: "flex",
@@ -75,32 +73,30 @@ export const NodeControlPanel = styled.div({
   bottom: "20px",
 });
 
-export const DeleteControlButton = styled.div<{ color: string }>(
-  ({ color }) => ({
-    display: "flex",
-    padding: "15px 20px 18px 20px",
-    fontSize: "20px",
-    fontFamily: "sans-serif",
-    color: "#222",
-    cursor: "pointer",
-    height: "40px",
-    textAlign: "center",
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: "14px",
-    backgroundColor: "white",
-    border: "1px solid #EBEBEB",
-    position: "absolute",
-    right: "20px",
-    bottom: "20px",
-    margin: "auto",
-    width: "50px",
+export const DeleteControlButton = styled.div<{ color: string }>(({ color }) => ({
+  display: "flex",
+  padding: "15px 20px 18px 20px",
+  fontSize: "20px",
+  fontFamily: "sans-serif",
+  color: "#222",
+  cursor: "pointer",
+  height: "40px",
+  textAlign: "center",
+  alignItems: "center",
+  justifyContent: "center",
+  borderRadius: "14px",
+  backgroundColor: "white",
+  border: "1px solid #EBEBEB",
+  position: "absolute",
+  right: "20px",
+  bottom: "20px",
+  margin: "auto",
+  width: "50px",
 
-    ":hover": {
-      backgroundColor: "rgba(255,255,255,0.8)",
-    },
-  })
-);
+  ":hover": {
+    backgroundColor: "rgba(255,255,255,0.8)",
+  },
+}));
 
 export const GraphCanvas = styled.div<{
   color: string;
