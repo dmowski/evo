@@ -1,12 +1,61 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Dalog constructor</title>
-    <script src="bundle.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="http://localhost:62544/style/bundle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="//use.fontawesome.com/releases/v6.1.1/css/all.css"
+    />
+    <title>Base component</title>
   </head>
   <body>
-    <div id="dialogConstructorContainer"></div>
+    <header class="header">
+      <div class="header__sidebar-part">
+        <div class="header__toggle">
+          <i class="fa-solid fa-bars fa-xl"></i>
+        </div>
+        <a href="/"><img class="header__logo" src="images/logo.svg" /></a>
+      </div>
+
+      <div class="header__main-part">
+        <h3 class="header__page-title">Дашборды</h3>
+
+        <div class="header__user-menu user-profile">
+          <a href="#profile" class="user-profile__info" class="btn">
+            <img
+              src="//images/avatar.png"
+              alt=""
+              class="user-profile__avatar"
+            />
+            <span>User Name</span>
+          </a>
+          <a href="/auth.html" class="user-profile__logout btn">
+            <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-menu">
+      <ul>
+        <li class="active">
+          <a href="/"> <i class="fa-solid fa-grip fa-xl"></i>Дашборд </a>
+        </li>
+      </ul>
+    </nav>
+    <main class="content content_dialog-constructor">
+      <div id="dialogConstructorContainer" class="diagram-constructor"></div>
+    </main>
+    <script src="http://localhost:62544/js/sidebar.js"></script>
+    <script src="bundle.js"></script>
   </body>
 </html>
