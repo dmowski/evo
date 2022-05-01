@@ -130,7 +130,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       console.log(e);
     }
 
-    updateListOfDialogs();
+    await updateListOfDialogs();
   };
 
   const updateListOfDialogs = async () => {
