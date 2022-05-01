@@ -63,15 +63,8 @@ POST api/v1/dialo_graph.update
 */
 
 const validateGraphNode = (graphNode) => {
-  const {
-    node_type,
-    node_name,
-    node_content,
-    node_links,
-    node_views,
-    position_x,
-    position_y,
-  } = graphNode;
+  const { node_type, node_name, node_content, node_links, node_views, position_x, position_y } =
+    graphNode;
 
   console.log(graphNode);
 

@@ -1,8 +1,5 @@
 import * as React from "react";
-import createEngine, {
-  DiagramModel,
-  DiagramEngine,
-} from "@projectstorm/react-diagrams";
+import createEngine, { DiagramModel, DiagramEngine } from "@projectstorm/react-diagrams";
 import { AdvancedLinkFactory } from "./LinksSettings";
 import { CustomNodeFactory } from "./Node/CustomNodeFactory";
 import { CustomItemsAction } from "./Actions";
@@ -16,13 +13,9 @@ export class Application {
     this.diagramEngine = createEngine({
       registerDefaultDeleteItemsAction: false,
     });
-    this.diagramEngine
-      .getLinkFactories()
-      .registerFactory(new AdvancedLinkFactory());
+    this.diagramEngine.getLinkFactories().registerFactory(new AdvancedLinkFactory());
 
-    this.diagramEngine
-      .getActionEventBus()
-      .registerAction(new CustomItemsAction());
+    this.diagramEngine.getActionEventBus().registerAction(new CustomItemsAction());
 
     this.nodeFactory = new CustomNodeFactory();
     this.diagramEngine.getNodeFactories().registerFactory(this.nodeFactory);
