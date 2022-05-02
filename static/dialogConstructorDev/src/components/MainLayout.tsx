@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import * as _ from "lodash";
 import { Application } from "./Application";
-
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
 import { DiagramModel } from "@projectstorm/react-diagrams";
 import { Point } from "@projectstorm/geometry";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
@@ -163,7 +164,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         }
       }
     } catch (e) {
-      alert("Error during save process");
+      alert("Ошибка в процессе сохранения");
       console.log(e);
     }
 
@@ -177,7 +178,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         setGraphList(graphList);
       }
     } catch (e) {
-      alert("Failed to get list of graphs");
+      alert("Ошибка при получении списка графов");
       console.log(e);
     }
   };
@@ -265,12 +266,6 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const newGraph = async () => {
-    const confirmMessage = "Создать новый диалог? Введенные данные будут утеряны";
-
-    if (selectGraph && !window.confirm(confirmMessage)) {
-      return;
-    }
-
     const newGraphShortInfo: BackendShortGraph = {
       id: Date.now() + "",
       title: "Dialog #" + Date.now(),
@@ -325,7 +320,30 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddDialogButton onClick={newGraph}>Добавить новый диалог</AddDialogButton>
+        <AddDialogButton
+          onClick={() => {
+            if (selectGraph) {
+              confirmAlert({
+                title: "Создать новый диалог?",
+                message: "Несохраненные данные будут удалены",
+                buttons: [
+                  {
+                    label: "Да",
+                    onClick: newGraph,
+                  },
+                  {
+                    label: "Нет",
+                    // onClick: () => alert("Click No")
+                  },
+                ],
+              });
+            } else {
+              newGraph();
+            }
+          }}
+        >
+          Добавить новый диалог
+        </AddDialogButton>
 
         {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
       </DialogConstructorHeader>
@@ -366,10 +384,20 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
           <DeleteControlButton
             onClick={() => {
-              const confirm = window.confirm("Are you sure you want to delete Dialog?");
-              if (confirm) {
-                console.log("Send request");
-              }
+              confirmAlert({
+                title: "Удалить Диалог",
+                message: "Вы действительно хотите это сделать?",
+                buttons: [
+                  {
+                    label: "Да",
+                    onClick: () => console.log("Send request"),
+                  },
+                  {
+                    label: "Нет",
+                    // onClick: () => alert("Click No")
+                  },
+                ],
+              });
             }}
           >
             🗑
