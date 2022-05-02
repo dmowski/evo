@@ -21,7 +21,12 @@ export const GraphNode = styled.div<{ activeColor: string; isError: string }>(
     display: "flex",
     flexDirection: "column",
     outline: isError ? `red solid 5px` : "",
-
+    border: "solid 2px gray",
+    borderRadius: "5px",
+    width: "50px",
+    height: "50px",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
     fontFamily: "sans-serif",
     textarea: {
       width: "100%",
@@ -52,25 +57,32 @@ export const NodeViews = styled.div({
   right: "-10px",
   position: "absolute",
   cursor: "pointer",
-  padding: "3px",
+  padding: "5px",
   border: "1px solid #c3c3c3",
-  width: "20px",
-  height: "20px",
+  width: "35px",
+  height: "35px",
   borderRadius: "40px",
   backgroundColor: "white",
   textAlign: "center",
 });
 
 export const DeleteNodeButton = styled.div({
-  bottom: "-20px",
-  left: "-20px",
+  bottom: "-10px",
+  color: "red",
+  left: "-10px",
+  text: "10px",
   position: "absolute",
   cursor: "pointer",
-  padding: "3px",
+  paddingLeft: "7px",
+  paddingBottom: "10px",
   border: "1px solid #c3c3c3",
-  width: "15px",
-  height: "20px",
+  width: "25px",
+  borderRadius: "40px",
+  height: "25px",
   backgroundColor: "white",
+  "&:hover": {
+    boxShadow: `inset 0 0 0 1px black`,
+  },
 });
 
 export const GraphNodeHeader = styled.div<{ activeColor: string }>(({ activeColor }) => ({
@@ -90,8 +102,14 @@ export const GraphNodeHeader = styled.div<{ activeColor: string }>(({ activeColo
     height: "100%",
     border: "none",
     outline: "none",
+    width: "190px",
     "&:focus": {
       boxShadow: `inset 0 0 0 1px black`,
     },
+  },
+  p: {
+    minWidth: "50px",
+    textAlign: "center",
+    paddingTop: "15px",
   },
 }));
