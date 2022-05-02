@@ -5,6 +5,8 @@
     "webpack": "webpack"
   },
   "dependencies": {
+    "prop-types": "^15.8.1",
+    "react-confirm-alert": "^2.8.0",
     "@babel/preset-react": "^7.16.7",
     "@emotion/react": "^11.9.0",
     "@projectstorm/react-diagrams": "^6.7.0",
