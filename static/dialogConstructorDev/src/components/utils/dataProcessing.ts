@@ -82,8 +82,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
         .filter((node) => node.getName() === nodeLink)
         .forEach((intentModel) => {
           const link = new AdvancedLinkModel();
-          link.setSourcePort(skillModel.getPort("in"));
-          link.setTargetPort(intentModel.getPort("out"));
+          link.setSourcePort(skillModel.getPort("skill"));
+          link.setTargetPort(intentModel.getPort("intent"));
           allModels.push(link);
         });
     });
@@ -97,8 +97,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
         .filter((node) => node.getName() === nodeLink)
         .map((skillModel) => {
           const link = new AdvancedLinkModel();
-          link.setSourcePort(intentModel.getPort("out"));
-          link.setTargetPort(skillModel.getPort("in"));
+          link.setSourcePort(intentModel.getPort("intent"));
+          link.setTargetPort(skillModel.getPort("skill"));
           allModels.push(link);
         });
     });

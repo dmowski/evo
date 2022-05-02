@@ -68,7 +68,7 @@ export const CustomNodeWidget = ({
           left: 120,
           position: "absolute",
         }}
-        port={node.getPort(isIn ? "in" : "out")}
+        port={node.getPort(isIn ? "skill" : "intent")}
         engine={engine}
       >
         <Port />
