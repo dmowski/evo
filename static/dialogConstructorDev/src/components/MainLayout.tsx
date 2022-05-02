@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import * as React from 'react';
+import { useState, useEffect } from "react";
 import { Application } from "./Application";
 import { DiagramModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
@@ -13,6 +14,7 @@ import {
   ZoomControlButton,
 } from "./style";
 import { BackendGraphNode, dataForPost, receivedData } from "./utils/dataProcessing";
+import { addNewGraph, getListOfGraphs, getOneGraph, updateGraphInBD } from './utils/backendFunctions';
 
 export interface MainLayoutProps {
   app: Application;
@@ -28,54 +30,6 @@ export interface BackendShortGraph {
   id: string;
   title: string;
 }
-
-const baseUrl = location.host.startsWith("localhost:34567")
-  ? "http://localhost:62544/"
-  : location.origin + "/";
-
-const getListOfGraphs = async (): Promise<BackendShortGraph[]> => {
-  const req = await fetch(baseUrl + "api/v1/dialo_graph.list");
-  const listOfNodes = await req.json();
-  return listOfNodes?.graph_list || [];
-};
-
-const getOneGraph = async (id: string): Promise<BackendGraph> => {
-  const req = await fetch(baseUrl + "api/v1/dialo_graph.get?graph_id=" + id);
-  const graphData = await req.json();
-  return graphData;
-};
-
-const addNewGraph = async (graphData: BackendGraph): Promise<BackendGraph> => {
-  const response = await fetch(baseUrl + "api/v1/dialo_graph.add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(graphData),
-  });
-  const result = await response.json();
-  console.log("Saving result", result);
-
-  if (result.error) {
-    return result.error + result.message;
-  }
-};
-
-const updateGraphInBD = async (graphData: BackendGraph): Promise<BackendGraph> => {
-  const response = await fetch(baseUrl + "api/v1/dialo_graph.update", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(graphData),
-  });
-  const result = await response.json();
-  console.log("Saving result", result);
-
-  if (result.error) {
-    return result.error + result.message;
-  }
-};
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const [graphList, setGraphList] = useState<BackendShortGraph[]>([]);
