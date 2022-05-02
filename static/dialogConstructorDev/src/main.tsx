@@ -1,6 +1,5 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import "./main.css";
 import { MainLayout } from "./components/MainLayout";
 import { Application } from "./components/Application";
 

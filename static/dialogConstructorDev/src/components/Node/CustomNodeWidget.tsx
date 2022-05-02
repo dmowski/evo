@@ -49,7 +49,7 @@ export const CustomNodeWidget = ({
     <GraphNode
       activeColor={activeColor}
       isError={!!errorName}
-      className={`custom-node ${isSelected ? "is-selected" : ""}`}
+      className={isSelected ? "is-selected" : ""}
     >
       <GraphNodeHeader activeColor={activeColor}>
         <p>{type}</p>
@@ -91,9 +91,9 @@ export const CustomNodeWidget = ({
             });
         }}
       >
-        🗑
+        x
       </DeleteNodeButton>
-      <NodeViews>9</NodeViews>
+      <NodeViews>111</NodeViews>
     </GraphNode>
   );
 };
