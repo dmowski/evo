@@ -59,7 +59,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
     let title = selectGraph.title;
 
-    title = window.prompt("Enter name for new dialog", title);
+    title = window.prompt("Введите имя нового диалога", title);
 
     const dataForSaveInBackend: BackendGraph = {
       id,
@@ -108,7 +108,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       return;
     }
 
-    if (window.confirm("Are you sure you want to change Dialog?")) {
+    if (window.confirm("Вы действительно хотите сменить диалог?")) {
       const graphFullData = await getOneGraph(newGraphId);
       const backendNodes = graphFullData.graph || [];
       const newModels = receivedData(backendNodes);
