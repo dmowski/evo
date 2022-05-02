@@ -19,9 +19,9 @@ export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
       content,
     };
     if (isIn) {
-      this.addPort(new AdvancedPortModel(true, "in", "in"));
+      this.addPort(new AdvancedPortModel(true, "skill", "skill"));
     } else {
-      this.addPort(new AdvancedPortModel(false, "out", "out"));
+      this.addPort(new AdvancedPortModel(false, "intent", "intent"));
     }
   }
 

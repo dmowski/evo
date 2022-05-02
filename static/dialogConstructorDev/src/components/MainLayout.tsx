@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import * as _ from "lodash";
-import { Application } from "./Application";
+import * as React from 'react';
+import { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { Application } from "./Application";
 import { DiagramModel } from "@projectstorm/react-diagrams";
-import { Point } from "@projectstorm/geometry";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
@@ -16,20 +15,11 @@ import {
   NodeControlPanel,
   ZoomControlButton,
 } from "./style";
-import { AdvancedLinkModel } from "./LinksSettings";
+import { BackendGraphNode, dataForPost, receivedData } from "./utils/dataProcessing";
+import { addNewGraph, getListOfGraphs, getOneGraph, updateGraphInBD } from './utils/backendFunctions';
 
 export interface MainLayoutProps {
   app: Application;
-}
-
-interface BackendGraphNode {
-  node_type: string;
-  node_name: string;
-  node_content: string;
-  node_links: string[];
-  node_views: number;
-  position_x: number;
-  position_y: number;
 }
 
 export interface BackendGraph {
@@ -42,54 +32,6 @@ export interface BackendShortGraph {
   id: string;
   title: string;
 }
-
-const baseUrl = location.host.startsWith("localhost:34567")
-  ? "http://localhost:62544/"
-  : location.origin + "/";
-
-const getListOfGraphs = async (): Promise<BackendShortGraph[]> => {
-  const req = await fetch(baseUrl + "api/v1/dialo_graph.list");
-  const listOfNodes = await req.json();
-  return listOfNodes?.graph_list || [];
-};
-
-const getOneGraph = async (id: string): Promise<BackendGraph> => {
-  const req = await fetch(baseUrl + "api/v1/dialo_graph.get?graph_id=" + id);
-  const graphData = await req.json();
-  return graphData;
-};
-
-const addNewGraph = async (graphData: BackendGraph): Promise<BackendGraph> => {
-  const response = await fetch(baseUrl + "api/v1/dialo_graph.add", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(graphData),
-  });
-  const result = await response.json();
-  console.log("Saving result", result);
-
-  if (result.error) {
-    return result.error + result.message;
-  }
-};
-
-const updateGraphInBD = async (graphData: BackendGraph): Promise<BackendGraph> => {
-  const response = await fetch(baseUrl + "api/v1/dialo_graph.update", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(graphData),
-  });
-  const result = await response.json();
-  console.log("Saving result", result);
-
-  if (result.error) {
-    return result.error + result.message;
-  }
-};
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const [graphList, setGraphList] = useState<BackendShortGraph[]>([]);
@@ -108,37 +50,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const saveGraph = async () => {
-    const serializedData = app.diagramEngine.getModel().serialize();
-    const nodeData = Object.values(serializedData.layers[1].models);
-    const arrowsData = Object.values(serializedData.layers[0].models);
-
-    const names = nodeData.map((node) => {
-      return { id: node.id, name: node.extras.name };
-    });
-
-    const momChild = arrowsData.map((arrow) => {
-      return {
-        mom: arrow.source,
-        child: arrow.target,
-        childName: names.find((name) => name.id === arrow.target)?.name,
-      };
-    });
-
-    const graph = nodeData.map((node) => {
-      return {
-        node_type: node.extras.type,
-        node_name: node.extras.name,
-        node_content: node.extras.content,
-        node_links: momChild.filter((item) => item.mom === node.id).map((item) => item.childName),
-        node_views: 0,
-        position_x: node.x,
-        position_y: node.y,
-      };
-    });
-
+    const graph = dataForPost(app.diagramEngine.getModel());
     const graphData = await getOneGraph(selectGraph.id);
     const isNewGraph = !!graphData.error;
-
     const id = selectGraph.id;
 
     let title = selectGraph.title;
@@ -168,7 +82,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       console.log(e);
     }
 
-    updateListOfDialogs();
+    await updateListOfDialogs();
   };
 
   const updateListOfDialogs = async () => {
@@ -195,72 +109,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     if (window.confirm("Are you sure you want to change Dialog?")) {
       const graphFullData = await getOneGraph(newGraphId);
       const backendNodes = graphFullData.graph || [];
-
-      const intents = backendNodes.filter((backendNode) => backendNode.node_type === "intent");
-      const skills = backendNodes.filter((backendNode) => backendNode.node_type === "skill");
-
-      const allModels = [];
-      const intentModels = intents.map((backendNode) => {
-        const nodeModel = new CustomNodeModel(
-          backendNode.node_name,
-          backendNode.node_type,
-          false,
-          backendNode.node_content
-        );
-
-        nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
-        allModels.push(nodeModel);
-        return nodeModel;
-      });
-
-      const skillsModels = skills.map((backendNode) => {
-        const nodeModel = new CustomNodeModel(
-          backendNode.node_name,
-          backendNode.node_type,
-          true,
-          backendNode.node_content
-        );
-
-        nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
-        allModels.push(nodeModel);
-        return nodeModel;
-      });
-
-      skills.map((skillBackendNode, index) => {
-        skillBackendNode.node_links.map((nodeLink) => {
-          const skillModel = skillsModels[index];
-          intentModels
-            .filter((node) => node.getName() === nodeLink)
-            .forEach((intentModel) => {
-              const link = new AdvancedLinkModel();
-              link.setSourcePort(skillModel.getPort("in"));
-              link.setTargetPort(intentModel.getPort("out"));
-              allModels.push(link);
-            });
-        });
-      });
-
-      intents.forEach((intentBackendNode, index) => {
-        intentBackendNode.node_links.map((nodeLink) => {
-          const intentModel = intentModels[index];
-
-          skillsModels
-            .filter((node) => node.getName() === nodeLink)
-            .map((skillModel) => {
-              const link = new AdvancedLinkModel();
-              link.setSourcePort(intentModel.getPort("out"));
-              link.setTargetPort(skillModel.getPort("in"));
-              allModels.push(link);
-            });
-        });
-      });
-
+      const newModels = receivedData(backendNodes);
       app.activeModel = new DiagramModel();
       app.diagramEngine.setModel(app.activeModel);
-      app.activeModel.addAll(...allModels);
-
+      app.activeModel.addAll(...newModels);
       app.diagramEngine.repaintCanvas();
-
       setSelectGraph(graphFullData);
     }
   };
