@@ -91,9 +91,9 @@ export const CustomNodeWidget = ({
             });
         }}
       >
-        🗑
+        x
       </DeleteNodeButton>
-      <NodeViews>9</NodeViews>
+      <NodeViews>111</NodeViews>
     </GraphNode>
   );
 };
