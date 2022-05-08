@@ -41,18 +41,22 @@ export const GraphToolbar = styled.div(() => ({
   },
 }));
 
+const graphHeaderBreakMedia = `@media screen and (max-width: 470px)`;
 export const DialogConstructorHeader = styled.div(() => ({
   display: "flex",
   borderRadius: "14px",
   gap: "16px",
   position: "absolute",
-  left: "20px",
-  top: "20px",
+  left: "min(20px, 1vw)",
+  top: "min(20px, 1vw)",
   select: {
     padding: "10px 15px",
     backgroundColor: "white",
     border: "1px solid #c2c2c2",
     borderRadius: "4px",
+  },
+  [graphHeaderBreakMedia]: {
+    flexDirection: "column",
   },
 }));
 

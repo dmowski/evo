@@ -18,5 +18,5 @@ export const SaveDialog = ({ onClick }: SaveDialogProps) => {
     }
   };
 
-  return <HeaderButton onClick={clickHandler}>Сохранить диалог</HeaderButton>;
+  return <HeaderButton onClick={clickHandler}>Сохранить</HeaderButton>;
 };
