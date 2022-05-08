@@ -1,7 +1,7 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { MainLayout } from "./components/MainLayout";
-import { Application } from "./components/Application";
+import { Application } from "./Application";
 
 const DragAndDropComponent = () => {
   var app = new Application();
