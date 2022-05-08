@@ -25,5 +25,10 @@ export const AddNewDialog = ({ onClick, showConfirm }: AddNewDialogProps) => {
     }
   };
 
-  return <HeaderButton onClick={clickHandler}>Создать</HeaderButton>;
+  return (
+    <HeaderButton onClick={clickHandler}>
+      <i class="fa-solid fa-plus"></i>
+      Создать
+    </HeaderButton>
+  );
 };
