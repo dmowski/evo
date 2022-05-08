@@ -23,6 +23,7 @@ import {
 import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
 import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
+import { SaveDialog } from "./SaveDialog/SaveDialog";
 
 export interface MainLayoutProps {
   app: Application;
@@ -179,9 +180,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddNewDialog onAdd={newGraph} showConfirm={selectedGraph} />
-
-        {selectedGraph && <HeaderButton onClick={saveGraph}>Сохранить граф</HeaderButton>}
+        <AddNewDialog onClick={newGraph} showConfirm={selectedGraph} />
+        {selectedGraph && <SaveDialog onClick={saveGraph} />}
       </DialogConstructorHeader>
 
       {selectedGraph && (

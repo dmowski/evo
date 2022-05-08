@@ -5,11 +5,11 @@ import { confirmAlert } from "react-confirm-alert";
 import { HeaderButton } from "../style";
 
 export interface AddNewDialogProps {
-  onAdd: () => Promise<void>;
+  onClick: () => Promise<void>;
   showConfirm: boolean;
 }
 
-export const AddNewDialog = ({ onAdd, showConfirm }: AddNewDialogProps) => {
+export const AddNewDialog = ({ onClick, showConfirm }: AddNewDialogProps) => {
   return (
     <HeaderButton
       onClick={() => {
@@ -20,7 +20,7 @@ export const AddNewDialog = ({ onAdd, showConfirm }: AddNewDialogProps) => {
             buttons: [
               {
                 label: "Да",
-                onClick: onAdd,
+                onClick: onClick,
               },
               {
                 label: "Нет",
@@ -29,7 +29,7 @@ export const AddNewDialog = ({ onAdd, showConfirm }: AddNewDialogProps) => {
             ],
           });
         } else {
-          onAdd();
+          onClick();
         }
       }}
     >
