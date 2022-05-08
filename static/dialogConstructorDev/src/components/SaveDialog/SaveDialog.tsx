@@ -18,5 +18,10 @@ export const SaveDialog = ({ onClick }: SaveDialogProps) => {
     }
   };
 
-  return <HeaderButton onClick={clickHandler}>Сохранить</HeaderButton>;
+  return (
+    <HeaderButton onClick={clickHandler}>
+      <i class="fa-solid fa-floppy-disk"></i>
+      Сохранить
+    </HeaderButton>
+  );
 };

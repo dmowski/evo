@@ -79,6 +79,10 @@ export const HeaderButton = styled.div({
   border: "1px solid #c2c2c2",
   borderRadius: "4px",
   cursor: "pointer",
+  display: "flex",
+  gap: "8px",
+  justifyContent: "center",
+  alignItems: "center",
 });
 
 export const GraphCanvas = styled.div(() => ({
