@@ -43,6 +43,30 @@ export const CustomNodeWidget = ({
   const setNewNodeContent = (nodeContent: string) => {
     node.setNewNodeContent(nodeContent);
   };
+  const deleteNodeHandler = () => {
+    const confirmResult = confirm("Delete this element?");
+    if (!confirmResult) {
+      return;
+    }
+    engine
+      .getModel()
+      .getSelectedEntities()
+      .forEach((item) => {
+        if (item instanceof NodeModel) {
+          engine.getModel().removeNode(item);
+          const port = item.getPort(isIn ? "skill" : "intent");
+          const links = engine.getModel().getLinks();
+          const linksForDelete = links.filter(
+            (link) => link.getTargetPort() === port || link.getSourcePort() === port
+          );
+          linksForDelete.forEach((link) => {
+            engine.getModel().removeLink(link);
+          });
+
+          engine.repaintCanvas();
+        }
+      });
+  };
 
   const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
   return (
@@ -73,34 +97,9 @@ export const CustomNodeWidget = ({
       >
         <Port />
       </PortWidget>
-      <DeleteNodeButton
-        style={{}}
-        onClick={() => {
-          const confirmResult = confirm("Delete this element?");
-          if (!confirmResult) {
-            return;
-          }
-          engine
-            .getModel()
-            .getSelectedEntities()
-            .forEach((item) => {
-              if (item instanceof NodeModel) {
-                engine.getModel().removeNode(item);
-                const port = item.getPort(isIn ? "skill" : "intent");
-                const links = engine.getModel().getLinks();
-                const linksForDelete = links.filter(
-                  (link) => link.getTargetPort() === port || link.getSourcePort() === port
-                );
-                linksForDelete.forEach((link) => {
-                  engine.getModel().removeLink(link);
-                });
-                engine.repaintCanvas();
-              }
-            });
-        }}
-      >
-        x
-      </DeleteNodeButton>
+
+      <DeleteNodeButton onClick={deleteNodeHandler}>x</DeleteNodeButton>
+
       <NodeViews>111</NodeViews>
     </GraphNode>
   );
