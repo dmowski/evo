@@ -56,6 +56,7 @@ export const DialogConstructorHeader = styled.div(() => ({
     borderRadius: "4px",
   },
 }));
+
 export const NodeControlPanel = styled.div({});
 export const NodeControlElement = styled.div<{ color: string }>(({ color }) => ({
   padding: "5px 10px",
@@ -66,7 +67,7 @@ export const NodeControlElement = styled.div<{ color: string }>(({ color }) => (
   cursor: "pointer",
 }));
 
-export const AddDialogButton = styled.div({
+export const HeaderButton = styled.div({
   padding: "10px 15px",
   backgroundColor: "white",
   border: "1px solid #c2c2c2",

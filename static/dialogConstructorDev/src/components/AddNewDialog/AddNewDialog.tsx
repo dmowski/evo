@@ -2,7 +2,7 @@ import * as React from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 import { confirmAlert } from "react-confirm-alert";
-import { AddDialogButton } from "./style";
+import { HeaderButton } from "../style";
 
 export interface AddNewDialogProps {
   onAdd: () => Promise<void>;
@@ -11,7 +11,7 @@ export interface AddNewDialogProps {
 
 export const AddNewDialog = ({ onAdd, showConfirm }: AddNewDialogProps) => {
   return (
-    <AddDialogButton
+    <HeaderButton
       onClick={() => {
         if (showConfirm) {
           confirmAlert({
@@ -34,6 +34,6 @@ export const AddNewDialog = ({ onAdd, showConfirm }: AddNewDialogProps) => {
       }}
     >
       Добавить новый диалог
-    </AddDialogButton>
+    </HeaderButton>
   );
 };

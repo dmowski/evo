@@ -1,16 +1,15 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Application } from "./Application";
 import { DiagramModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
-  AddDialogButton,
   DialogConstructorHeader,
   GraphCanvas,
   GraphToolbar,
+  HeaderButton,
   NodeControlElement,
   NodeControlPanel,
 } from "./style";
@@ -182,7 +181,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
         <AddNewDialog onAdd={newGraph} showConfirm={selectedGraph} />
 
-        {selectedGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
+        {selectedGraph && <HeaderButton onClick={saveGraph}>Сохранить граф</HeaderButton>}
       </DialogConstructorHeader>
 
       {selectedGraph && (
