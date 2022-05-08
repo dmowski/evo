@@ -36,7 +36,7 @@ export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
       node_name: node.extras.name,
       node_content: node.extras.content,
       node_links: momChild.filter((item) => item.mom === node.id).map((item) => item.childName),
-      node_views: 0,
+      node_views: node.extras.views,
       position_x: node.x,
       position_y: node.y,
     };
@@ -54,7 +54,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
       backendNode.node_name,
       backendNode.node_type,
       false,
-      backendNode.node_content
+      backendNode.node_content,
+      backendNode.node_views
     );
 
     nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
@@ -67,7 +68,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
       backendNode.node_name,
       backendNode.node_type,
       true,
-      backendNode.node_content
+      backendNode.node_content,
+      backendNode.node_views
     );
 
     nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));

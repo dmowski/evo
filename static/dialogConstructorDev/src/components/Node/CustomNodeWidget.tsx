@@ -15,6 +15,7 @@ export interface CustomNodeWidgetProps {
   engine: DiagramEngine;
   type: string;
   name: string;
+  views: number;
   content: string;
   isIn: boolean;
   isSelected: boolean;
@@ -25,6 +26,7 @@ export const CustomNodeWidget = ({
   node,
   type,
   name,
+  views,
   isIn,
   isSelected,
   content,
@@ -43,6 +45,7 @@ export const CustomNodeWidget = ({
   const setNewNodeContent = (nodeContent: string) => {
     node.setNewNodeContent(nodeContent);
   };
+
   const deleteNodeHandler = () => {
     const confirmResult = confirm("Delete this element?");
     if (!confirmResult) {
@@ -69,6 +72,7 @@ export const CustomNodeWidget = ({
   };
 
   const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
+  const isShowViews = isIn ? false : true;
   return (
     <GraphNode
       activeColor={activeColor}
@@ -99,8 +103,7 @@ export const CustomNodeWidget = ({
       </PortWidget>
 
       <DeleteNodeButton onClick={deleteNodeHandler}>x</DeleteNodeButton>
-
-      <NodeViews>111</NodeViews>
+      {isShowViews && <NodeViews>{views}</NodeViews>}
     </GraphNode>
   );
 };

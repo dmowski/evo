@@ -10,7 +10,7 @@ export class CustomNodeFactory extends AbstractReactFactory<CustomNodeModel, Dia
   }
 
   generateReactWidget(event): JSX.Element {
-    const { type, name, isIn, content } = event.model.options?.extras;
+    const { type, name, isIn, content, views } = event.model.options?.extras;
     const isSelected = this.engine
       .getModel()
       .getSelectedEntities()
@@ -22,6 +22,7 @@ export class CustomNodeFactory extends AbstractReactFactory<CustomNodeModel, Dia
         type={type}
         isSelected={!!isSelected}
         name={name}
+        views={views}
         isIn={isIn}
         content={content}
         engine={this.engine}

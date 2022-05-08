@@ -48,7 +48,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     const nodeName = `${type} #${Math.round(Math.random() * 1000)}`;
     const isIn = type === "skill";
     const content = "";
-    const node = new CustomNodeModel(nodeName, type, isIn, content);
+    const node = new CustomNodeModel(nodeName, type, isIn, content, 0);
     var point = app.diagramEngine.getRelativeMousePoint(event);
     node.setPosition(point);
     app.diagramEngine.getModel().addNode(node);
