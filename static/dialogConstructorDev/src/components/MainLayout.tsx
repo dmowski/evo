@@ -23,6 +23,7 @@ import {
 } from "./utils/backendFunctions";
 import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
+import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
 
 export interface MainLayoutProps {
   app: Application;
@@ -179,30 +180,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddDialogButton
-          onClick={() => {
-            if (selectGraph) {
-              confirmAlert({
-                title: "Создать новый диалог?",
-                message: "Несохраненные данные будут удалены",
-                buttons: [
-                  {
-                    label: "Да",
-                    onClick: newGraph,
-                  },
-                  {
-                    label: "Нет",
-                    // onClick: () => alert("Click No")
-                  },
-                ],
-              });
-            } else {
-              newGraph();
-            }
-          }}
-        >
-          Добавить новый диалог
-        </AddDialogButton>
+        <AddNewDialog onAdd={newGraph} showConfirm={selectGraph} />
 
         {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
       </DialogConstructorHeader>
