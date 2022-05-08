@@ -19,6 +19,10 @@ $secondary: #ff9900;
   }
 }
 
+body {
+  overflow: hidden;
+}
+
 @import "../../node_modules/bootstrap/scss/bootstrap.scss";
 
 @import "./bootstrapReset.scss";

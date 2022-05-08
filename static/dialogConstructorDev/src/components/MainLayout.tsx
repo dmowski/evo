@@ -3,18 +3,16 @@ import { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Application } from "./Application";
-import "react-confirm-alert/src/react-confirm-alert.css";
 import { DiagramModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
   AddDialogButton,
-  DeleteControlButton,
   DialogConstructorHeader,
   GraphCanvas,
+  GraphToolbar,
   NodeControlElement,
   NodeControlPanel,
-  ZoomControlButton,
 } from "./style";
 import { BackendGraphNode, dataForPost, receivedData } from "./utils/dataProcessing";
 import {
@@ -23,6 +21,8 @@ import {
   getOneGraph,
   updateGraphInBD,
 } from "./utils/backendFunctions";
+import { ZoomControl } from "./ZoomControl/ZoomControl";
+import { DeleteControl } from "./DeleteControl/DeleteControl";
 
 export interface MainLayoutProps {
   app: Application;
@@ -208,7 +208,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       </DialogConstructorHeader>
 
       {selectGraph && (
-        <>
+        <GraphToolbar>
           <NodeControlPanel>
             <NodeControlElement
               color="#1A1A4E"
@@ -233,35 +233,14 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
             </NodeControlElement>
           </NodeControlPanel>
 
-          <ZoomControlButton
-            onClick={() => {
-              app.diagramEngine.zoomToFitSelectedNodes({ margin: 100 });
-            }}
-          >
-            Zoom to fit
-          </ZoomControlButton>
+          <ZoomControl app={app} />
 
-          <DeleteControlButton
-            onClick={() => {
-              confirmAlert({
-                title: "Удалить Диалог",
-                message: "Вы действительно хотите это сделать?",
-                buttons: [
-                  {
-                    label: "Да",
-                    onClick: () => console.log("Send request"),
-                  },
-                  {
-                    label: "Нет",
-                    // onClick: () => alert("Click No")
-                  },
-                ],
-              });
+          <DeleteControl
+            onDelete={async () => {
+              console.log("Send request");
             }}
-          >
-            🗑
-          </DeleteControlButton>
-        </>
+          />
+        </GraphToolbar>
       )}
     </div>
   );

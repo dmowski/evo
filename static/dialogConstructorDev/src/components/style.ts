@@ -3,6 +3,45 @@ import * as _ from "lodash";
 
 import styled from "@emotion/styled";
 
+const graphToolbarBreakMedia = `@media screen and (max-width: 270px)`;
+
+export const GraphToolbar = styled.div(() => ({
+  display: "flex",
+  justifyContent: "space-between",
+  position: "absolute",
+  width: "100%",
+  bottom: "20px",
+  padding: "min(20px, 1vw)",
+  [graphToolbarBreakMedia]: {
+    flexDirection: "column",
+    bottom: 0,
+    justifyContent: "center",
+    alignItems: "center",
+    gap: "5px",
+    padding: "0",
+  },
+
+  ">*": {
+    height: "100%",
+    width: "max-content",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row",
+    gap: "16px",
+
+    padding: "15px min(20px, 1vw)",
+    borderRadius: "14px",
+    border: "1px solid #EBEBEB",
+    backgroundColor: "white",
+
+    [graphToolbarBreakMedia]: {
+      padding: "10px 10px",
+      border: "none",
+    },
+  },
+}));
+
 export const DialogConstructorHeader = styled.div(() => ({
   display: "flex",
   borderRadius: "14px",
@@ -17,7 +56,7 @@ export const DialogConstructorHeader = styled.div(() => ({
     borderRadius: "4px",
   },
 }));
-
+export const NodeControlPanel = styled.div({});
 export const NodeControlElement = styled.div<{ color: string }>(({ color }) => ({
   padding: "5px 10px",
   border: `1px solid ${color}`,
@@ -27,32 +66,6 @@ export const NodeControlElement = styled.div<{ color: string }>(({ color }) => (
   cursor: "pointer",
 }));
 
-export const ZoomControlButton = styled.div<{ color: string }>(({ color }) => ({
-  display: "flex",
-  padding: "15px 20px 18px 20px",
-  fontSize: "20px",
-  fontFamily: "sans-serif",
-  color: "#222",
-  cursor: "pointer",
-  height: "40px",
-  textAlign: "center",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "14px",
-  backgroundColor: "white",
-  border: "1px solid #EBEBEB",
-  position: "absolute",
-  left: "0",
-  right: "0",
-  bottom: "20px",
-  margin: "auto",
-  width: "200px",
-
-  ":hover": {
-    backgroundColor: "rgba(255,255,255,0.8)",
-  },
-}));
-
 export const AddDialogButton = styled.div({
   padding: "10px 15px",
   backgroundColor: "white",
@@ -60,43 +73,6 @@ export const AddDialogButton = styled.div({
   borderRadius: "4px",
   cursor: "pointer",
 });
-
-export const NodeControlPanel = styled.div({
-  display: "flex",
-  borderRadius: "14px",
-  backgroundColor: "white",
-  gap: "16px",
-  padding: "20px 25px",
-  border: "1px solid #EBEBEB",
-  position: "absolute",
-  left: "20px",
-  bottom: "20px",
-});
-
-export const DeleteControlButton = styled.div<{ color: string }>(({ color }) => ({
-  display: "flex",
-  padding: "15px 20px 18px 20px",
-  fontSize: "20px",
-  fontFamily: "sans-serif",
-  color: "#222",
-  cursor: "pointer",
-  height: "40px",
-  textAlign: "center",
-  alignItems: "center",
-  justifyContent: "center",
-  borderRadius: "14px",
-  backgroundColor: "white",
-  border: "1px solid #EBEBEB",
-  position: "absolute",
-  right: "20px",
-  bottom: "20px",
-  margin: "auto",
-  width: "50px",
-
-  ":hover": {
-    backgroundColor: "rgba(255,255,255,0.8)",
-  },
-}));
 
 export const GraphCanvas = styled.div<{
   color: string;
