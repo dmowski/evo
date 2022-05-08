@@ -4,7 +4,7 @@ import { Point } from "@projectstorm/geometry";
 import { AdvancedLinkModel } from "../components/LinksSettings";
 import { BackendGraphNode } from "../types/backend";
 
-export const convertGraphModelToBackendFormat = (model: DiagramModel<DiagramModelGenerics>) => {
+export const toBackendFormat = (model: DiagramModel<DiagramModelGenerics>) => {
   const serializedData = model.serialize();
   const nodeData = Object.values(serializedData.layers[1].models);
   const arrowsData = Object.values(serializedData.layers[0].models);
@@ -35,7 +35,7 @@ export const convertGraphModelToBackendFormat = (model: DiagramModel<DiagramMode
   return graph;
 };
 
-export const receivedData = (backendNodes: BackendGraphNode[]) => {
+export const fromBackendFormat = (backendNodes: BackendGraphNode[]) => {
   const intents = backendNodes.filter((backendNode) => backendNode.node_type === "intent");
   const skills = backendNodes.filter((backendNode) => backendNode.node_type === "skill");
 

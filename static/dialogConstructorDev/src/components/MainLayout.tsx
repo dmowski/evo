@@ -12,7 +12,7 @@ import {
   NodeControlElement,
   NodeControlPanel,
 } from "./style";
-import { convertGraphModelToBackendFormat, receivedData } from "../utils/dataProcessing";
+import * as converter from "../utils/graphConverter";
 import backendFunctions from "../utils/backendFunctions";
 import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
@@ -42,7 +42,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
   const saveGraph = async () => {
     const graphModel = app.diagramEngine.getModel();
-    const graphDataForBackend = convertGraphModelToBackendFormat(graphModel);
+    const graphDataForBackend = converter.toBackendFormat(graphModel);
 
     const graphData = await backendFunctions.getOne(selectedGraph.id);
     const isNewGraph = !!graphData.error;
@@ -102,7 +102,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     if (window.confirm("Вы действительно хотите сменить диалог?")) {
       const graphFullData = await backendFunctions.getOne(newGraphId);
       const backendNodes = graphFullData.graph || [];
-      const newModels = receivedData(backendNodes);
+      const newModels = converter.fromBackendFormat(backendNodes);
       app.activeModel = new DiagramModel();
       app.diagramEngine.setModel(app.activeModel);
       app.activeModel.addAll(...newModels);
