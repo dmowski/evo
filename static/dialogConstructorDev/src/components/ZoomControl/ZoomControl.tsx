@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Application } from "../Application";
+import { Application } from "../../Application";
 import { ZoomControlButton } from "./style";
 
 export interface ZoomControlProps {
@@ -12,6 +12,7 @@ export const ZoomControl = ({ app }: ZoomControlProps) => {
     const nodes = model.getNodes();
     app.diagramEngine.zoomToFitNodes({
       nodes: nodes,
+      margin: 100,
     });
   };
 
