@@ -74,12 +74,9 @@ export const HeaderButton = styled.div({
   cursor: "pointer",
 });
 
-export const GraphCanvas = styled.div<{
-  color: string;
-  background: string;
-}>(({ color, background }) => ({
+export const GraphCanvas = styled.div(() => ({
   height: `100%`,
-  backgroundColor: `${background}`,
+  backgroundColor: `rgb(233, 233, 233)`,
   backgroundSize: `50px 50px`,
   display: `flex`,
   "> *": {
@@ -90,24 +87,24 @@ export const GraphCanvas = styled.div<{
   backgroundImage: `linear-gradient(
       0deg,
       transparent 24%,
-      ${color} 25%,
-      ${color} 26%,
+      rgb(222, 222, 222) 25%,
+      rgb(222, 222, 222) 26%,
       transparent 27%,
       transparent 74%,
-      ${color} 75%,
-      ${color} 76%,
+      rgb(222, 222, 222) 75%,
+      rgb(222, 222, 222) 76%,
       transparent 77%,
       transparent
     ),
     linear-gradient(
       90deg,
       transparent 24%,
-      ${color} 25%,
-      ${color} 26%,
+      rgb(222, 222, 222) 25%,
+      rgb(222, 222, 222) 26%,
       transparent 27%,
       transparent 74%,
-      ${color} 75%,
-      ${color} 76%,
+      rgb(222, 222, 222) 75%,
+      rgb(222, 222, 222) 76%,
       transparent 77%,
       transparent
     )`,

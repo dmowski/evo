@@ -153,7 +153,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         }}
       >
         {selectedGraph && (
-          <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
+          <GraphCanvas>
             <CanvasWidget engine={app.diagramEngine} />
           </GraphCanvas>
         )}
