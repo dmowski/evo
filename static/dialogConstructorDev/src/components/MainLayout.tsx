@@ -126,13 +126,18 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const newGraph = async () => {
+    let graphListForUpdate = graphList;
+    if (isNewGraph) {
+      const prevGraphId = selectedGraphId;
+      graphListForUpdate = graphListForUpdate.filter((graph) => graph.id !== prevGraphId);
+    }
     const newGraphId = Date.now();
     const newGraphShortInfo: BackendShortGraph = {
       id: newGraphId,
       title: `Dialog #${newGraphId}`,
     };
 
-    setGraphList([...graphList, newGraphShortInfo]);
+    setGraphList([...graphListForUpdate, newGraphShortInfo]);
 
     const newGraphFull: BackendGraph = {
       ...newGraphShortInfo,
