@@ -1,7 +1,7 @@
 import { DiagramModel, DiagramModelGenerics } from "@projectstorm/react-diagrams";
-import { CustomNodeModel } from "../Node/CustomNodeModel";
+import { CustomNodeModel } from "../components/Node/CustomNodeModel";
 import { Point } from "@projectstorm/geometry";
-import { AdvancedLinkModel } from "../LinksSettings";
+import { AdvancedLinkModel } from "../components/LinksSettings";
 
 export interface BackendGraphNode {
   node_type: string;

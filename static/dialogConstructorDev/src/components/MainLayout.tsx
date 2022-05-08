@@ -9,17 +9,16 @@ import {
   DialogConstructorHeader,
   GraphCanvas,
   GraphToolbar,
-  HeaderButton,
   NodeControlElement,
   NodeControlPanel,
 } from "./style";
-import { BackendGraphNode, dataForPost, receivedData } from "./utils/dataProcessing";
+import { BackendGraphNode, dataForPost, receivedData } from "../utils/dataProcessing";
 import {
   addNewGraph,
   getListOfGraphs,
   getOneGraph,
   updateGraphInBD,
-} from "./utils/backendFunctions";
+} from "../utils/backendFunctions";
 import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
 import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
