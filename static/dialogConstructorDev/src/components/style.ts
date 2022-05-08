@@ -9,8 +9,10 @@ export const GraphToolbar = styled.div(() => ({
   justifyContent: "space-between",
   position: "absolute",
   width: "100%",
-  bottom: "20px",
-  padding: "min(20px, 1vw)",
+  height: 0,
+  bottom: "90px",
+  padding: "0 min(20px, 1vw)",
+  backgroundColor: "red",
   [graphToolbarBreakMedia]: {
     flexDirection: "column",
     bottom: 0,
@@ -21,7 +23,7 @@ export const GraphToolbar = styled.div(() => ({
   },
 
   ">*": {
-    height: "100%",
+    height: "65px",
     width: "max-content",
     display: "flex",
     alignItems: "center",
@@ -33,7 +35,8 @@ export const GraphToolbar = styled.div(() => ({
     borderRadius: "14px",
     border: "1px solid #EBEBEB",
     backgroundColor: "white",
-
+    position: "relative",
+    zIndex: 2,
     [graphToolbarBreakMedia]: {
       padding: "10px 10px",
       border: "none",

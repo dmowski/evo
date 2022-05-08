@@ -10,8 +10,8 @@ export interface SaveDialogProps {
 export const SaveDialog = ({ onClick }: SaveDialogProps) => {
   const clickHandler = async () => {
     const confirmResult = await confirmChangesDialog(
-      "Удалить диалог?",
-      "Вы действительно хотите это сделать? Все данные диалога будут удалены"
+      "Сохранить диалог?",
+      "Данные будут отправлены на сервер"
     );
     if (confirmResult) {
       onClick();
