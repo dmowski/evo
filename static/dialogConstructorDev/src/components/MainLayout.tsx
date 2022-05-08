@@ -18,7 +18,8 @@ import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
 import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
 import { SaveDialog } from "./SaveDialog/SaveDialog";
-import { BackendGraph, BackendShortGraph } from "../types/backend";
+import { BackendGraph, BackendShortGraph, BackendError } from "../types/backend";
+import { confirmChangesDialog } from "../utils/confirmChangesDialog";
 
 export interface MainLayoutProps {
   app: Application;
@@ -27,6 +28,8 @@ export interface MainLayoutProps {
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const [graphList, setGraphList] = useState<BackendShortGraph[]>([]);
   const [selectedGraph, setSelectedGraph] = useState<BackendGraph | null>(null);
+  const [selectedGraphId, setSelectedGraphId] = useState<number>(0);
+  const [isNewGraph, setIsNewGraph] = useState(true);
 
   const dropHandler = (event) => {
     var type = event.dataTransfer.getData("storm-diagram-node-type");
@@ -43,13 +46,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   const saveGraph = async () => {
     const graphModel = app.diagramEngine.getModel();
     const graphDataForBackend = converter.toBackendFormat(graphModel);
-
-    const graphData = await backendFunctions.getOne(selectedGraph.id);
-    const isNewGraph = !!graphData.error;
     const id = selectedGraph.id;
-
     let title = selectedGraph.title;
-
     title = window.prompt("Введите имя нового диалога", title);
 
     const dataForSaveInBackend: BackendGraph = {
@@ -58,61 +56,77 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       graph: graphDataForBackend,
     };
 
-    try {
-      if (isNewGraph) {
-        const errorResult = await backendFunctions.create(dataForSaveInBackend);
-        if (errorResult) {
-          alert("Error: " + errorResult);
-        }
-      } else {
-        const errorResult = await backendFunctions.update(dataForSaveInBackend);
-        if (errorResult) {
-          alert("Error: " + errorResult);
-        }
+    if (isNewGraph) {
+      const errorResult = await backendFunctions.create(dataForSaveInBackend);
+      if (errorResult) {
+        alert("Error: " + errorResult.error);
+        return;
       }
-    } catch (e) {
-      alert("Ошибка в процессе сохранения");
-      console.log(e);
+    } else {
+      const errorResult = await backendFunctions.update(dataForSaveInBackend);
+      if (errorResult) {
+        alert("Error: " + errorResult.error);
+        return;
+      }
     }
 
     await updateListOfDialogs();
+    setIsNewGraph(false);
+    setSelectedGraphId(id);
+    setSelectedGraph(dataForSaveInBackend);
+    console.log(`setSelectedGraphId(id);`, id);
   };
 
   const updateListOfDialogs = async () => {
-    try {
-      const graphList = await backendFunctions.getList();
-      if (graphList.length) {
-        setGraphList(graphList);
-      }
-    } catch (e) {
+    const graphList = await backendFunctions.getList();
+    if (!("error" in graphList)) {
+      setGraphList(graphList);
+    } else {
       alert("Ошибка при получении списка графов");
-      console.log(e);
+      console.log(graphList);
     }
   };
 
   useEffect(() => {
     updateListOfDialogs();
-  }, [selectedGraph]);
+    app.diagramEngine;
+  }, []);
 
-  const changeGraph = async (newGraphId: string) => {
-    if (selectedGraph && selectedGraph.id === newGraphId) {
+  const selectNewGraph = async (newGraphIdValue: string) => {
+    const newGraphId = parseInt(newGraphIdValue);
+    if (selectedGraph?.id === newGraphId || newGraphId == 0) {
       return;
     }
 
-    if (window.confirm("Вы действительно хотите сменить диалог?")) {
-      const graphFullData = await backendFunctions.getOne(newGraphId);
-      const backendNodes = graphFullData.graph || [];
-      const newModels = converter.fromBackendFormat(backendNodes);
-      app.activeModel = new DiagramModel();
-      app.diagramEngine.setModel(app.activeModel);
-      app.activeModel.addAll(...newModels);
-      app.diagramEngine.repaintCanvas();
-      setSelectedGraph(graphFullData);
+    if (selectedGraphId != 0) {
+      const confirmResult = await confirmChangesDialog(
+        "Вы действительно хотите сменить диалог?",
+        "Данные будут потеряны"
+      );
+      if (!confirmResult) {
+        return;
+      }
     }
+
+    const graphFullData = await backendFunctions.getOne(newGraphId);
+    if ("error" in graphFullData) {
+      alert(graphFullData.error);
+      return;
+    }
+    const backendNodes = graphFullData.graph || [];
+    const newModels = converter.fromBackendFormat(backendNodes);
+    app.activeModel = new DiagramModel();
+    app.diagramEngine.setModel(app.activeModel);
+    app.activeModel.addAll(...newModels);
+    app.diagramEngine.repaintCanvas();
+
+    setSelectedGraph(graphFullData);
+    setSelectedGraphId(graphFullData.id);
+    setIsNewGraph(false);
   };
 
   const newGraph = async () => {
-    const newGraphId = `${Date.now()}`;
+    const newGraphId = Date.now();
     const newGraphShortInfo: BackendShortGraph = {
       id: newGraphId,
       title: `Dialog #${newGraphId}`,
@@ -127,6 +141,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     const model = new DiagramModel();
     app.diagramEngine.setModel(model);
     setSelectedGraph(newGraphFull);
+    setIsNewGraph(true);
+    setSelectedGraphId(newGraphFull.id);
   };
 
   return (
@@ -151,9 +167,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         {graphList.length > 0 && (
           <select
             name="dialogs"
-            value={selectedGraph?.id}
+            value={selectedGraphId}
             onChange={(e) => {
-              changeGraph(e.target.value);
+              selectNewGraph(e.target.value);
             }}
           >
             <option value="0"></option>
@@ -167,8 +183,8 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddNewDialog onClick={newGraph} showConfirm={selectedGraph} />
-        {selectedGraph && <SaveDialog onClick={saveGraph} />}
+        <AddNewDialog onClick={newGraph} showConfirm={selectedGraphId != 0} />
+        {selectedGraphId != 0 && <SaveDialog onClick={saveGraph} />}
       </DialogConstructorHeader>
 
       {selectedGraph && (
