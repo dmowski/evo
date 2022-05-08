@@ -1,4 +1,4 @@
-import * as React from 'react';
+import * as React from "react";
 import { useState, useEffect } from "react";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
@@ -18,7 +18,12 @@ import {
   ZoomControlButton,
 } from "./style";
 import { BackendGraphNode, dataForPost, receivedData } from "./utils/dataProcessing";
-import { addNewGraph, getListOfGraphs, getOneGraph, updateGraphInBD } from './utils/backendFunctions';
+import {
+  addNewGraph,
+  getListOfGraphs,
+  getOneGraph,
+  updateGraphInBD,
+} from "./utils/backendFunctions";
 
 export interface MainLayoutProps {
   app: Application;
@@ -138,127 +143,127 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   return (
-      <div>
-        <div
-            style={{
-              height: "100vh",
-            }}
-            onDrop={dropHandler}
-            onDragOver={(event) => {
-              event.preventDefault();
-            }}
-        >
-          {selectGraph && (
-              <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
-                <CanvasWidget engine={app.diagramEngine} />
-              </GraphCanvas>
-          )}
-        </div>
-
-        <DialogConstructorHeader>
-          {graphList.length > 0 && (
-              <select
-                  name="dialogs"
-                  value={selectGraph?.id}
-                  onChange={(e) => {
-                    changeGraph(e.target.value);
-                  }}
-              >
-                <option value="0"></option>
-                {graphList.map((graphInfo, key) => {
-                  return (
-                      <option value={graphInfo.id} key={graphInfo.id}>
-                        {graphInfo.title}
-                      </option>
-                  );
-                })}
-              </select>
-          )}
-
-          <AddDialogButton
-              onClick={() => {
-                if (selectGraph) {
-                  confirmAlert({
-                    title: "Создать новый диалог?",
-                    message: "Несохраненные данные будут удалены",
-                    buttons: [
-                      {
-                        label: "Да",
-                        onClick: newGraph,
-                      },
-                      {
-                        label: "Нет",
-                        // onClick: () => alert("Click No")
-                      },
-                    ],
-                  });
-                } else {
-                  newGraph();
-                }
-              }}
-          >
-            Добавить новый диалог
-          </AddDialogButton>
-
-          {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
-        </DialogConstructorHeader>
-
+    <div>
+      <div
+        style={{
+          height: "100vh",
+        }}
+        onDrop={dropHandler}
+        onDragOver={(event) => {
+          event.preventDefault();
+        }}
+      >
         {selectGraph && (
-            <>
-              <NodeControlPanel>
-                <NodeControlElement
-                    color="#1A1A4E"
-                    draggable={true}
-                    onDragStart={(event) => {
-                      event.dataTransfer.setData("storm-diagram-node-type", "intent");
-                    }}
-                    className="tray-item"
-                >
-                  Intent
-                </NodeControlElement>
-
-                <NodeControlElement
-                    color="#FF7A00"
-                    draggable={true}
-                    onDragStart={(event) => {
-                      event.dataTransfer.setData("storm-diagram-node-type", "skill");
-                    }}
-                    className="tray-item"
-                >
-                  Skill
-                </NodeControlElement>
-              </NodeControlPanel>
-
-              <ZoomControlButton
-                  onClick={() => {
-                    app.diagramEngine.zoomToFitSelectedNodes({ margin: 100 });
-                  }}
-              >
-                Zoom to fit
-              </ZoomControlButton>
-
-              <DeleteControlButton
-                  onClick={() => {
-                    confirmAlert({
-                      title: "Удалить Диалог",
-                      message: "Вы действительно хотите это сделать?",
-                      buttons: [
-                        {
-                          label: "Да",
-                          onClick: () => console.log("Send request"),
-                        },
-                        {
-                          label: "Нет",
-                          // onClick: () => alert("Click No")
-                        },
-                      ],
-                    });
-                  }}
-              >
-                🗑
-              </DeleteControlButton>
-            </>
+          <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
+            <CanvasWidget engine={app.diagramEngine} />
+          </GraphCanvas>
         )}
       </div>
+
+      <DialogConstructorHeader>
+        {graphList.length > 0 && (
+          <select
+            name="dialogs"
+            value={selectGraph?.id}
+            onChange={(e) => {
+              changeGraph(e.target.value);
+            }}
+          >
+            <option value="0"></option>
+            {graphList.map((graphInfo, key) => {
+              return (
+                <option value={graphInfo.id} key={graphInfo.id}>
+                  {graphInfo.title}
+                </option>
+              );
+            })}
+          </select>
+        )}
+
+        <AddDialogButton
+          onClick={() => {
+            if (selectGraph) {
+              confirmAlert({
+                title: "Создать новый диалог?",
+                message: "Несохраненные данные будут удалены",
+                buttons: [
+                  {
+                    label: "Да",
+                    onClick: newGraph,
+                  },
+                  {
+                    label: "Нет",
+                    // onClick: () => alert("Click No")
+                  },
+                ],
+              });
+            } else {
+              newGraph();
+            }
+          }}
+        >
+          Добавить новый диалог
+        </AddDialogButton>
+
+        {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
+      </DialogConstructorHeader>
+
+      {selectGraph && (
+        <>
+          <NodeControlPanel>
+            <NodeControlElement
+              color="#1A1A4E"
+              draggable={true}
+              onDragStart={(event) => {
+                event.dataTransfer.setData("storm-diagram-node-type", "intent");
+              }}
+              className="tray-item"
+            >
+              Intent
+            </NodeControlElement>
+
+            <NodeControlElement
+              color="#FF7A00"
+              draggable={true}
+              onDragStart={(event) => {
+                event.dataTransfer.setData("storm-diagram-node-type", "skill");
+              }}
+              className="tray-item"
+            >
+              Skill
+            </NodeControlElement>
+          </NodeControlPanel>
+
+          <ZoomControlButton
+            onClick={() => {
+              app.diagramEngine.zoomToFitSelectedNodes({ margin: 100 });
+            }}
+          >
+            Zoom to fit
+          </ZoomControlButton>
+
+          <DeleteControlButton
+            onClick={() => {
+              confirmAlert({
+                title: "Удалить Диалог",
+                message: "Вы действительно хотите это сделать?",
+                buttons: [
+                  {
+                    label: "Да",
+                    onClick: () => console.log("Send request"),
+                  },
+                  {
+                    label: "Нет",
+                    // onClick: () => alert("Click No")
+                  },
+                ],
+              });
+            }}
+          >
+            🗑
+          </DeleteControlButton>
+        </>
+      )}
+    </div>
   );
 };
