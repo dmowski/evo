@@ -12,31 +12,16 @@ import {
   NodeControlElement,
   NodeControlPanel,
 } from "./style";
-import { BackendGraphNode, dataForPost, receivedData } from "../utils/dataProcessing";
-import {
-  addNewGraph,
-  getListOfGraphs,
-  getOneGraph,
-  updateGraphInBD,
-} from "../utils/backendFunctions";
+import { convertGraphModelToBackendFormat, receivedData } from "../utils/dataProcessing";
+import backendFunctions from "../utils/backendFunctions";
 import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
 import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
 import { SaveDialog } from "./SaveDialog/SaveDialog";
+import { BackendGraph, BackendShortGraph } from "../types/backend";
 
 export interface MainLayoutProps {
   app: Application;
-}
-
-export interface BackendGraph {
-  id: string;
-  title: string;
-  graph: BackendGraphNode[];
-}
-
-export interface BackendShortGraph {
-  id: string;
-  title: string;
 }
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
@@ -56,8 +41,10 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const saveGraph = async () => {
-    const graph = dataForPost(app.diagramEngine.getModel());
-    const graphData = await getOneGraph(selectedGraph.id);
+    const graphModel = app.diagramEngine.getModel();
+    const graphDataForBackend = convertGraphModelToBackendFormat(graphModel);
+
+    const graphData = await backendFunctions.getOne(selectedGraph.id);
     const isNewGraph = !!graphData.error;
     const id = selectedGraph.id;
 
@@ -68,17 +55,17 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     const dataForSaveInBackend: BackendGraph = {
       id,
       title,
-      graph,
+      graph: graphDataForBackend,
     };
 
     try {
       if (isNewGraph) {
-        const errorResult = await addNewGraph(dataForSaveInBackend);
+        const errorResult = await backendFunctions.create(dataForSaveInBackend);
         if (errorResult) {
           alert("Error: " + errorResult);
         }
       } else {
-        const errorResult = await updateGraphInBD(dataForSaveInBackend);
+        const errorResult = await backendFunctions.update(dataForSaveInBackend);
         if (errorResult) {
           alert("Error: " + errorResult);
         }
@@ -93,7 +80,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
   const updateListOfDialogs = async () => {
     try {
-      const graphList = await getListOfGraphs();
+      const graphList = await backendFunctions.getList();
       if (graphList.length) {
         setGraphList(graphList);
       }
@@ -113,7 +100,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     }
 
     if (window.confirm("Вы действительно хотите сменить диалог?")) {
-      const graphFullData = await getOneGraph(newGraphId);
+      const graphFullData = await backendFunctions.getOne(newGraphId);
       const backendNodes = graphFullData.graph || [];
       const newModels = receivedData(backendNodes);
       app.activeModel = new DiagramModel();
@@ -125,20 +112,21 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   };
 
   const newGraph = async () => {
+    const newGraphId = `${Date.now()}`;
     const newGraphShortInfo: BackendShortGraph = {
-      id: Date.now() + "",
-      title: "Dialog #" + Date.now(),
+      id: newGraphId,
+      title: `Dialog #${newGraphId}`,
     };
 
     setGraphList([...graphList, newGraphShortInfo]);
 
-    const newGraph: BackendGraph = {
+    const newGraphFull: BackendGraph = {
       ...newGraphShortInfo,
       graph: [],
     };
     const model = new DiagramModel();
     app.diagramEngine.setModel(model);
-    setSelectedGraph(newGraph);
+    setSelectedGraph(newGraphFull);
   };
 
   return (

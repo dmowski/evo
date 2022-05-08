@@ -2,18 +2,9 @@ import { DiagramModel, DiagramModelGenerics } from "@projectstorm/react-diagrams
 import { CustomNodeModel } from "../components/Node/CustomNodeModel";
 import { Point } from "@projectstorm/geometry";
 import { AdvancedLinkModel } from "../components/LinksSettings";
+import { BackendGraphNode } from "../types/backend";
 
-export interface BackendGraphNode {
-  node_type: string;
-  node_name: string;
-  node_content: string;
-  node_links: string[];
-  node_views: number;
-  position_x: number;
-  position_y: number;
-}
-
-export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
+export const convertGraphModelToBackendFormat = (model: DiagramModel<DiagramModelGenerics>) => {
   const serializedData = model.serialize();
   const nodeData = Object.values(serializedData.layers[1].models);
   const arrowsData = Object.values(serializedData.layers[0].models);
