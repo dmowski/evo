@@ -127,6 +127,14 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       alert(graphFullData.error);
       return;
     }
+
+    let graphListForUpdate = graphList;
+    if (isNewGraph) {
+      const prevGraphId = selectedGraphId;
+      graphListForUpdate = graphListForUpdate.filter((graph) => graph.id !== prevGraphId);
+    }
+    setGraphList([...graphListForUpdate]);
+
     const backendNodes = graphFullData.graph || [];
     const newModels = converter.fromBackendFormat(backendNodes);
     app.activeModel = new DiagramModel();
