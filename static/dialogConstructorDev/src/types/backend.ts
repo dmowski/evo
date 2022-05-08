@@ -8,12 +8,17 @@ export interface BackendGraphNode {
   position_y: number;
 }
 export interface BackendGraph {
-  id: string;
+  id: number;
   title: string;
   graph: BackendGraphNode[];
 }
 
 export interface BackendShortGraph {
-  id: string;
+  id: number;
   title: string;
+}
+
+export interface BackendError {
+  error: string;
+  additionalInformation: string;
 }
