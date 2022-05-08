@@ -1,5 +1,5 @@
 {
-  "name": "exampleapp",
+  "name": "graph",
   "version": "1.0.0",
   "description": "example",
   "main": "App.js",
@@ -35,6 +35,6 @@
     "prettier": "2.6.2"
   },
   "lint-staged": {
-    "**/*": "prettier --write --ignore-unknown"
+    "*.{js,ts,tsx,css,md}": "prettier --write"
   }
 }
