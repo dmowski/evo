@@ -156,7 +156,7 @@ app.post("/api/v1/dialo_graph.update", (req, res) => {
 
 // Add GRAPH
 app.post("/api/v1/dialo_graph.add", (req, res) => {
-  const { title, graph } = req.body;
+  const { title, graph, id } = req.body;
 
   if (!title) {
     return res.json({ error: "'title' is missing. Root level" });
@@ -191,9 +191,16 @@ app.post("/api/v1/dialo_graph.add", (req, res) => {
 
   console.log("api/v1/dialo_graph.add");
   console.log("Validation passed");
+  const isAlreadyExist = listOfGraphs.find((graph) => graph.id == id);
+  if (isAlreadyExist) {
+    return res.json({
+      error: "Graph with the same id already exists",
+      message: validateGraphNodeResult,
+    });
+  }
 
   listOfGraphs.push({
-    id: Date.now(),
+    id,
     title,
     graph,
   });
