@@ -86,6 +86,12 @@ export const CustomNodeWidget = ({
             .forEach((item) => {
               if (item instanceof NodeModel) {
                 engine.getModel().removeNode(item);
+                const port = item.getPort(isIn ? "skill" : "intent");
+                const links = engine.getModel().getLinks();
+                const linksForDelete = links.filter(link => link.getTargetPort() === port || link.getSourcePort() === port)
+                linksForDelete.forEach(link =>{
+                  engine.getModel().removeLink(link);
+                })
                 engine.repaintCanvas();
               }
             });
