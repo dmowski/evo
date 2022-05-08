@@ -43,6 +43,20 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     app.diagramEngine.repaintCanvas();
   };
 
+  const createNewByClick = (type: string, event) => {
+    const nodeName = `${type} #${Math.round(Math.random() * 1000)}`;
+    const isIn = type === "skill";
+    const content = "";
+    const node = new CustomNodeModel(nodeName, type, isIn, content, 0);
+    var point = app.diagramEngine.getRelativeMousePoint({
+      clientX: event.clientX + 100,
+      clientY: event.clientY - 100,
+    });
+    node.setPosition(point);
+    app.diagramEngine.getModel().addNode(node);
+    app.diagramEngine.repaintCanvas();
+  };
+
   const saveGraph = async () => {
     const graphModel = app.diagramEngine.getModel();
     const graphDataForBackend = converter.toBackendFormat(graphModel);
@@ -201,6 +215,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
               onDragStart={(event) => {
                 event.dataTransfer.setData("storm-diagram-node-type", "intent");
               }}
+              onClick={(event) => {
+                createNewByClick("intent", event);
+              }}
               className="tray-item"
             >
               Intent
@@ -211,6 +228,9 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
               draggable={true}
               onDragStart={(event) => {
                 event.dataTransfer.setData("storm-diagram-node-type", "skill");
+              }}
+              onClick={(event) => {
+                createNewByClick("skill", event);
               }}
               className="tray-item"
             >
