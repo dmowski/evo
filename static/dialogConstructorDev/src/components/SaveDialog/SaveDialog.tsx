@@ -1,34 +1,22 @@
 import * as React from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
-
-import { confirmAlert } from "react-confirm-alert";
 import { HeaderButton } from "../style";
+import { confirmChangesDialog } from "../../utils/confirmChangesDialog";
 
 export interface SaveDialogProps {
-  onClick: () => Promise<void>;
+  onClick: () => any;
 }
 
 export const SaveDialog = ({ onClick }: SaveDialogProps) => {
-  return (
-    <HeaderButton
-      onClick={() => {
-        confirmAlert({
-          title: "Сохранить диалог?",
-          message: "Данные будут отправлены на сервер",
-          buttons: [
-            {
-              label: "Да",
-              onClick: onClick,
-            },
-            {
-              label: "Нет",
-              onClick: () => {},
-            },
-          ],
-        });
-      }}
-    >
-      Сохранить диалог
-    </HeaderButton>
-  );
+  const clickHandler = async () => {
+    const confirmResult = await confirmChangesDialog(
+      "Удалить диалог?",
+      "Вы действительно хотите это сделать? Все данные диалога будут удалены"
+    );
+    if (confirmResult) {
+      onClick();
+    }
+  };
+
+  return <HeaderButton onClick={clickHandler}>Сохранить диалог</HeaderButton>;
 };

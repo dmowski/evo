@@ -1,32 +1,25 @@
 import * as React from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { DeleteControlButton } from "./style";
-import { confirmAlert } from "react-confirm-alert";
+import { confirmChangesDialog } from "../../utils/confirmChangesDialog";
 
 export interface DeleteControlProps {
-  onDelete: () => Promise<void>;
+  onClick: () => any;
 }
 
-export const DeleteControl = ({ onDelete }: DeleteControlProps) => {
+export const DeleteControl = ({ onClick }: DeleteControlProps) => {
+  const clickHandler = async () => {
+    const confirmResult = await confirmChangesDialog(
+      "Удалить диалог?",
+      "Вы действительно хотите это сделать? Все данные диалога будут удалены"
+    );
+    if (confirmResult) {
+      onClick();
+    }
+  };
+
   return (
-    <DeleteControlButton
-      onClick={() => {
-        confirmAlert({
-          title: "Удалить диалог?",
-          message: "Вы действительно хотите это сделать? Все данные диалога будут удалены",
-          buttons: [
-            {
-              label: "Да",
-              onClick: onDelete,
-            },
-            {
-              label: "Нет",
-              onClick: () => {},
-            },
-          ],
-        });
-      }}
-    >
+    <DeleteControlButton onClick={clickHandler}>
       <i className="fa-solid fa-trash"></i>
     </DeleteControlButton>
   );

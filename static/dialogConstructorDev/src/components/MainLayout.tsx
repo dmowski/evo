@@ -18,7 +18,7 @@ import { ZoomControl } from "./ZoomControl/ZoomControl";
 import { DeleteControl } from "./DeleteControl/DeleteControl";
 import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
 import { SaveDialog } from "./SaveDialog/SaveDialog";
-import { BackendGraph, BackendShortGraph, BackendError } from "../types/backend";
+import { BackendGraph, BackendShortGraph } from "../types/backend";
 import { confirmChangesDialog } from "../utils/confirmChangesDialog";
 
 export interface MainLayoutProps {
@@ -215,11 +215,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
           <ZoomControl app={app} />
 
-          <DeleteControl
-            onDelete={async () => {
-              console.log("Send request");
-            }}
-          />
+          <DeleteControl onClick={() => console.log("Send request")} />
         </GraphToolbar>
       )}
     </div>

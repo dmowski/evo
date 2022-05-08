@@ -3,37 +3,27 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 
 import { confirmAlert } from "react-confirm-alert";
 import { HeaderButton } from "../style";
+import { confirmChangesDialog } from "../../utils/confirmChangesDialog";
 
 export interface AddNewDialogProps {
-  onClick: () => Promise<void>;
+  onClick: () => any;
   showConfirm: boolean;
 }
 
 export const AddNewDialog = ({ onClick, showConfirm }: AddNewDialogProps) => {
-  return (
-    <HeaderButton
-      onClick={() => {
-        if (showConfirm) {
-          confirmAlert({
-            title: "Создать новый диалог?",
-            message: "Несохраненные данные будут удалены",
-            buttons: [
-              {
-                label: "Да",
-                onClick: onClick,
-              },
-              {
-                label: "Нет",
-                onClick: () => {},
-              },
-            ],
-          });
-        } else {
-          onClick();
-        }
-      }}
-    >
-      Добавить новый диалог
-    </HeaderButton>
-  );
+  const clickHandler = async () => {
+    if (!showConfirm) {
+      onClick();
+      return;
+    }
+    const confirmResult = await confirmChangesDialog(
+      "Создать новый диалог?",
+      "Несохраненные данные будут удалены"
+    );
+    if (confirmResult) {
+      onClick();
+    }
+  };
+
+  return <HeaderButton onClick={clickHandler}>Добавить новый диалог</HeaderButton>;
 };
