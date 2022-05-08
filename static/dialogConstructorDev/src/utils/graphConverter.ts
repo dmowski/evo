@@ -1,19 +1,10 @@
 import { DiagramModel, DiagramModelGenerics } from "@projectstorm/react-diagrams";
-import { CustomNodeModel } from "../Node/CustomNodeModel";
+import { CustomNodeModel } from "../components/Node/CustomNodeModel";
 import { Point } from "@projectstorm/geometry";
-import { AdvancedLinkModel } from "../LinksSettings";
+import { AdvancedLinkModel } from "../components/LinksSettings";
+import { BackendGraphNode } from "../types/backend";
 
-export interface BackendGraphNode {
-  node_type: string;
-  node_name: string;
-  node_content: string;
-  node_links: string[];
-  node_views: number;
-  position_x: number;
-  position_y: number;
-}
-
-export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
+export const toBackendFormat = (model: DiagramModel<DiagramModelGenerics>) => {
   const serializedData = model.serialize();
   const nodeData = Object.values(serializedData.layers[1].models);
   const arrowsData = Object.values(serializedData.layers[0].models);
@@ -36,7 +27,7 @@ export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
       node_name: node.extras.name,
       node_content: node.extras.content,
       node_links: momChild.filter((item) => item.mom === node.id).map((item) => item.childName),
-      node_views: 0,
+      node_views: node.extras.views,
       position_x: node.x,
       position_y: node.y,
     };
@@ -44,7 +35,7 @@ export const dataForPost = (model: DiagramModel<DiagramModelGenerics>) => {
   return graph;
 };
 
-export const receivedData = (backendNodes: BackendGraphNode[]) => {
+export const fromBackendFormat = (backendNodes: BackendGraphNode[]) => {
   const intents = backendNodes.filter((backendNode) => backendNode.node_type === "intent");
   const skills = backendNodes.filter((backendNode) => backendNode.node_type === "skill");
 
@@ -54,7 +45,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
       backendNode.node_name,
       backendNode.node_type,
       false,
-      backendNode.node_content
+      backendNode.node_content,
+      backendNode.node_views
     );
 
     nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));
@@ -67,7 +59,8 @@ export const receivedData = (backendNodes: BackendGraphNode[]) => {
       backendNode.node_name,
       backendNode.node_type,
       true,
-      backendNode.node_content
+      backendNode.node_content,
+      backendNode.node_views
     );
 
     nodeModel.setPosition(new Point(backendNode.position_x, backendNode.position_y));

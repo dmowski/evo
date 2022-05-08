@@ -15,6 +15,7 @@ export interface CustomNodeWidgetProps {
   engine: DiagramEngine;
   type: string;
   name: string;
+  views: number;
   content: string;
   isIn: boolean;
   isSelected: boolean;
@@ -25,6 +26,7 @@ export const CustomNodeWidget = ({
   node,
   type,
   name,
+  views,
   isIn,
   isSelected,
   content,
@@ -44,7 +46,33 @@ export const CustomNodeWidget = ({
     node.setNewNodeContent(nodeContent);
   };
 
+  const deleteNodeHandler = () => {
+    const confirmResult = confirm("Delete this element?");
+    if (!confirmResult) {
+      return;
+    }
+    engine
+      .getModel()
+      .getSelectedEntities()
+      .forEach((item) => {
+        if (item instanceof NodeModel) {
+          engine.getModel().removeNode(item);
+          const port = item.getPort(isIn ? "skill" : "intent");
+          const links = engine.getModel().getLinks();
+          const linksForDelete = links.filter(
+            (link) => link.getTargetPort() === port || link.getSourcePort() === port
+          );
+          linksForDelete.forEach((link) => {
+            engine.getModel().removeLink(link);
+          });
+
+          engine.repaintCanvas();
+        }
+      });
+  };
+
   const activeColor = isIn ? "#FF7A00" : "#1A1A4E";
+  const isShowViews = isIn ? false : true;
   return (
     <GraphNode
       activeColor={activeColor}
@@ -73,35 +101,9 @@ export const CustomNodeWidget = ({
       >
         <Port />
       </PortWidget>
-      <DeleteNodeButton
-        style={{}}
-        onClick={() => {
-          const confirmResult = confirm("Delete this element?");
-          if (!confirmResult) {
-            return;
-          }
-          engine
-            .getModel()
-            .getSelectedEntities()
-            .forEach((item) => {
-              if (item instanceof NodeModel) {
-                engine.getModel().removeNode(item);
-                const port = item.getPort(isIn ? "skill" : "intent");
-                const links = engine.getModel().getLinks();
-                const linksForDelete = links.filter(
-                  (link) => link.getTargetPort() === port || link.getSourcePort() === port
-                );
-                linksForDelete.forEach((link) => {
-                  engine.getModel().removeLink(link);
-                });
-                engine.repaintCanvas();
-              }
-            });
-        }}
-      >
-        x
-      </DeleteNodeButton>
-      <NodeViews>111</NodeViews>
+
+      <DeleteNodeButton onClick={deleteNodeHandler}>x</DeleteNodeButton>
+      {isShowViews && <NodeViews>{views}</NodeViews>}
     </GraphNode>
   );
 };
