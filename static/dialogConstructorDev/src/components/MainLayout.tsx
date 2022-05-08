@@ -42,7 +42,7 @@ export interface BackendShortGraph {
 
 export const MainLayout = ({ app }: MainLayoutProps) => {
   const [graphList, setGraphList] = useState<BackendShortGraph[]>([]);
-  const [selectGraph, setSelectGraph] = useState<BackendGraph | null>(null);
+  const [selectedGraph, setSelectedGraph] = useState<BackendGraph | null>(null);
 
   const dropHandler = (event) => {
     var type = event.dataTransfer.getData("storm-diagram-node-type");
@@ -58,11 +58,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
   const saveGraph = async () => {
     const graph = dataForPost(app.diagramEngine.getModel());
-    const graphData = await getOneGraph(selectGraph.id);
+    const graphData = await getOneGraph(selectedGraph.id);
     const isNewGraph = !!graphData.error;
-    const id = selectGraph.id;
+    const id = selectedGraph.id;
 
-    let title = selectGraph.title;
+    let title = selectedGraph.title;
 
     title = window.prompt("Введите имя нового диалога", title);
 
@@ -106,10 +106,10 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
   useEffect(() => {
     updateListOfDialogs();
-  }, [selectGraph]);
+  }, [selectedGraph]);
 
   const changeGraph = async (newGraphId: string) => {
-    if (selectGraph && selectGraph.id === newGraphId) {
+    if (selectedGraph && selectedGraph.id === newGraphId) {
       return;
     }
 
@@ -121,7 +121,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       app.diagramEngine.setModel(app.activeModel);
       app.activeModel.addAll(...newModels);
       app.diagramEngine.repaintCanvas();
-      setSelectGraph(graphFullData);
+      setSelectedGraph(graphFullData);
     }
   };
 
@@ -139,7 +139,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     };
     const model = new DiagramModel();
     app.diagramEngine.setModel(model);
-    setSelectGraph(newGraph);
+    setSelectedGraph(newGraph);
   };
 
   return (
@@ -153,7 +153,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           event.preventDefault();
         }}
       >
-        {selectGraph && (
+        {selectedGraph && (
           <GraphCanvas color="rgb(222, 222, 222)" background="rgb(233, 233, 233)">
             <CanvasWidget engine={app.diagramEngine} />
           </GraphCanvas>
@@ -164,13 +164,13 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         {graphList.length > 0 && (
           <select
             name="dialogs"
-            value={selectGraph?.id}
+            value={selectedGraph?.id}
             onChange={(e) => {
               changeGraph(e.target.value);
             }}
           >
             <option value="0"></option>
-            {graphList.map((graphInfo, key) => {
+            {graphList.map((graphInfo) => {
               return (
                 <option value={graphInfo.id} key={graphInfo.id}>
                   {graphInfo.title}
@@ -180,12 +180,12 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
           </select>
         )}
 
-        <AddNewDialog onAdd={newGraph} showConfirm={selectGraph} />
+        <AddNewDialog onAdd={newGraph} showConfirm={selectedGraph} />
 
-        {selectGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
+        {selectedGraph && <AddDialogButton onClick={saveGraph}>Сохранить граф</AddDialogButton>}
       </DialogConstructorHeader>
 
-      {selectGraph && (
+      {selectedGraph && (
         <GraphToolbar>
           <NodeControlPanel>
             <NodeControlElement
