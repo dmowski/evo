@@ -7,7 +7,7 @@ import {
 import { AdvancedPortModel } from "../LinksSettings";
 
 export class CustomNodeModel extends NodeModel<NodeModelGenerics> {
-  constructor(name: string, type: string, isIn: boolean, content: string, views: string) {
+  constructor(name: string, type: string, isIn: boolean, content: string, views: number) {
     super({
       type: "custom",
     });
