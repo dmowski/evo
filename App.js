@@ -153,7 +153,35 @@ app.post("/api/v1/dialo_graph.update", (req, res) => {
 
   res.json({ message: "ok" });
 });
+// Delete GRAPH
+app.delete("/api/v1/dialo_graph.delete", (req, res) => {
+  const graphId = req.body.id;
 
+  if (!graphId) {
+    return res.json({
+      message: `Id param misssing. try this: http://localhost:62544/api/v1/dialo_graph.get?graph_id=2`,
+      error: true,
+    });
+  }
+
+  console.log("api/v1/dialo_graph.get");
+  console.log(listOfGraphs);
+  console.log("graphId", graphId);
+  console.log("------------------");
+  const indexGraph = listOfGraphs.findIndex((graphNode) => {
+    return graphNode.id == graphId;
+  });
+  if (indexGraph === -1) {
+    return res.json({ error: true, message: "Graph not find" });
+  }
+  listOfGraphs.splice(indexGraph, 1);
+  res.json({ message: "ok" });
+
+  // return res.json({
+  //   message: "Graph not founded",
+  //   error: true,
+  // });
+});
 // Add GRAPH
 app.post("/api/v1/dialo_graph.add", (req, res) => {
   const { title, graph, id } = req.body;
