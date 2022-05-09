@@ -179,11 +179,11 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     if (!isNewGraph) {
       await backendFunctions.removeOne(selectedGraphId);
     }
-
     const newGraphList = await updateListOfDialogs();
-    setGraphList(newGraphList);
-
-    setSelectedGraphId(graphList[0].id);
+    if (newGraphList.length) {
+      setGraphList(newGraphList);
+      setSelectedGraphId(graphList[0].id);
+    } else await newGraph();
   };
 
   return (
