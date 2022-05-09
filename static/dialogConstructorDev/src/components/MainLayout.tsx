@@ -84,14 +84,15 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       }
     }
 
-    await updateListOfDialogs();
+    const newGraphList = await updateListOfDialogs();
+    newGraphList && setGraphList(newGraphList);
     setIsNewGraph(false);
     setSelectedGraphId(id);
     setSelectedGraph(dataForSaveInBackend);
     console.log(`setSelectedGraphId(id);`, id);
   };
 
-  const updateListOfDialogs = async () => {
+  const updateListOfDialogs = async (): Promise<BackendShortGraph[] | void> => {
     const graphList = await backendFunctions.getList();
     if (!("error" in graphList)) {
       return graphList;
@@ -180,7 +181,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
       await backendFunctions.removeOne(selectedGraphId);
     }
     const newGraphList = await updateListOfDialogs();
-    if (newGraphList.length > 0 && newGraphList) {
+    if (newGraphList.length > 0) {
       setGraphList(newGraphList);
       setSelectedGraphId(newGraphList[0].id);
     } else {
@@ -266,7 +267,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
           <ZoomControl app={app} />
 
-          <DeleteControl onClick={() => deleteGraph()} />
+          <DeleteControl onClick={deleteGraph} />
         </GraphToolbar>
       )}
     </div>
