@@ -62,7 +62,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     const graphDataForBackend = converter.toBackendFormat(graphModel);
     const id = selectedGraph.id;
     let title = selectedGraph.title;
-    title = window.prompt("Введите имя нового диалога", title);
+    title = window.prompt("Название диалога", title);
 
     const dataForSaveInBackend: BackendGraph = {
       id,
