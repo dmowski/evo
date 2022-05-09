@@ -94,15 +94,16 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
   const updateListOfDialogs = async () => {
     const graphList = await backendFunctions.getList();
     if (!("error" in graphList)) {
-      setGraphList(graphList);
+      return graphList;
     } else {
       alert("Ошибка при получении списка графов");
       console.log(graphList);
     }
   };
 
-  useEffect(() => {
-    updateListOfDialogs();
+  useEffect(async () => {
+    const newGraphList = await updateListOfDialogs();
+    setGraphList(newGraphList);
     app.diagramEngine;
   }, []);
 
@@ -178,7 +179,10 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     if (!isNewGraph) {
       await backendFunctions.removeOne(selectedGraphId);
     }
-    await updateListOfDialogs();
+
+    const newGraphList = await updateListOfDialogs();
+    setGraphList(newGraphList);
+
     setSelectedGraphId(graphList[0].id);
   };
 
