@@ -1,0 +1,45 @@
+.message{
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-bubble {
+  padding: 10px 14px;
+  background: #eee;
+  margin: 10px 30px;
+  border-radius: 9px;
+  position: relative;
+  max-width: 240px;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-bottom: 0;
+    margin-top: -10px;
+  }
+
+  &--left {
+    align-self: start;
+    &:after {
+      left: 0;
+      border-right-color: #eee;
+      border-left: 0;
+      margin-left: -20px;
+    }
+  }
+
+  &--right {
+    align-self: end;
+    background: var(--color-primary);
+    color: #fff;
+    &:after {
+      right: 0;
+      border-left-color: var(--color-primary);
+      border-right: 0;
+      margin-right: -20px;
+    }
+  }
+}
