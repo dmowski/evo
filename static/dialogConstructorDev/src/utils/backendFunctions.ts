@@ -40,6 +40,33 @@ const getOne = async (id: number): Promise<BackendGraph | BackendError> => {
     };
   }
 };
+const removeOne = async (id: number): Promise<BackendGraph | BackendError> => {
+  try {
+    const req = await fetch(baseUrl + "api/v1/dialo_graph.remove", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    });
+    const graphData = await req.json();
+    if (graphData.error) {
+      return {
+        error: `Проблема при удалении диалога #${id}`,
+        additionalInformation: graphData.message,
+      };
+    }
+
+    return graphData;
+  } catch (e) {
+    console.log("error on removeOne backend function", e);
+
+    return {
+      error: `Проблема при удалении диалога #${id}`,
+      additionalInformation: JSON.stringify(e),
+    };
+  }
+};
 
 const create = async (graphData: BackendGraph): Promise<void | BackendError> => {
   try {
@@ -108,4 +135,5 @@ export default {
   create,
   getOne,
   getList,
+  removeOne,
 };

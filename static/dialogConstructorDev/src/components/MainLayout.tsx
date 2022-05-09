@@ -111,7 +111,6 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     if (selectedGraph?.id === newGraphId || newGraphId == 0) {
       return;
     }
-
     if (selectedGraphId != 0) {
       const confirmResult = await confirmChangesDialog(
         "Вы действительно хотите сменить диалог?",
@@ -121,31 +120,34 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         return;
       }
     }
+    setSelectedGraphId(newGraphIdValue);
+    if (isNewGraph) {
+      let graphListForUpdate = graphList;
+      const prevGraphId = selectedGraphId;
+      graphListForUpdate = graphListForUpdate.filter((graph) => graph.id !== prevGraphId);
+      setGraphList([...graphListForUpdate]);
+    }
+  };
 
+  useEffect(async () => {
+    const newGraphId = parseInt(selectedGraphId);
+    if (selectedGraph?.id === newGraphId || newGraphId == 0) {
+      return;
+    }
     const graphFullData = await backendFunctions.getOne(newGraphId);
     if ("error" in graphFullData) {
       alert(graphFullData.error);
       return;
     }
-
-    let graphListForUpdate = graphList;
-    if (isNewGraph) {
-      const prevGraphId = selectedGraphId;
-      graphListForUpdate = graphListForUpdate.filter((graph) => graph.id !== prevGraphId);
-    }
-    setGraphList([...graphListForUpdate]);
-
     const backendNodes = graphFullData.graph || [];
     const newModels = converter.fromBackendFormat(backendNodes);
     app.activeModel = new DiagramModel();
     app.diagramEngine.setModel(app.activeModel);
     app.activeModel.addAll(...newModels);
     app.diagramEngine.repaintCanvas();
-
     setSelectedGraph(graphFullData);
-    setSelectedGraphId(graphFullData.id);
     setIsNewGraph(false);
-  };
+  }, [selectedGraphId]);
 
   const newGraph = async () => {
     let graphListForUpdate = graphList;
@@ -170,6 +172,14 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     setSelectedGraph(newGraphFull);
     setIsNewGraph(true);
     setSelectedGraphId(newGraphFull.id);
+  };
+
+  const deleteGraph = async () => {
+    if (!isNewGraph) {
+      await backendFunctions.removeOne(selectedGraphId);
+    }
+    await updateListOfDialogs();
+    setSelectedGraphId(graphList[0].id);
   };
 
   return (
@@ -248,7 +258,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
 
           <ZoomControl app={app} />
 
-          <DeleteControl onClick={() => console.log("Send request")} />
+          <DeleteControl onClick={() => deleteGraph()} />
         </GraphToolbar>
       )}
     </div>
