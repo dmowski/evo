@@ -153,8 +153,8 @@ app.post("/api/v1/dialo_graph.update", (req, res) => {
 
   res.json({ message: "ok" });
 });
-// Remove GRAPH
-app.post("/api/v1/dialo_graph.remove", (req, res) => {
+// Delete GRAPH
+app.post("/api/v1/dialo_graph.delete", (req, res) => {
   const graphId = req.body.id;
 
   if (!graphId) {
