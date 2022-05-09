@@ -43,7 +43,7 @@ const getOne = async (id: number): Promise<BackendGraph | BackendError> => {
 const removeOne = async (id: number): Promise<BackendGraph | BackendError> => {
   try {
     const req = await fetch(baseUrl + "api/v1/dialo_graph.delete", {
-      method: "POST",
+      method: "DELETE",
       headers: {
         "Content-Type": "application/json",
       },
