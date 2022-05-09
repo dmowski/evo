@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta
+            name="viewport"
+            content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
+    />
+    <link rel="stylesheet" href="./style/bundle.css"/>
+    <link rel="icon" href="./images/favicon.png"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+            rel="stylesheet"
+    />
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.1.1/css/all.css"/>
+    <title>Base component</title>
+</head>
+<body>
+<header class="header">
+    <div class="header__sidebar-part">
+        <div class="header__toggle">
+            <i class="fa-solid fa-bars fa-xl"></i>
+        </div>
+        <a href="/"><img class="header__logo" src="images/logo.svg"/></a>
+    </div>
+
+    <div class="header__main-part">
+        <h3 class="header__page-title">Дашборды</h3>
+
+        <div class="header__user-menu user-profile">
+            <a href="#profile" class="user-profile__info" class="btn">
+                <img src="./images/avatar.png" alt="" class="user-profile__avatar"/>
+                <span>User Name</span>
+            </a>
+            <a href="/auth.html" class="user-profile__logout btn">
+                <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+            </a>
+        </div>
+    </div>
+</header>
+
+<nav class="main-menu">
+    <ul>
+        <li class="active">
+            <a href="/baseComponentStructure.html"> <i class="fa-solid fa-grip fa-xl"></i>Дашборд </a>
+        </li>
+        <li>
+            <a href="/baseComponentStructure.html">
+                <i class="fa-solid fa-chart-simple fa-xl"></i>А/Б тесты
+            </a>
+        </li>
+        <li>
+            <a href="/dialogConstructor.html">
+                <i class="fa-solid fa-palette fa-xl"></i>Дизайнер Диалогов
+            </a>
+        </li>
+        <li>
+            <a href="/baseComponentStructure.html">
+                <i class="fa-solid fa-comments fa-xl"></i>Чат с Астрой
+            </a>
+        </li>
+        <li>
+            <a> <i class="fa-solid fa-list-check fa-xl"></i>Задания </a>
+            <ul class="submenu">
+                <li>
+                    <a href="/baseComponentStructure.html">
+                        <i class="fa fa-angle-right"></i>Задание #1
+                    </a>
+                </li>
+                <li>
+                    <a href="/baseComponentStructure.html">
+                        <i class="fa fa-angle-right"></i>Задание #2
+                    </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<main class="content">
+    <div class="chat-panel">
+        <div class="message">
+            <div class="chat-bubble chat-bubble--left">
+                Hello dude!
+            </div>
+        </div>
+        <div class="message">
+
+            <div class="message-right chat-bubble chat-bubble--right">
+                Hello dude!
+            </div>
+        </div>
+        <div class="message">
+
+            <div class="message-right chat-bubble chat-bubble--right">
+                Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!
+            </div>
+        </div>
+        <div class="message">
+            <div class="message-left chat-bubble chat-bubble--left">
+                Hello dude!
+            </div>
+        </div>
+
+        <!--        <div class="row no-gutters">-->
+        <!--          <div class="col-md-3">-->
+        <!--            <div class="chat-bubble chat-bubble&#45;&#45;left">-->
+        <!--              Hello dude!-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="row no-gutters">-->
+        <!--          <div class="col-md-3">-->
+        <!--            <div class="chat-bubble chat-bubble&#45;&#45;left">-->
+        <!--              Hello dude!-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+        <!--        <div class="row no-gutters">-->
+        <!--          <div class="col-md-3 offset-md-9">-->
+        <!--            <div class="chat-bubble chat-bubble&#45;&#45;right">-->
+        <!--              Hello dude!-->
+        <!--            </div>-->
+        <!--          </div>-->
+        <!--        </div>-->
+    </div>
+</main>
+<script src="./js/sidebar.js"></script>
+</body>
+</html>
