@@ -1,4 +1,14 @@
-.message{
+.chat-panel {
+  max-width: 400px;
+  max-height: 600px;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  border-radius: 5px;
+  overflow-y: auto;
+}
+
+.chat-message {
   display: flex;
   flex-direction: column;
 }
@@ -10,8 +20,9 @@
   border-radius: 9px;
   position: relative;
   max-width: 240px;
+
   &:after {
-    content: '';
+    content: "";
     position: absolute;
     top: 50%;
     width: 0;
