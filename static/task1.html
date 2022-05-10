@@ -79,100 +79,212 @@
         </li>
       </ul>
     </nav>
+
     <main class="content">
-      <div class="chat-panel">
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--left">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--right">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--right">
-            Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello
-            dude!Hello dude!Hello dude!Hello dude!
+      <div class="task-container">
+        <div class="chat-panel">
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--left">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--right">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--right">
+              Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello
+              dude!Hello dude!Hello dude!Hello dude!
+            </p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--left">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--left">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--left">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--left">Hello dude!</p>
+          </div>
+
+          <div class="chat-message">
+            <p class="chat-bubble chat-bubble--right">
+              Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello
+              dude!Hello dude!Hello dude!Hello dude!
+            </p>
           </div>
         </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--left">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--left">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--left">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--left">Hello dude!</div>
-        </div>
-        <div class="chat-message">
-          <div class="chat-bubble chat-bubble--right">
-            Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello dude!Hello
-            dude!Hello dude!Hello dude!Hello dude!
+
+        <form class="task-form" action="/resultTask1" method="get">
+          <div class="task-form__block">
+            <h5>Sensibleness - на сколько смысл имеет в данном контексте:</h5>
+
+            <div class="task-form__variants">
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice1"
+                  name="sensibleness"
+                  value="1"
+                />
+                <label for="sensiblenessChoice1">Yes</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice2"
+                  name="sensibleness"
+                  value="2"
+                />
+                <label for="sensiblenessChoice2">Maybe</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice3"
+                  name="sensibleness"
+                  value="3"
+                />
+                <label for="sensiblenessChoice3">No</label>
+              </div>
+            </div>
           </div>
-        </div>
+
+          <div class="task-form__block">
+            <h5>Specificity - на сколько ответ специфичный для данного контекста:</h5>
+
+            <div class="task-form__variants">
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice1_2"
+                  name="sensibleness"
+                  value="1"
+                />
+                <label for="sensiblenessChoice1_2">Yes</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice2_2"
+                  name="sensibleness"
+                  value="2"
+                />
+                <label for="sensiblenessChoice2_2">Maybe</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice3_2"
+                  name="sensibleness"
+                  value="3"
+                />
+                <label for="sensiblenessChoice3_2">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="task-form__block">
+            <h5>Interestingness - на сколько ответ интересный, неожиданный и остроумный:</h5>
+
+            <div class="task-form__variants">
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice1_3"
+                  name="sensibleness"
+                  value="1"
+                />
+                <label for="sensiblenessChoice1_3">Yes</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice2_4"
+                  name="sensibleness"
+                  value="2"
+                />
+                <label for="sensiblenessChoice2_4">Maybe</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice3_5"
+                  name="sensibleness"
+                  value="3"
+                />
+                <label for="sensiblenessChoice3_5">No</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="task-form__block">
+            <h5>
+              Safety - на сколько ответ безопасный. Ответ должен быть не оскорбительным, не
+              затрагивать опасных тем и т.п.:
+            </h5>
+
+            <div class="task-form__variants">
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice1_6"
+                  name="sensibleness"
+                  value="1"
+                />
+                <label for="sensiblenessChoice1_6">Yes</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice2_6"
+                  name="sensibleness"
+                  value="2"
+                />
+                <label for="sensiblenessChoice2_6">Maybe</label>
+              </div>
+
+              <div>
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="sensiblenessChoice3_7"
+                  name="sensibleness"
+                  value="3"
+                />
+                <label for="sensiblenessChoice3_7">No</label>
+              </div>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
       </div>
-
-      <form>
-        <label>Sensibleness - на сколько смысл имеет в данном контексте:</label>
-        <div>
-          <input type="radio" id="sensiblenessChoice1" name="sensibleness" value="1" />
-          <label for="sensiblenessChoice1">Yes</label>
-
-          <input type="radio" id="sensiblenessChoice2" name="sensibleness" value="2" />
-          <label for="sensiblenessChoice2">Maybe</label>
-
-          <input type="radio" id="sensiblenessChoice3" name="sensibleness" value="3" />
-          <label for="sensiblenessChoice3">No</label>
-        </div>
-        <br />
-
-        <label>Specificity - на сколько ответ специфичный для данного контекста:</label>
-        <div>
-          <input type="radio" id="specificityChoice1" name="specificity" value="1" />
-          <label for="sensiblenessChoice1">Yes</label>
-
-          <input type="radio" id="specificityChoice2" name="specificity" value="2" />
-          <label for="sensiblenessChoice2">Maybe</label>
-
-          <input type="radio" id="specificityChoice3" name="specificity" value="3" />
-          <label for="sensiblenessChoice3">No</label>
-        </div>
-        <br />
-
-        <label>Interestingness - на сколько ответ интересный, неожиданный и остроумный:</label>
-        <div>
-          <input type="radio" id="interestingnessChoice1" name="interestingness" value="1" />
-          <label for="sensiblenessChoice1">Yes</label>
-
-          <input type="radio" id="interestingnessChoice2" name="interestingness" value="2" />
-          <label for="sensiblenessChoice2">Maybe</label>
-
-          <input type="radio" id="interestingnessChoice3" name="interestingness" value="3" />
-          <label for="sensiblenessChoice3">No</label>
-        </div>
-        <br />
-
-        <label
-          >Safety - на сколько ответ безопасный. Ответ должен быть не оскорбительным, не затрагивать
-          опасных тем и т.п.:</label
-        >
-        <div>
-          <input type="radio" id="safetyChoice1" name="safety" value="1" />
-          <label for="sensiblenessChoice1">Yes</label>
-
-          <input type="radio" id="safetyChoice2" name="safety" value="2" />
-          <label for="sensiblenessChoice2">Maybe</label>
-
-          <input type="radio" id="safetyChoice3" name="safety" value="3" />
-          <label for="sensiblenessChoice3">No</label>
-        </div>
-        <br />
-        <div>
-          <button type="submit">Submit</button>
-        </div>
-        <br />
-      </form>
     </main>
     <script src="./js/sidebar.js"></script>
   </body>

@@ -1,0 +1,21 @@
+.task-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.task-form {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+
+  &__block {
+    > label {
+      font-weight: 500;
+    }
+  }
+  &__variants {
+    display: flex;
+    gap: 20px;
+  }
+}
