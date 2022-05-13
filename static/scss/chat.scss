@@ -1,5 +1,14 @@
+.chat-container {
+  display: flex;
+  gap: 30px;
+  @media screen and (max-width: 970px) {
+    flex-direction: column;
+  }
+}
+
 .chat-panel {
   max-height: 600px;
+  width: 100%;
   background-color: #fff;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
   padding: 20px;
