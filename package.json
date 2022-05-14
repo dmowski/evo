@@ -14,6 +14,7 @@
     "build": "npm run build-style && cd static/dialogConstructorDev && npm run build",
     "postinstall": "cd static/dialogConstructorDev && npm install",
     "watch-style": "sass --watch static/scss/main.scss:static/style/bundle.css",
+    "predev": "kill-port 62544",
     "dev": "concurrently npm:watch-*",
     "fix": "prettier . --write --ignore-unknown",
     "start": "nodemon App.js",
