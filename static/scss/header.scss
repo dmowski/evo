@@ -82,17 +82,26 @@
     border-radius: 50%;
     margin-right: 10px;
   }
-
   a {
-    display: flex;
-    align-items: center;
-    padding: 0 20px;
     color: var(--color-gray);
     text-decoration: none;
     height: 100%;
-
     &:hover {
       color: var(--color-primary);
     }
+  }
+  &__info {
+    display: flex;
+    align-items: center;
+    padding: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__logout {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
   }
 }
