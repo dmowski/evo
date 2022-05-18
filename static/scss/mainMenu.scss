@@ -30,12 +30,16 @@
       color: var(--color-gray);
 
       &::marker {
-        content: "➤   ";
+        content: "→   ";
         font-size: 1.5rem;
       }
     }
     &[open] summary {
       color: #222;
+    }
+
+    &[open] summary::marker {
+      content: "↓   ";
     }
   }
 
