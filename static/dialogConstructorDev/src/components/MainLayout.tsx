@@ -102,10 +102,28 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     }
   };
 
+  const deleteUnnecessaryLines = () => {
+    const links = app.diagramEngine.getModel().getLinks();
+    const linksForDelete = links.filter((link) => {
+      const targetPort = link.getTargetPort();
+      const sourcePort = link.getTargetPort();
+      return !targetPort || !sourcePort;
+    });
+    linksForDelete.forEach((link) => {
+      app.diagramEngine.getModel().removeLink(link);
+    });
+    app.diagramEngine.repaintCanvas();
+  };
+
   useEffect(async () => {
     const newGraphList = await updateListOfDialogs();
     newGraphList && setGraphList(newGraphList);
-    app.diagramEngine;
+
+    document.body.addEventListener("mouseup", () => {
+      setTimeout(() => {
+        deleteUnnecessaryLines();
+      }, 100);
+    });
   }, []);
 
   const selectNewGraph = async (newGraphIdValue: string) => {
