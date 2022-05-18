@@ -27,7 +27,7 @@ export const AddNewDialog = ({ onClick, showConfirm }: AddNewDialogProps) => {
 
   return (
     <HeaderButton onClick={clickHandler}>
-      <i class="fa-solid fa-plus"></i>
+      <i className="fa-solid fa-plus"></i>
       Создать
     </HeaderButton>
   );

@@ -20,7 +20,7 @@ export const SaveDialog = ({ onClick }: SaveDialogProps) => {
 
   return (
     <HeaderButton onClick={clickHandler}>
-      <i class="fa-solid fa-floppy-disk"></i>
+      <i className="fa-solid fa-floppy-disk"></i>
       Сохранить
     </HeaderButton>
   );
