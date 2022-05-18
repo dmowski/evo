@@ -1,11 +1,11 @@
 import styled from "@emotion/styled";
 
 export const Port = styled.div({
-  width: "16px",
-  height: "16px",
+  width: "47px",
+  height: "40px",
   zIndex: "10",
-  background: "rgba(0, 20, 0, 0.5)",
-  borderRadius: "8px",
+  background: "rgba(0, 20, 0, 0)",
+  boxShadow: "inset 0 0 6px rgba(0, 20, 0, 0.4)",
   cursor: "pointer",
   "&:hover": {
     background: "rgba(0, 0, 0, 1)",

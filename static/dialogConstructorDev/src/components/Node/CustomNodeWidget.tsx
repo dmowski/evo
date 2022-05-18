@@ -92,8 +92,8 @@ export const CustomNodeWidget = ({
       ></textarea>
       <PortWidget
         style={{
-          top: "-10px",
-          left: 120,
+          top: "-41px",
+          left: 100,
           position: "absolute",
         }}
         port={node.getPort(isIn ? "skill" : "intent")}

@@ -74,7 +74,8 @@ export const fromBackendFormat = (backendNodes: BackendGraphNode[]) => {
       intentModels
         .filter((node) => node.getName() === nodeLink)
         .forEach((intentModel) => {
-          const link = new AdvancedLinkModel();
+          const color = "#ff7a00";
+          const link = new AdvancedLinkModel(color);
           link.setSourcePort(skillModel.getPort("skill"));
           link.setTargetPort(intentModel.getPort("intent"));
           allModels.push(link);
@@ -89,7 +90,8 @@ export const fromBackendFormat = (backendNodes: BackendGraphNode[]) => {
       skillsModels
         .filter((node) => node.getName() === nodeLink)
         .map((skillModel) => {
-          const link = new AdvancedLinkModel();
+          const color = "#1A1A4E";
+          const link = new AdvancedLinkModel(color);
           link.setSourcePort(intentModel.getPort("intent"));
           link.setTargetPort(skillModel.getPort("skill"));
           allModels.push(link);

@@ -8,17 +8,22 @@ import { LinkWidget, PointModel } from "@projectstorm/react-diagrams-core";
 import React, { MouseEvent } from "react";
 
 export class AdvancedLinkModel extends DefaultLinkModel {
-  constructor() {
+  constructor(color: string = "black") {
     super({
       type: "advanced",
-      width: 4,
+      color: color,
+      width: 2,
     });
   }
 }
 
 export class AdvancedPortModel extends DefaultPortModel {
   createLinkModel(): AdvancedLinkModel | null {
-    return new AdvancedLinkModel();
+    const isSkill = this.options.name === "skill";
+    const colorSkill = "#ff7a00";
+    const colorIntent = "#1A1A4E";
+
+    return new AdvancedLinkModel(isSkill ? colorSkill : colorIntent);
   }
 }
 
@@ -39,8 +44,8 @@ const CustomLinkArrowWidget = (props) => {
       className="arrow"
       transform={"translate(" + point.getPosition().x + ", " + point.getPosition().y + ")"}
     >
-      <g style={{ transform: "rotate(" + angle + "deg)" }}>
-        <g transform={"translate(0, -3)"}>
+      <g style={{ transform: "rotate(" + angle + "deg)", opacity: "0.5" }}>
+        <g transform={"translate(0, -15)"}>
           <polygon
             points="0,10 8,30 -8,30"
             fill={props.color}
