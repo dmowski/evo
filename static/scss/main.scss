@@ -5,7 +5,7 @@ $secondary: #ff9900;
   --sidebar-size: 243px;
   --header-height: 80px;
   --main-content-padding: 20px;
-
+  --color-light-gray: #ebebeb;
   --color-primary: #fe5f55;
   --color-gray: #9a9aa9;
   --color-primary-focus-shadow: rgba(254, 95, 85, 0.2);
@@ -33,3 +33,4 @@ body {
 @import "./diagramConstructor.scss";
 @import "./chat.scss";
 @import "./task.scss";
+@import "./cards.scss";

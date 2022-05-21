@@ -1,0 +1,67 @@
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 30px;
+  //align-items: end;
+}
+
+.card {
+  //width: 340px;
+  height: 150px;
+  padding: 24px;
+  border-radius: 13px;
+  border: var(--color-light-gray) 1px solid;
+}
+
+.card-item {
+  padding-top: 37px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.statistic-plus {
+  color: green;
+}
+
+.statistic-minus {
+  color: var(--color-primary);
+}
+
+.chart-container {
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  gap: 30px;
+}
+
+.chart {
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  padding: 15px;
+}
+
+.indicators {
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  //align-content: center;
+  div {
+    padding: 30px;
+  }
+
+  h3 {
+    color: var(--color-gray);
+  }
+}
+
+.days-check-input {
+  padding-left: 35px;
+  padding-bottom: 5px;
+
+  input {
+    padding-right: 5px;
+  }
+}

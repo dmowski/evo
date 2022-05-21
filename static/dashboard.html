@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
+    />
+    <link rel="stylesheet" href="./style/bundle.css" />
+    <link rel="icon" href="./images/favicon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="//use.fontawesome.com/releases/v6.1.1/css/all.css" />
+    <title>Base component</title>
+  </head>
+  <body>
+    <header class="header">
+      <div class="header__sidebar-part">
+        <div class="header__toggle">
+          <i class="fa-solid fa-bars fa-xl"></i>
+        </div>
+        <a href="/"><img class="header__logo" src="images/logo.svg" /></a>
+      </div>
+
+      <div class="header__main-part">
+        <h3 class="header__page-title">Дашборды</h3>
+
+        <div class="header__user-menu user-profile">
+          <a href="#profile" class="user-profile__info" class="btn">
+            <img src="./images/avatar.png" alt="" class="user-profile__avatar" />
+            <span>User Name</span>
+          </a>
+          <a href="/auth.html" class="user-profile__logout btn">
+            <i class="fa-solid fa-right-from-bracket fa-xl"></i>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-menu main-menu__hidden">
+      <ul>
+        <li class="active">
+          <a href="/baseComponentStructure.html"> <i class="fa-solid fa-grip fa-xl"></i>Дашборд </a>
+        </li>
+        <li>
+          <a href="/baseComponentStructure.html">
+            <i class="fa-solid fa-chart-simple fa-xl"></i>А/Б тесты
+          </a>
+        </li>
+        <li>
+          <a href="/dialogConstructor.html">
+            <i class="fa-solid fa-palette fa-xl"></i>Дизайнер Диалогов
+          </a>
+        </li>
+        <li>
+          <a href="/baseComponentStructure.html">
+            <i class="fa-solid fa-comments fa-xl"></i>Чат с Астрой
+          </a>
+        </li>
+        <li>
+          <a> <i class="fa-solid fa-list-check fa-xl"></i>Задания </a>
+          <ul class="submenu">
+            <li>
+              <a href="/task1.html"> <i class="fa fa-angle-right"></i>Задание #1 </a>
+            </li>
+            <li>
+              <a href="/task2.html"> <i class="fa fa-angle-right"></i>Задание #2</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+    <main class="content">
+      <div class="cards">
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-plus">+0,7% &#8593;</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-minus">-0,5% &#8595;</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-plus">+0,7% &#8593;</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-minus">-0,5% &#8595;</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-plus">+0,7% &#8593;</span>
+          </div>
+        </div>
+        <div class="card">
+          <h5>Пользователей в сутки</h5>
+          <div class="card-item">
+            <span>271 человек</span>
+            <span class="statistic-minus">-0,5% &#8595;</span>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="chart">
+          <div class="days-check-input">
+            <h4>Сравнительный график</h4>
+            <input type="radio" id="Chart_1_Choice_1" name="chart_1" value="7" />
+            <label for="Chart_1_Choice_1">7 дней</label>
+            <input type="radio" id="Chart_1_Choice_2" checked name="chart_1" value="30" />
+            <label for="Chart_1_Choice_2">30 дней</label>
+            <input type="radio" id="Chart_1_Choice_3" name="chart_1" value="60" />
+            <label for="Chart_1_Choice_3">60 дней</label>
+            <input type="radio" id="Chart_1_Choice_4" name="chart_1" value="90" />
+            <label for="Chart_1_Choice_4">90 дней</label>
+          </div>
+          <canvas class="line-chart"></canvas>
+        </div>
+        <div class="indicators">
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+        </div>
+      </div>
+      <div class="chart-container">
+        <div class="chart">
+          <div class="days-check-input">
+            <h4>Сравнительный график</h4>
+            <input type="radio" id="Chart_2_Choice_1" name="chart_2" value="7" />
+            <label for="Chart_1_Choice_1">7 дней</label>
+            <input type="radio" id="Chart_2_Choice_2" checked name="chart_2" value="30" />
+            <label for="Chart_1_Choice_2">30 дней</label>
+            <input type="radio" id="Chart_2_Choice_3" name="chart_2" value="60" />
+            <label for="Chart_1_Choice_3">60 дней</label>
+            <input type="radio" id="Chart_2_Choice_4" name="chart_2" value="90" />
+            <label for="Chart_1_Choice_4">90 дней</label>
+          </div>
+          <canvas class="line-chart"></canvas>
+        </div>
+        <div class="indicators">
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+          <div>
+            <h3>Показатель</h3>
+            <h1>250</h1>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="./js/sidebar.js"></script>
+    <script src="./js/dashboardChart.js"></script>
+  </body>
+</html>
