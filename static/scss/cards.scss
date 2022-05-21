@@ -1,13 +1,14 @@
 .cards {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
   gap: 32px;
   padding-bottom: 30px;
-  //align-items: end;
 }
 
 .card {
-  //width: 340px;
   height: 150px;
   padding: 24px;
   border-radius: 13px;
@@ -32,7 +33,10 @@
   padding-bottom: 30px;
   display: grid;
   grid-template-columns: 3fr 1fr;
-  gap: 30px;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
+  gap: 32px;
 }
 
 .chart {
@@ -44,15 +48,18 @@
 .indicators {
   border: var(--color-light-gray) 1px solid;
   border-radius: 13px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  //align-content: center;
-  div {
-    padding: 30px;
+  display: grid;
+  grid-template-columns: 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
   }
-
-  h3 {
+  padding-top: 34px;
+  padding-bottom: 34px;
+  div {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  h4 {
     color: var(--color-gray);
   }
 }
@@ -60,8 +67,4 @@
 .days-check-input {
   padding-left: 35px;
   padding-bottom: 5px;
-
-  input {
-    padding-right: 5px;
-  }
 }
