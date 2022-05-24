@@ -1,5 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const colors = ["rgba(254, 95, 85, 1)", "rgba(95, 211, 234, 1)"];
+  const colors = [
+    "rgba(254, 95, 85, 1)",
+    "rgba(95, 211, 234, 1)",
+    "rgb(238, 130, 238)",
+    "rgb(60, 179, 113)",
+    "rgb(255, 165, 0)",
+  ];
   const charts = document.querySelectorAll(".chart");
   charts.forEach((chart, i) => {
     const name = `chart_${i + 1}`;
