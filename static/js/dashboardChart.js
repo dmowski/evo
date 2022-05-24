@@ -1,42 +1,52 @@
-const formatData = (number) => {
-  return number < 10 ? `0${number}` : `${number}`;
-};
-const getDataForChart = () => {
-  let data = [];
-  const startData = new Date();
-  for (let i = 0; i < 90; i++) {
-    const nextDay = new Date(startData);
-    nextDay.setDate(nextDay.getDate() - i);
-    const day = formatData(nextDay.getDate());
-    const month = formatData(nextDay.getMonth());
-    data.push({ label: `${day}/${month}`, values: [Math.random(), Math.random()] });
-  }
-  return data.reverse();
-};
-////////
 document.addEventListener("DOMContentLoaded", () => {
-  const dataForChart = [getDataForChart(), getDataForChart(), getDataForChart()];
   const colors = ["rgba(254, 95, 85, 1)", "rgba(95, 211, 234, 1)"];
   const charts = document.querySelectorAll(".chart");
   charts.forEach((chart, i) => {
     const name = `chart_${i + 1}`;
+    const labels = chart.querySelector(".chart-labels").textContent.split(",");
+    const values = chart.querySelectorAll(".chart-one-line");
+    let valuesForChart = [];
+    values.forEach((v) => {
+      valuesForChart.push(v.textContent.split(","));
+    });
     const radioGroup = chart.querySelectorAll(`input[name=${name}]`);
     const defaultCountDays = chart.querySelector(`input[name=${name}]:checked`).value;
     const ctxL = chart.querySelector(".line-chart").getContext("2d");
     radioGroup.forEach((input) => {
       input.addEventListener("change", (event) => {
         const currentCountDays = document.querySelector(`input[name=${name}]:checked`).value;
-        changeChart(dataForChart[i].slice(dataForChart[i].length - currentCountDays), lineChart);
+        changeChart(setDataForChart(labels, valuesForChart, currentCountDays), lineChart);
       });
     });
-    const lineChart = newChart(
-      dataForChart[i].slice(dataForChart[i].length - defaultCountDays),
-      ctxL
-    );
+    const lineChart = newChart(setDataForChart(labels, valuesForChart, defaultCountDays), ctxL);
   });
 
-  function newChart(data, ctxL) {
-    const { labels, datasets } = treatmentData(data);
+  function setDataForChart(labels, valuesForChart, countDays) {
+    return {
+      labels: labels.slice(labels.length - countDays),
+      values: valuesForChart.map((oneLineValue) =>
+        oneLineValue.slice(oneLineValue.length - countDays)
+      ),
+    };
+  }
+
+  function setDataset(values) {
+    let datasets = [];
+    for (let i = 0; i < values.length; i++) {
+      datasets.push({
+        label: "Dataset",
+        data: values[i],
+        backgroundColor: ["rgba(105, 0, 132, .2)"],
+        borderColor: [colors[i]],
+        borderWidth: 2,
+      });
+    }
+    return datasets;
+  }
+
+  function newChart({ labels, values }, ctxL) {
+    console.log(values);
+    const datasets = setDataset(values);
     return new Chart(ctxL, {
       type: "line",
       data: {
@@ -59,30 +69,13 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const changeChart = (dataForChart, chart) => {
+  function changeChart({ labels, values }, chart) {
+    console.log(values);
+    console.log(labels);
     chart.data.datasets.pop();
-    const { labels, datasets } = treatmentData(dataForChart);
+    const datasets = setDataset(values);
     chart.data.labels = labels;
     chart.data.datasets = datasets;
     chart.update();
-  };
-
-  function treatmentData(data) {
-    const labels = data.map((data) => data.label);
-    const values = data.map((data) => data.values);
-    let datasets = [];
-    for (let i = 0; i < values[0].length; i++) {
-      datasets.push({
-        label: "Dataset",
-        data: values.map((v) => v[i]),
-        backgroundColor: ["rgba(105, 0, 132, .2)"],
-        borderColor: [colors[i]],
-        borderWidth: 2,
-      });
-    }
-    return {
-      labels,
-      datasets,
-    };
   }
 });
