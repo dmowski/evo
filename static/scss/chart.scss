@@ -1,0 +1,45 @@
+.chart-container {
+  padding-bottom: 30px;
+  display: grid;
+  grid-template-columns: minmax(0, 3fr) 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  gap: 32px;
+}
+
+.chart {
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  padding: 15px;
+}
+.chart-labels {
+  display: none;
+}
+.chart-one-line {
+  display: none;
+}
+
+.indicators {
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  display: grid;
+  grid-template-columns: 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  padding-top: 34px;
+  padding-bottom: 34px;
+  div {
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+  h4 {
+    color: var(--color-gray);
+  }
+}
+
+.days-check-input {
+  padding-left: 35px;
+  padding-bottom: 5px;
+}
