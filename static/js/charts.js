@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function newChart({ labels, values }, ctxL) {
-    console.log(values);
     const datasets = setDataset(values);
     return new Chart(ctxL, {
       type: "line",
@@ -70,8 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function changeChart({ labels, values }, chart) {
-    console.log(values);
-    console.log(labels);
     chart.data.datasets.pop();
     const datasets = setDataset(values);
     chart.data.labels = labels;
