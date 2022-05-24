@@ -1,0 +1,33 @@
+.cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+  }
+  gap: 32px;
+  padding-bottom: 30px;
+}
+
+.card {
+  height: 150px;
+  padding: 24px;
+  border-radius: 13px;
+  border: var(--color-light-gray) 1px solid;
+  h5 {
+    height: 30px;
+  }
+}
+
+.card-item {
+  padding-top: 37px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.statistic-plus {
+  color: green;
+}
+
+.statistic-minus {
+  color: var(--color-primary);
+}
