@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Application } from "../Application";
-import { DiagramModel } from "@projectstorm/react-diagrams";
+import { DiagramEngine, DiagramModel } from "@projectstorm/react-diagrams";
 import { CanvasWidget } from "@projectstorm/react-canvas-core";
 import { CustomNodeModel } from "./Node/CustomNodeModel";
 import {
@@ -20,6 +20,9 @@ import { AddNewDialog } from "./AddNewDialog/AddNewDialog";
 import { SaveDialog } from "./SaveDialog/SaveDialog";
 import { BackendGraph, BackendShortGraph } from "../types/backend";
 import { confirmChangesDialog } from "../utils/confirmChangesDialog";
+import { EditableLabelModel } from "./Label/EditableLabelModel";
+import { addLabelsToLines } from "../utils/addLabelsToLines";
+import { deleteUnnecessaryLines } from "../utils/deleteUnnecessaryLines";
 
 export interface MainLayoutProps {
   app: Application;
@@ -102,26 +105,14 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     }
   };
 
-  const deleteUnnecessaryLines = () => {
-    const links = app.diagramEngine.getModel().getLinks();
-    const linksForDelete = links.filter((link) => {
-      const targetPort = link.getTargetPort();
-      const sourcePort = link.getTargetPort();
-      return !targetPort || !sourcePort;
-    });
-    linksForDelete.forEach((link) => {
-      app.diagramEngine.getModel().removeLink(link);
-    });
-    app.diagramEngine.repaintCanvas();
-  };
-
   useEffect(async () => {
     const newGraphList = await updateListOfDialogs();
     newGraphList && setGraphList(newGraphList);
 
     document.body.addEventListener("mouseup", () => {
       setTimeout(() => {
-        deleteUnnecessaryLines();
+        deleteUnnecessaryLines(app.diagramEngine);
+        addLabelsToLines(app.diagramEngine);
       }, 100);
     });
   }, []);
@@ -165,6 +156,7 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
     app.diagramEngine.setModel(app.activeModel);
     app.activeModel.addAll(...newModels);
     app.diagramEngine.repaintCanvas();
+    addLabelsToLines(app.diagramEngine);
     setSelectedGraph(graphFullData);
     setIsNewGraph(false);
   }, [selectedGraphId]);

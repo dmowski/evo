@@ -3,6 +3,7 @@ import createEngine, { DiagramModel, DiagramEngine } from "@projectstorm/react-d
 import { CustomNodeFactory } from "./components/Node/CustomNodeFactory";
 import { AdvancedLinkFactory } from "./components/Link/AdvancedLinkFactory";
 import { CustomItemsAction } from "./components/Actions/CustomItemsAction";
+import { EditableLabelFactory } from "./components/Label/EditableLabelFactory";
 
 export class Application {
   public activeModel: DiagramModel;
@@ -13,6 +14,7 @@ export class Application {
     this.diagramEngine = createEngine({
       registerDefaultDeleteItemsAction: false,
     });
+    this.diagramEngine.getLabelFactories().registerFactory(new EditableLabelFactory());
     this.diagramEngine.getLinkFactories().registerFactory(new AdvancedLinkFactory());
     this.diagramEngine.getActionEventBus().registerAction(new CustomItemsAction());
 
