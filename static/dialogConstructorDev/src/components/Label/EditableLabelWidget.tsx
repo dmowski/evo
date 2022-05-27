@@ -8,19 +8,18 @@ export interface FlowAliasLabelWidgetProps {
 }
 
 const DeleteButton = styled.button({
-  width: "30px",
-  border: "none",
+  width: "20px",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "30px",
+  height: "20px",
 
-  background: "rgba(0, 20, 0, 0.05)",
   color: "black",
   cursor: "pointer",
   userSelect: "none",
   pointerEvents: "auto",
-  borderRadius: "100%",
+  border: "1px solid rgba(0, 0, 0, 1)",
+  background: "rgba(255, 255, 255, 0.9)",
   "&:hover": {
     color: "white",
     background: "rgba(222, 44, 44, 1)",

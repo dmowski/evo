@@ -115,6 +115,20 @@ export const MainLayout = ({ app }: MainLayoutProps) => {
         addLabelsToLines(app.diagramEngine);
       }, 100);
     });
+
+    setInterval(() => {
+      const zoom = app.activeModel.getZoomLevel();
+      const container = document.body;
+      const diff = Math.max(100 - zoom, 0) + Math.max((100 - zoom) / 20, 0);
+      const portZoom = 100 + diff;
+      const portZoomVariable = portZoom / 100;
+      container.style.setProperty("--port-zoom-level", `${portZoomVariable}`);
+
+      container.style.setProperty(
+        "--port-zoom-level-px",
+        portZoomVariable + portZoomVariable / 50 + "px"
+      );
+    }, 200);
   }, []);
 
   const selectNewGraph = async (newGraphIdValue: string) => {

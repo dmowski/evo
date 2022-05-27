@@ -1,14 +1,31 @@
 import styled from "@emotion/styled";
 
 export const Port = styled.div({
-  width: "47px",
-  height: "40px",
+  width: "100%",
+  height: "100%",
   zIndex: "10",
   background: "rgba(0, 20, 0, 0)",
-  boxShadow: "inset 0 0 6px rgba(0, 20, 0, 0.4)",
+
   cursor: "pointer",
-  "&:hover": {
+  "&:hover:after": {
     background: "rgba(0, 0, 0, 1)",
+    boxShadow: "inset 0 0 0 calc(var(--port-zoom-level-px)+1px) rgba(0, 20, 0, 0.9)",
+  },
+  "&:after": {
+    position: "absolute",
+    content: "''",
+    display: "block",
+    boxShadow: "inset 0 0 0 var(--port-zoom-level-px) rgba(0, 0, 0, 1)",
+    width: `100%`,
+    height: `100%`,
+    left: "0",
+    right: "0",
+    zIndex: -2,
+    transform: "scale(var(--port-zoom-level))",
+    borderRadius: "100%",
+    background: "rgba(255, 255, 255, 0.2)",
+    bottom: 0,
+    margin: "auto",
   },
 });
 
