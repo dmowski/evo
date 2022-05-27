@@ -1,8 +1,8 @@
 import * as React from "react";
 import createEngine, { DiagramModel, DiagramEngine } from "@projectstorm/react-diagrams";
-import { AdvancedLinkFactory } from "./components/LinksSettings";
 import { CustomNodeFactory } from "./components/Node/CustomNodeFactory";
 import { CustomItemsAction } from "./Actions";
+import { AdvancedLinkFactory } from "./components/Link/AdvancedLinkFactory";
 
 export class Application {
   public activeModel: DiagramModel;
