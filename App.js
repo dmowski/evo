@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+const randomSentence = require("random-sentence");
 const app = express();
 
 app.use(bodyParser.json());
@@ -324,6 +324,39 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
       },
     ],
   });*/
+});
+
+const listOfChats = [];
+// Отправка сообщения чат-боту
+app.post("/api/v1/chat.message", (req, res) => {
+  const { message } = req.body;
+
+  if (!message) {
+    return res.json({ error: "'message' is missing. Root level" });
+  }
+
+  if (typeof message !== "string") {
+    return res.json({ error: "'title' should be a string" });
+  }
+
+  let id = 0;
+  listOfChats.forEach((messageObj) => {
+    if (messageObj.message_id > id) {
+      id = messageObj.message_id;
+    }
+  });
+  id++;
+  const text = randomSentence({ min: 4, max: 33 });
+  const messageObject = {
+    text: text,
+    message_id: id,
+  };
+
+  listOfChats.push(messageObject);
+
+  res.json({
+    response: messageObject,
+  });
 });
 
 app.use(express.static(path.join(__dirname, "static")));
