@@ -20,30 +20,19 @@ export class CustomItemsAction extends Action {
         }
 
         if (options.keyCodes.indexOf(event.event.keyCode) !== -1) {
-          const selectedLinks = this.engine
+          const selectedElements = this.engine
             .getModel()
             .getSelectedEntities()
             .filter((item) => {
-              const isLink = item instanceof LinkModel;
               const isPoint = item instanceof PointModel;
-              return isLink || isPoint;
-            })
-            .map((item) => {
-              const isPoint = item instanceof PointModel;
-              if (isPoint) {
-                return item.getParent();
-              }
-              return item;
+              return isPoint;
             });
 
-          if (selectedLinks.length > 0) {
-            const confirm = window.confirm("Are you sure you want to delete?");
-            if (confirm) {
-              selectedLinks.forEach((model) => {
-                model.remove();
-              });
-              this.engine.repaintCanvas();
-            }
+          if (selectedElements.length > 0) {
+            selectedElements.forEach((model) => {
+              model.remove();
+            });
+            this.engine.repaintCanvas();
           }
         }
       },

@@ -41,6 +41,9 @@ export const GraphNode = styled.div<{ activeColor: string; isError: string }>(
         boxShadow: `inset 0 0 0 1px black`,
       },
     },
+    "&:hover": {
+      boxShadow: `0 0 10px rgba(0,0,0,0.6)`,
+    },
     "&.is-selected": {
       boxShadow: `0 0 10px ${activeColor}`,
     },
@@ -67,21 +70,28 @@ export const NodeViews = styled.div({
 });
 
 export const DeleteNodeButton = styled.div({
-  bottom: "-10px",
-  color: "red",
-  left: "-10px",
+  bottom: "-20px",
+
+  left: "-20px",
   text: "10px",
   position: "absolute",
   cursor: "pointer",
-  paddingLeft: "7px",
-  paddingBottom: "10px",
-  border: "1px solid #c3c3c3",
-  width: "25px",
-  borderRadius: "40px",
-  height: "25px",
-  backgroundColor: "white",
+
+  width: "30px",
+  height: "30px",
+  border: "none",
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+
+  background: "rgba(0, 20, 0, 0.05)",
+  color: "black",
+  userSelect: "none",
+  pointerEvents: "auto",
+  borderRadius: "100%",
   "&:hover": {
-    boxShadow: `inset 0 0 0 1px black`,
+    color: "white",
+    background: "rgba(222, 44, 44, 1)",
   },
 });
 

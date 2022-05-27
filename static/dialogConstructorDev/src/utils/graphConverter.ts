@@ -94,6 +94,7 @@ export const fromBackendFormat = (backendNodes: BackendGraphNode[]) => {
           const link = new AdvancedLinkModel(color);
           link.setSourcePort(intentModel.getPort("intent"));
           link.setTargetPort(skillModel.getPort("skill"));
+
           allModels.push(link);
         });
     });
