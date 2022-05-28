@@ -1,0 +1,36 @@
+.emoji-control {
+  summary {
+    color: var(--color-gray);
+
+    &::marker {
+      content: "";
+      font-size: 1.5rem;
+    }
+  }
+  &[open] summary {
+    color: #000;
+  }
+
+  &__list {
+    max-width: min(400px, 80vw);
+    height: min(500px, 80vh);
+    overflow-y: scroll;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+    padding: 6px;
+    div {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+
+      p {
+        margin: 0;
+        padding: 2px;
+        text-align: center;
+        font-size: 2rem;
+        cursor: pointer;
+        &:hover {
+          box-shadow: 0 0 5px var(--color-primary);
+        }
+      }
+    }
+  }
+}
