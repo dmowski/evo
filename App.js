@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const path = require("path");
-
+const randomSentence = require("random-sentence");
 const app = express();
 
 app.use(bodyParser.json());
@@ -326,6 +326,41 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
   });*/
 });
 
+const listOfChats = [];
+// Отправка сообщения чат-боту
+app.post("/api/v1/chat.message", (req, res) => {
+  setTimeout(() => {
+    const { message } = req.body;
+
+    if (!message) {
+      return res.json({ text: "'message' is missing. Root level", message_id: -1 });
+    }
+
+    if (typeof message !== "string") {
+      return res.json({ text: "'title' should be a string", message_id: -1 });
+    }
+
+    let id = 0;
+    listOfChats.forEach((messageObj) => {
+      if (messageObj.message_id > id) {
+        id = messageObj.message_id;
+      }
+    });
+    id++;
+    const text = randomSentence({ min: 4, max: 33 });
+    const messageObject = {
+      text: text,
+      message_id: id,
+    };
+
+    listOfChats.push(messageObject);
+
+    res.json({
+      response: messageObject,
+    });
+  }, 200);
+});
+
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("*", function (req, res) {
@@ -339,8 +374,7 @@ async function start() {
 Server on: ${PORT}
 http://localhost:${PORT}/
 http://localhost:${PORT}/auth.html
-http://localhost:${PORT}/baseComponentStructure.html
-http://localhost:${PORT}/dialogConstructor.html
+http://localhost:${PORT}/dashboard.html
 figma:
 https://www.figma.com/file/e6CPWViwJTFCZxUp18VT1u/AI-constructor?node-id=255%3A270
 -------------------------------

@@ -3,12 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
     <meta
       name="viewport"
       content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
     />
-
     <link rel="stylesheet" href="./style/bundle.css" />
     <link rel="icon" href="./images/favicon.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -30,7 +28,7 @@
       </div>
 
       <div class="header__main-part">
-        <h3 class="header__page-title">Дизайнер Диалогов</h3>
+        <h3 class="header__page-title">Час с Астрой</h3>
 
         <div class="header__user-menu user-profile">
           <a href="#profile" class="user-profile__info" class="btn">
@@ -52,7 +50,7 @@
         <li>
           <a href="/tests.html"> <i class="fa-solid fa-chart-simple fa-xl"></i>А/Б тесты </a>
         </li>
-        <li class="active">
+        <li>
           <a href="/dialogConstructor.html">
             <i class="fa-solid fa-palette fa-xl"></i>Дизайнер Диалогов
           </a>
@@ -60,6 +58,7 @@
         <li>
           <a href="/chat.html"> <i class="fa-solid fa-comments fa-xl"></i>Чат с Астрой </a>
         </li>
+
         <li>
           <details>
             <summary>Задания</summary>
@@ -67,50 +66,23 @@
               <ul>
                 <li><a href="/task1.html">Задание #1</a></li>
                 <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание #2</a></li>
-                <li><a href="/task1.html">Задание #1</a></li>
-                <li><a href="/task2.html">Задание Последнее</a></li>
               </ul>
             </div>
           </details>
         </li>
       </ul>
     </nav>
-    <main class="content content_dialog-constructor">
-      <div id="dialogConstructorContainer" class="diagram-constructor"></div>
+
+    <main class="content">
+      <div class="messenger">
+        <div class="chat-panel messenger__chat"></div>
+        <div class="chat-input">
+          <textarea class="messenger__input"></textarea>
+          <button class="messenger__submit">Send</button>
+        </div>
+      </div>
     </main>
+    <script src="./js/chat.js"></script>
     <script src="./js/sidebar.js"></script>
-    <script src="./js/dist/bundle.js"></script>
   </body>
 </html>
