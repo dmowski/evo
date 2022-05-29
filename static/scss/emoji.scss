@@ -13,14 +13,17 @@
   }
 
   &__list {
+    position: relative;
+    top: -450px;
+    background: var(--bs-body-bg);
     max-width: min(400px, 80vw);
-    height: min(500px, 80vh);
+    height: min(400px, 60vh);
     overflow-y: scroll;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     padding: 6px;
     div {
       display: grid;
-      grid-template-columns: repeat(8, 1fr);
+      grid-template-columns: repeat(6, 1fr);
 
       p {
         margin: 0;

@@ -1,6 +1,9 @@
+// document.addEventListener("DOMContentLoaded", () => {
+//
+// });
+
 (() => {
   const chatUrl = "/api/v1/chat.message";
-
   function getInputSelection(el) {
     var start = 0,
       end = 0,
@@ -112,6 +115,11 @@
     const emojiListNode = container.querySelector(".messenger__emoji-list");
     const emojiListComponents = generateEmojiList();
     emojiListNode.appendChild(emojiListComponents);
+    let isClearChat = false;
+    const message = container.querySelector(".chat-bubble");
+    if (message === null) {
+      isClearChat = true;
+    }
 
     /*{
       text: 'chat message',
@@ -163,6 +171,14 @@
       const emojiValue = emojiNode.innerHTML;
       replaceSelectedText(inputNode, emojiValue);
     });
+    if (isClearChat) {
+      const messageContainer = document.createElement("div");
+      messageContainer.classList.add("chat-message");
+      const textNode = document.createElement("p");
+      textNode.innerText = "Отправьте сообщение чтобы начать диалог";
+      messageContainer.appendChild(textNode);
+      chatNode.appendChild(messageContainer);
+    }
   };
 
   document.addEventListener("DOMContentLoaded", () => {
