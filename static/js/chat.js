@@ -129,9 +129,6 @@
 
     const render = () => {
       chatNode.innerHTML = "";
-      if (state[0].isNewChat === true) {
-        state.slice(1);
-      }
       state.forEach((chatObject) => {
         const messageNode = generateMessageNode(chatObject.text, chatObject.isLeft);
         chatNode.appendChild(messageNode);
