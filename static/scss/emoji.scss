@@ -1,10 +1,11 @@
 .emoji-control {
+  position: absolute;
+  z-index: 3;
   summary {
     color: var(--color-gray);
-
     &::marker {
       content: "";
-      font-size: 1.5rem;
+      font-size: 1.2rem;
     }
   }
   &[open] summary {
