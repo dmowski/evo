@@ -146,6 +146,9 @@
     };
 
     submitNode.addEventListener("click", async () => {
+      if (inputNode.value === "") {
+        return;
+      }
       sendMessage(inputNode.value);
       inputNode.value = "";
     });
