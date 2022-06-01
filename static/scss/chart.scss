@@ -13,33 +13,128 @@
   border-radius: 13px;
   padding: 15px;
 }
-.chart-labels {
-  display: none;
-}
-.chart-one-line {
-  display: none;
+
+.panel {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  .dates-inputs {
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 0.2fr 1fr;
+
+    span {
+      justify-self: center;
+      align-self: center;
+    }
+  }
+  .period {
+    margin-top: 10px;
+  }
+  ul {
+    font-size: 0;
+    padding: 0;
+    margin-top: 10px;
+    li {
+      font-size: 14px;
+      display: inline-block;
+      width: 20%;
+      margin: 0;
+      padding: 0;
+    }
+  }
+  .legend {
+    display: flex;
+    .color {
+      &--1 {
+        background: rgba(254, 95, 85, 1);
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        margin-top: 7px;
+      }
+
+      &--2 {
+        background: rgba(95, 211, 234, 1);
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        margin-top: 7px;
+      }
+
+      &--3 {
+        background: rgb(238, 130, 238);
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        margin-top: 7px;
+      }
+
+      &--4 {
+        background: rgb(60, 179, 113);
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        margin-top: 7px;
+      }
+
+      &--5 {
+        background: rgb(255, 165, 0);
+        width: 10px;
+        height: 10px;
+        margin-left: 5px;
+        margin-top: 7px;
+      }
+    }
+  }
 }
 
 .indicators {
-  border: var(--color-light-gray) 1px solid;
-  border-radius: 13px;
+  padding-top: 15px;
   display: grid;
   grid-template-columns: 1fr;
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  .radio-btn {
+    padding: 10px 15px;
+    display: inline-block;
+    width: 100%;
+
+    h4 {
+      color: var(--color-gray);
+    }
+
+    input[type="radio"] {
+      display: none;
+    }
+
+    label {
+      display: inline-block;
+      cursor: pointer;
+      padding: 5px 15px;
+      width: 100%;
+      line-height: 34px;
+      border: 1px solid #999;
+      border-radius: 6px;
+      user-select: none;
+    }
+
+    input[type="radio"]:checked + label {
+      background: #ffe0a6;
+      color: var(--color-primary);
+
+      h4 {
+        color: black;
+      }
+    }
+
+    label:hover {
+      color: var(--color-primary);
+
+      h4 {
+        color: black;
+      }
+    }
+  }
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr 1fr;
   }
-  padding-top: 34px;
-  padding-bottom: 34px;
-  div {
-    padding-left: 30px;
-    padding-right: 30px;
-  }
-  h4 {
-    color: var(--color-gray);
-  }
-}
-
-.days-check-input {
-  padding-left: 35px;
-  padding-bottom: 5px;
 }
