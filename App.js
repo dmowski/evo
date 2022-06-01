@@ -353,20 +353,17 @@ const linesForOneData = (lines) => {
   }
   return result;
 };
-const generateData = (start, end, lines) => {
-  function dateRange(startDate, endDate, steps = 1) {
-    const Array = [];
-    let currentDate = new Date(startDate);
-    while (currentDate <= new Date(endDate)) {
-      Array.push({
-        date: new Date(currentDate).toISOString().split("T")[0],
-        lines: linesForOneData(lines),
-      });
-      currentDate.setUTCDate(currentDate.getUTCDate() + steps);
-    }
-    return Array;
+const generateData = (startDate, endDate, lines) => {
+  const data = [];
+  let currentDate = new Date(startDate);
+  while (currentDate <= new Date(endDate)) {
+    data.push({
+      date: new Date(currentDate).toISOString().split("T")[0],
+      lines: linesForOneData(lines),
+    });
+    currentDate.setUTCDate(currentDate.getUTCDate() + 1);
   }
-  return dateRange(start, end);
+  return data;
 };
 // res.json({
 //   сhart: Array(93)
