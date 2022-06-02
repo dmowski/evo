@@ -78,9 +78,13 @@
         <div class="chat-container">
           <h4 class="chat-header">Astra online</h4>
           <div class="messenger__chat chatbox"></div>
-          <div class="emoji-list messenger__emoji-list hidden"></div>
           <div class="wrapper chat-input">
-            <button class="emoji-toggler"><i class="fa-regular fa-face-grin"></i></button>
+            <details class="emoji-control">
+              <div class="emoji-control__list messenger__emoji-list"></div>
+              <summary>
+                <i class="fa-regular fa-face-grin"></i>
+              </summary>
+            </details>
             <textarea
               max-rows="3"
               rows="3"
@@ -99,6 +103,5 @@
     <script src="./js/emojiList.js"></script>
     <script src="./js/chat.js"></script>
     <script src="./js/sidebar.js"></script>
-    <script src="./js/emoji.js"></script>
   </body>
 </html>

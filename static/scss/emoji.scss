@@ -1,10 +1,19 @@
 .emoji-control {
   position: absolute;
   z-index: 3;
+  padding: 3px 3px;
+  top: 35vh;
+
   summary {
+    position: relative;
     color: var(--color-gray);
     &::-webkit-details-marker {
       display: none;
+    }
+
+    top: 49vh;
+    @media screen and (max-width: 790px) {
+      top: 44.5vh;
     }
 
     &::marker {
@@ -12,22 +21,42 @@
       font-size: 1.2rem;
     }
   }
+
   &[open] summary {
-    color: #000;
+    color: var(--color-primary);
+    top: 31vh;
+    @media screen and (max-width: 790px) {
+      top: 26.5vh;
+    }
+  }
+
+  summary:hover {
+    color: var(--color-primary);
   }
 
   &__list {
     position: relative;
-    top: -450px;
+    top: 9vh;
+    @media screen and (max-width: 790px) {
+      top: 5vh;
+    }
+    @media screen and (max-height: 700px) {
+      top: 5vh;
+      @media screen and (max-width: 790px) {
+        top: -1vh;
+      }
+    }
+    left: 15px;
     background: var(--bs-body-bg);
-    max-width: min(400px, 80vw);
-    height: min(400px, 60vh);
+    width: 330px;
+    height: 300px;
     overflow-y: scroll;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
     padding: 6px;
+
     div {
       display: grid;
-      grid-template-columns: repeat(6, 1fr);
+      grid-template-columns: repeat(5, 1fr);
 
       p {
         margin: 0;
@@ -35,6 +64,7 @@
         text-align: center;
         font-size: 2rem;
         cursor: pointer;
+
         &:hover {
           box-shadow: 0 0 5px var(--color-primary);
         }
