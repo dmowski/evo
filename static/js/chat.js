@@ -116,7 +116,6 @@
     const chatNode = container.querySelector(".messenger__chat");
     const inputNode = container.querySelector(".messenger__input");
     const submitNode = container.querySelector(".messenger__submit");
-    const emojiContainer = container.querySelector(".emoji-control");
     const emojiListNode = container.querySelector(".messenger__emoji-list");
     const emojiListComponents = generateEmojiList();
     emojiListNode.appendChild(emojiListComponents);
