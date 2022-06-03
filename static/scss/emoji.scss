@@ -1,9 +1,4 @@
-.emoji-control {
-  position: absolute;
-  z-index: 3;
-  padding: 3px 3px;
-
-  &__list {
+ emoji-list {
     position: absolute;
     z-index: 3;
     top: calc(84vh - 270px);
@@ -33,7 +28,7 @@
       }
     }
   }
-}
+
 .hidden {
   display: none;
 }
