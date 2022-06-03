@@ -1,39 +1,32 @@
-.emoji-control {
+.emoji-list {
   position: absolute;
-  z-index: 3;
-  padding: 3px 3px;
+  z-index: 4;
+  top: calc(84vh - 270px);
+  background: var(--bs-body-bg);
+  width: 330px;
+  height: 300px;
+  overflow-y: scroll;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  padding: 6px;
 
-  &__list {
-    position: absolute;
-    z-index: 3;
-    top: calc(84vh - 270px);
-    @media screen and (max-width: 790px) {
-      top: calc(89vh - 305px);
-    }
-    background: var(--bs-body-bg);
-    width: 330px;
-    height: 300px;
-    overflow-y: scroll;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
-    padding: 6px;
-    div {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
+  div {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
 
-      p {
-        margin: 0;
-        padding: 2px;
-        text-align: center;
-        font-size: 2rem;
-        cursor: pointer;
+    p {
+      margin: 0;
+      padding: 2px;
+      text-align: center;
+      font-size: 2rem;
+      cursor: pointer;
 
-        &:hover {
-          box-shadow: 0 0 5px var(--color-primary);
-        }
+      &:hover {
+        box-shadow: 0 0 5px var(--color-primary);
       }
     }
   }
 }
+
 .hidden {
   display: none;
 }
