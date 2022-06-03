@@ -1,9 +1,12 @@
 .task-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+  &--1 {
+    grid-template-columns: 1fr 1fr;
+  }
   gap: 30px;
   margin-bottom: 20px;
-  @media screen and (max-width: 790px) {
+  @media screen and (max-width: 900px) {
     grid-template-columns: 1fr;
   }
   button {
@@ -26,6 +29,11 @@
   display: flex;
   gap: 30px;
   flex-direction: column;
+  @media screen and (max-width: 790px) {
+    height: 135px;
+    overflow-y: scroll;
+    background: white;
+  }
 
   &__block {
     > label {

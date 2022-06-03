@@ -4,6 +4,7 @@
 
 (() => {
   const chatUrl = "/api/v1/chat.message";
+
   function getInputSelection(el) {
     var start = 0,
       end = 0,
@@ -60,12 +61,13 @@
       val = el.value;
     el.value = val.slice(0, sel.start) + text + val.slice(sel.end);
   }
+
   /*
-  return object: {
-      message_id: 1,
-      text: "Or nu ole."
-  }
-  */
+    return object: {
+        message_id: 1,
+        text: "Or nu ole."
+    }
+    */
   const chatRequest = async (message) => {
     const requestData = {
       message,
@@ -83,12 +85,15 @@
 
   const generateMessageNode = (message, isLeft) => {
     const messageContainer = document.createElement("div");
-    messageContainer.classList.add("chat-message");
+    messageContainer.classList.add("message");
     const textNode = document.createElement("p");
-    textNode.classList.add("chat-bubble");
-    textNode.classList.toggle("chat-bubble--left", isLeft);
-    textNode.classList.toggle("chat-bubble--right", !isLeft);
+    const name = document.createElement("b");
+    name.innerText = isLeft ? "Bot" : "User";
+    if (isLeft) {
+      messageContainer.classList.add("them");
+    }
     textNode.innerText = message;
+    messageContainer.appendChild(name);
 
     messageContainer.appendChild(textNode);
     return messageContainer;
@@ -122,9 +127,9 @@
     }
 
     /*{
-      text: 'chat message',
-      isLeft: true,
-    }*/
+          text: 'chat message',
+          isLeft: true,
+        }*/
     const state = [];
 
     const render = () => {
@@ -152,14 +157,22 @@
         isLeft: true,
       });
     };
-
-    submitNode.addEventListener("click", async () => {
-      if (inputNode.value === "") {
+    const send = async () => {
+      const message = inputNode.value.trim();
+      if (message === "") {
         return;
       }
-      sendMessage(inputNode.value);
+      sendMessage(message);
       inputNode.value = "";
-    });
+    };
+    submitNode.addEventListener("click", send);
+    inputNode.onkeyup = (e) => {
+      console.log(e);
+      if (!e.shiftKey && e.keyCode === 13) {
+        send();
+        e.preventDefault();
+      }
+    };
 
     emojiListNode.addEventListener("mousedown", async (event) => {
       const emojiNode = event.target.closest(".emoji-value");
@@ -173,9 +186,12 @@
     });
     if (isClearChat) {
       const messageContainer = document.createElement("div");
-      messageContainer.classList.add("chat-message");
+      messageContainer.classList.add("message");
       const textNode = document.createElement("p");
+      const name = document.createElement("b");
+      name.innerText = "Системное сообщение";
       textNode.innerText = "Отправьте сообщение чтобы начать диалог";
+      messageContainer.appendChild(name);
       messageContainer.appendChild(textNode);
       chatNode.appendChild(messageContainer);
     }
