@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         linesNames: linesNames,
       },
     };
-    console.log(requestData);
     const response = await fetch(chatUrl, {
       method: "POST",
       headers: {
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify(requestData),
     });
     const responseData = await response.json();
-    console.log(responseData);
     return responseData;
   }
 
