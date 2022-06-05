@@ -123,18 +123,19 @@
             <h4>Сравнительный график</h4>
             <div class="dates-inputs">
               <span>С</span>
-              <input type="date" disabled name="start" min="2020-05-01" />
+              <input type="date" name="start" min="2020-05-01" />
               <span>по</span>
               <input type="date" name="end" min="2020-05-01" />
             </div>
             <div class="period">
               Изобразить:
               <select>
-                <option value="7">1 неделю</option>
-                <option value="31">1 месяц</option>
-                <option value="62">2 месяца</option>
-                <option value="0">3 месяца</option>
+                <option value="7">Последнюю неделю</option>
+                <option value="31">Последний месяц</option>
+                <option value="62">Последние 2 месяца</option>
+                <option value="0">Все данные</option>
               </select>
+              <span>выбранного периода</span>
             </div>
             <ul>
               <li class="line-name" value="line1">
