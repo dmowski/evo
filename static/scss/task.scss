@@ -1,4 +1,11 @@
 .task-container {
+  .chat {
+    width: auto;
+    .chatbox {
+      height: auto;
+      overflow-y: auto;
+    }
+  }
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   &--1 {
