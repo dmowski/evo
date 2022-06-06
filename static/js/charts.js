@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
         linesNames: linesNames,
       },
     };
-    console.log(requestData);
     const response = await fetch(chatUrl, {
       method: "POST",
       headers: {
@@ -31,7 +30,6 @@ document.addEventListener("DOMContentLoaded", () => {
       body: JSON.stringify(requestData),
     });
     const responseData = await response.json();
-    console.log(responseData);
     return responseData;
   }
 
@@ -46,12 +44,24 @@ document.addEventListener("DOMContentLoaded", () => {
     const dataPickerEnd = chart.querySelector("input[name='end']");
     const dataPickerStart = chart.querySelector("input[name='start']");
 
-    let startDate = new Date(dataPickerEnd.value);
-    updateDate(startDate);
+    let endDate = new Date(dataPickerEnd.value);
+    const currentDateForStart = new Date();
+    currentDateForStart.setMonth(currentDateForStart.getMonth() - 3);
+    dataPickerStart.max = currentDateForStart.toISOString().split("T")[0];
+    updateDate(endDate);
+
+    dataPickerStart.addEventListener("change", async (event) => {
+      endDate = new Date(event.target.value);
+      endDate.setMonth(endDate.getMonth() + 3);
+      dataPickerEnd.value = endDate.toISOString().split("T")[0];
+      updateDate(endDate);
+      dataResponse = await fetchData(dataPickerStart.value, dataPickerEnd.value, linesNames);
+      changeChart(lineChart);
+    });
 
     dataPickerEnd.addEventListener("change", async (event) => {
-      startDate = new Date(event.target.value);
-      updateDate(startDate);
+      endDate = new Date(event.target.value);
+      updateDate(endDate);
       dataResponse = await fetchData(dataPickerStart.value, dataPickerEnd.value, linesNames);
       changeChart(lineChart);
     });
