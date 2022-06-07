@@ -84,19 +84,37 @@
   };
 
   const generateMessageNode = (message, isLeft) => {
-    const messageContainer = document.createElement("div");
-    messageContainer.classList.add("message");
-    const textNode = document.createElement("p");
-    const name = document.createElement("b");
-    name.innerText = isLeft ? "Bot" : "User";
-    if (isLeft) {
-      messageContainer.classList.add("them");
-    }
-    textNode.innerText = message;
-    messageContainer.appendChild(name);
+    const chatItem = document.createElement("div");
 
-    messageContainer.appendChild(textNode);
-    return messageContainer;
+    chatItem.classList.add("chat-item");
+
+    const nameContainer = document.createElement("div");
+    nameContainer.classList.add("name");
+    const name = document.createElement("span");
+    name.innerText = "Система";
+    const icon = document.createElement("i");
+    icon.classList.add("fa-solid");
+    icon.classList.add("fa-caret-up");
+
+    nameContainer.appendChild(name);
+    nameContainer.appendChild(icon);
+
+    const messagesContainer = document.createElement("div");
+    messagesContainer.classList.add("messages");
+
+    name.innerText = isLeft ? "Bot" : "User";
+    if (!isLeft) {
+      chatItem.classList.add("chat-item__owner");
+    }
+    const messageNode = document.createElement("p");
+    messageNode.classList.add("message");
+    messageNode.innerText = message;
+    messagesContainer.appendChild(messageNode);
+
+    chatItem.appendChild(nameContainer);
+    chatItem.appendChild(messagesContainer);
+
+    return chatItem;
   };
 
   const generateEmojiList = () => {
@@ -167,7 +185,6 @@
     };
     submitNode.addEventListener("click", send);
     inputNode.onkeyup = (e) => {
-      console.log(e);
       if (!e.shiftKey && e.keyCode === 13) {
         send();
         e.preventDefault();
@@ -185,15 +202,33 @@
       replaceSelectedText(inputNode, emojiValue);
     });
     if (isClearChat) {
-      const messageContainer = document.createElement("div");
-      messageContainer.classList.add("message");
-      const textNode = document.createElement("p");
-      const name = document.createElement("b");
-      name.innerText = "Системное сообщение";
-      textNode.innerText = "Отправьте сообщение чтобы начать диалог";
-      messageContainer.appendChild(name);
-      messageContainer.appendChild(textNode);
-      chatNode.appendChild(messageContainer);
+      const chatItem = document.createElement("div");
+      chatItem.classList.add("chat-item");
+
+      const nameContainer = document.createElement("div");
+      nameContainer.classList.add("name");
+      const name = document.createElement("span");
+      name.innerText = "Система";
+      const icon = document.createElement("i");
+      icon.classList.add("fa-solid");
+      icon.classList.add("fa-caret-up");
+
+      nameContainer.appendChild(name);
+      nameContainer.appendChild(icon);
+
+      const messagesContainer = document.createElement("div");
+      messagesContainer.classList.add("messages");
+
+      const message = document.createElement("p");
+      message.classList.add("message");
+      message.innerText = "Отправьте сообщение чтобы начать диалог";
+
+      messagesContainer.appendChild(message);
+
+      chatItem.appendChild(nameContainer);
+      chatItem.appendChild(messagesContainer);
+
+      chatNode.appendChild(chatItem);
     }
   };
 
