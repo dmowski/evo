@@ -48,7 +48,7 @@
 .chat-container {
   display: flex;
   justify-content: center;
-  max-height: calc(100vh - 90px);
+  height: calc(100% - 20px);
 }
 
 .chat {
@@ -65,7 +65,7 @@
 
   .chatbox {
     align-self: center;
-    height: calc(78vh - var(--header-height));
+    height: 100%;
     width: 100%;
     overflow-y: scroll;
 
