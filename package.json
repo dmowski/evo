@@ -12,7 +12,7 @@
     "sass": "sass",
     "build-style": "sass static/scss/main.scss:static/style/bundle.css",
     "build": "npm run build-style && cd static/dialogConstructorDev && npm run build",
-    "postinstall": "cd static/dialogConstructorDev && npm install",
+    "postinstall": "cd static/dialogConstructorDev && npm ci",
     "watch-style": "sass --watch static/scss/main.scss:static/style/bundle.css",
     "predev": "kill-port 62544 34567",
     "dev": "concurrently npm:watch-*",
