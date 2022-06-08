@@ -4,6 +4,8 @@
     @media screen and (max-width: 700px) {
       height: 100%;
     }
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
     .chatbox {
       height: auto;
       overflow-y: auto;
@@ -14,8 +16,8 @@
   &--1 {
     grid-template-columns: 1fr 1fr;
   }
-  gap: 30px;
-  margin-bottom: 20px;
+  gap: 15px;
+  height: 97%;
   @media screen and (max-width: 900px) {
     grid-template-columns: 1fr;
   }
