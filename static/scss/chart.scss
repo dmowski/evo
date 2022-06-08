@@ -17,15 +17,21 @@
 .chart-panel {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  gap: 5px 15px;
+  @media screen and (max-width: 1000px) {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
   .dates-inputs {
     display: grid;
-    grid-template-columns: 0.2fr 1fr 0.2fr 1fr;
-    @media screen and (max-width: 700px) {
+    grid-template-columns: 30px 1fr 30px 1fr;
+    justify-content: center;
+    align-items: center;
+    height: max-content;
+    @media screen and (max-width: 1000px) {
       grid-template-columns: 30px 1fr;
+      gap: 5px 0;
       grid-template-rows: 1fr 1fr;
-      input {
-        max-width: 90px;
-      }
     }
     input {
       max-height: 30px;
@@ -37,6 +43,8 @@
   }
   .period {
     margin-top: 10px;
+    display: flex;
+    flex-direction: column;
   }
   ul {
     font-size: 0;
