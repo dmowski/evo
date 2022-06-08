@@ -16,7 +16,7 @@
   &--1 {
     grid-template-columns: 1fr 1fr;
   }
-  gap: 15px;
+  gap: 10px;
   height: 97%;
   @media screen and (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -50,7 +50,7 @@
   gap: 30px;
   flex-direction: column;
   @media screen and (max-width: 790px) {
-    height: 25vh;
+    height: 27vh;
     padding: 10px 15px;
     overflow-y: scroll;
     background: white;
