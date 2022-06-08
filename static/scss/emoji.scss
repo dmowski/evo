@@ -6,10 +6,7 @@
   &__list {
     position: absolute;
     z-index: 3;
-    top: calc(84vh - 270px);
-    @media screen and (max-width: 790px) {
-      top: calc(89vh - 305px);
-    }
+    bottom: 120px;
     background: var(--bs-body-bg);
     width: 330px;
     height: 300px;
