@@ -61,11 +61,11 @@
     li {
       list-style-type: none;
       padding-bottom: 32px;
-
       a {
         color: var(--color-gray);
         text-decoration: none;
-
+        width: 100%;
+        display: inline-block;
         &:hover {
           color: var(--color-primary);
         }
