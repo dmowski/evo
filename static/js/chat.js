@@ -182,6 +182,7 @@
       }
       sendMessage(message);
       inputNode.value = "";
+      inputNode.focus();
     };
     submitNode.addEventListener("click", send);
     inputNode.onkeyup = (e) => {
