@@ -25,20 +25,26 @@
   .dates-inputs {
     display: grid;
     grid-template-columns: 30px 1fr 30px 1fr;
-    justify-content: center;
+    justify-content: start;
     align-items: center;
     height: max-content;
-    @media screen and (max-width: 1000px) {
-      grid-template-columns: 30px 1fr;
-      gap: 5px 0;
-      grid-template-rows: 1fr 1fr;
-    }
-    input {
-      max-height: 30px;
-    }
+
     span {
       justify-self: center;
       align-self: center;
+    }
+    @media screen and (max-width: 1000px) {
+      grid-template-columns: 25px 1fr;
+      gap: 5px 0;
+      grid-template-rows: 1fr 1fr;
+
+      span {
+        justify-self: start;
+        align-self: center;
+      }
+    }
+    input {
+      max-height: 30px;
     }
   }
   .period {
