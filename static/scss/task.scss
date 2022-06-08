@@ -1,6 +1,9 @@
 .task-container {
   .chat {
     width: auto;
+    @media screen and (max-width: 700px) {
+      height: 100%;
+    }
     .chatbox {
       height: auto;
       overflow-y: auto;
