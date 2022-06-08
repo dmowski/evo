@@ -20,7 +20,13 @@
   .dates-inputs {
     display: grid;
     grid-template-columns: 0.2fr 1fr 0.2fr 1fr;
-
+    @media screen and (max-width: 500px) {
+      grid-template-columns: 30px 1fr;
+      grid-template-rows: 1fr 1fr;
+    }
+    input {
+      max-height: 30px;
+    }
     span {
       justify-self: center;
       align-self: center;
