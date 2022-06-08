@@ -4,7 +4,7 @@
   width: 100%;
   height: 75px;
   display: grid;
-  grid-template-columns: 40px 1fr 100px;
+  grid-template-columns: 40px 1fr min(100px, 15vw);
 
   * {
     display: inline-block;
@@ -48,6 +48,9 @@
 .chat-container {
   display: flex;
   justify-content: center;
+  max-height: calc(
+    100vh - var(--header-height) - var(--main-content-padding) - var(--main-content-padding)
+  );
 }
 
 .chat {

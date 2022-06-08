@@ -10,7 +10,7 @@
   padding-right: var(--main-content-padding);
 
   @media screen and (max-width: 790px) {
-    padding-left: calc(var(--main-content-padding) + var(--main-content-padding));
+    padding-left: calc(var(--main-content-padding));
   }
   &_dialog-constructor {
     padding-top: calc(var(--header-height));
