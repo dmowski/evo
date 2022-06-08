@@ -116,6 +116,12 @@
       border: 1px solid #999;
       border-radius: 6px;
       user-select: none;
+      @media screen and (max-width: 500px) {
+        padding: 5px;
+        h4 {
+          font-size: 1rem;
+        }
+      }
     }
 
     input[type="radio"]:checked + label {
