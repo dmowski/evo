@@ -1,4 +1,4 @@
-window.emojiList = [
+export const emojiList = [
   "😀",
   "😁",
   "😂",
