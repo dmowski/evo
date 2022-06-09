@@ -18,4 +18,9 @@ export const sidebar = () => {
   if (document.body.clientWidth < 790) {
     sidebar.classList.add("main-menu__hidden");
   }
+
+  sidebar.querySelectorAll("details .active").forEach((activeMenu) => {
+    const subMenuContainer = activeMenu.closest("details");
+    subMenuContainer.setAttribute("open", "true");
+  });
 };
