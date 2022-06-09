@@ -1,8 +1,6 @@
 import { DateTime } from "https://cdn.skypack.dev/luxon";
 
-document.addEventListener("DOMContentLoaded", () => {
-  const datePickers = document.querySelectorAll("input[type='date']");
-  datePickers.forEach((datePicker) => {});
+export const charts = () => {
   const colors = [
     "rgba(254, 95, 85, 1)",
     "rgba(95, 211, 234, 1)",
@@ -182,4 +180,4 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     return { labels, values };
   }
-});
+};

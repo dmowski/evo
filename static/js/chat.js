@@ -1,73 +1,9 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//
-// });
+import { emojiList } from "./emojiList.js";
+import { replaceSelectedText } from "./inputTools.js";
 
-(() => {
+export const chat = () => {
   const chatUrl = "/api/v1/chat.message";
 
-  function getInputSelection(el) {
-    var start = 0,
-      end = 0,
-      normalizedValue,
-      range,
-      textInputRange,
-      len,
-      endRange;
-
-    if (typeof el.selectionStart == "number" && typeof el.selectionEnd == "number") {
-      start = el.selectionStart;
-      end = el.selectionEnd;
-    } else {
-      range = document.selection.createRange();
-
-      if (range && range.parentElement() == el) {
-        len = el.value.length;
-        normalizedValue = el.value.replace(/\r\n/g, "\n");
-
-        // Create a working TextRange that lives only in the input
-        textInputRange = el.createTextRange();
-        textInputRange.moveToBookmark(range.getBookmark());
-
-        // Check if the start and end of the selection are at the very end
-        // of the input, since moveStart/moveEnd doesn't return what we want
-        // in those cases
-        endRange = el.createTextRange();
-        endRange.collapse(false);
-
-        if (textInputRange.compareEndPoints("StartToEnd", endRange) > -1) {
-          start = end = len;
-        } else {
-          start = -textInputRange.moveStart("character", -len);
-          start += normalizedValue.slice(0, start).split("\n").length - 1;
-
-          if (textInputRange.compareEndPoints("EndToEnd", endRange) > -1) {
-            end = len;
-          } else {
-            end = -textInputRange.moveEnd("character", -len);
-            end += normalizedValue.slice(0, end).split("\n").length - 1;
-          }
-        }
-      }
-    }
-
-    return {
-      start: start,
-      end: end,
-    };
-  }
-
-  function replaceSelectedText(el, text) {
-    var sel = getInputSelection(el),
-      val = el.value;
-    el.value = val.slice(0, sel.start) + text + val.slice(sel.end);
-  }
-
-  /*
-    return object: {
-        message_id: 1,
-        text: "Or nu ole."
-    }
-    */
   const chatRequest = async (message) => {
     const requestData = {
       message,
@@ -119,8 +55,8 @@
 
   const generateEmojiList = () => {
     const container = document.createElement("div");
-
-    window.emojiList.forEach((emoji) => {
+    debugger;
+    emojiList.forEach((emoji) => {
       const textNode = document.createElement("p");
       textNode.classList.add("emoji-value");
       textNode.innerHTML = emoji;
@@ -135,6 +71,14 @@
     const inputNode = container.querySelector(".messenger__input");
     const submitNode = container.querySelector(".messenger__submit");
     const emojiContainer = container.querySelector(".emoji-control");
+
+    const emoji = container.querySelector(".emoji-control__list");
+    const emojiToggler = container.querySelector(".emoji-toggler");
+
+    emojiToggler.addEventListener("click", () => {
+      emoji.classList.toggle("hidden");
+    });
+
     const emojiListNode = container.querySelector(".messenger__emoji-list");
     const emojiListComponents = generateEmojiList();
     emojiListNode.appendChild(emojiListComponents);
@@ -233,10 +177,8 @@
     }
   };
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const listOfMessengers = document.body.querySelectorAll(".messenger");
-    [...listOfMessengers].forEach((messengersContainer) => {
-      chatComponent(messengersContainer);
-    });
+  const listOfMessengers = document.body.querySelectorAll(".messenger");
+  [...listOfMessengers].forEach((messengersContainer) => {
+    chatComponent(messengersContainer);
   });
-})();
+};

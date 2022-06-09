@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+export const sidebar = () => {
   const sidebar = document.querySelector(".main-menu");
   const sidebarToggler = document.querySelector(".header__toggle");
 
@@ -18,4 +18,4 @@ document.addEventListener("DOMContentLoaded", () => {
   if (document.body.clientWidth < 790) {
     sidebar.classList.add("main-menu__hidden");
   }
-});
+};
