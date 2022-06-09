@@ -55,7 +55,6 @@ export const chat = () => {
 
   const generateEmojiList = () => {
     const container = document.createElement("div");
-    debugger;
     emojiList.forEach((emoji) => {
       const textNode = document.createElement("p");
       textNode.classList.add("emoji-value");
