@@ -11,7 +11,7 @@
     "watch-dialog-constructor": "cd static/dialogConstructorDev && npm run start",
     "sass": "sass",
     "build-style": "sass static/scss/main.scss:static/style/bundle.css",
-    "build": "npm run build-style && cd static/dialogConstructorDev && npm run build",
+    "build": "concurrently \"npm run build-style\" \"cd static/dialogConstructorDev && npm run build\"",
     "postinstall": "cd static/dialogConstructorDev && npm ci",
     "watch-style": "sass --watch static/scss/main.scss:static/style/bundle.css",
     "predev": "kill-port 62544 34567",
@@ -24,7 +24,7 @@
   "dependencies": {
     "body-parser": "^1.19.0",
     "bootstrap": "^5.1.3",
-    "concurrently": "^7.1.0",
+    "concurrently": "^7.2.1",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "nodemon": "^2.0.7",

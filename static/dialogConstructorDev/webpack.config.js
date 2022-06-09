@@ -1,19 +1,27 @@
 const path = require("path");
 const production = false;
 process.env.NODE_ENV === "production";
-// const TerserPlugin = require("terser-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
   mode: production ? "production" : "development",
-  devtool: "inline-source-map",
+  ...(production ? { devtool: "inline-source-map" } : {}),
   entry: "./src/main.tsx",
   output: {
     path: path.join(__dirname, "../js/dist"),
-    filename: "bundle.js",
+    filename: "graphConstructor.js",
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
   },
+  ...(production
+    ? {
+        optimization: {
+          minimize: true,
+          minimizer: [new TerserPlugin()],
+        },
+      }
+    : {}),
   module: {
     rules: [
       {
