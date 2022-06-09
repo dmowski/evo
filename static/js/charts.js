@@ -1,10 +1,8 @@
+import { DateTime } from "https://cdn.skypack.dev/luxon";
+
 document.addEventListener("DOMContentLoaded", () => {
   const datePickers = document.querySelectorAll("input[type='date']");
-  datePickers.forEach((datePicker) => {
-    const currentDate = new Date().toISOString().split("T")[0];
-    datePicker.max = currentDate;
-    datePicker.value = currentDate;
-  });
+  datePickers.forEach((datePicker) => {});
   const colors = [
     "rgba(254, 95, 85, 1)",
     "rgba(95, 211, 234, 1)",
@@ -32,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const responseData = await response.json();
     return responseData;
   }
-
+  const formatDate = "yyyy'-'MM'-'dd";
   const charts = document.querySelectorAll(".chart");
   charts.forEach(async (chart, i) => {
     const indicatorName = `indicator_${i + 1}`;
@@ -42,26 +40,29 @@ document.addEventListener("DOMContentLoaded", () => {
     listLines.forEach((l) => linesNames.push(l.getAttribute("value")));
 
     const dataPickerEnd = chart.querySelector("input[name='end']");
-    const dataPickerStart = chart.querySelector("input[name='start']");
+    const dateNow = DateTime.local().setZone("Europe/Moscow");
+    dataPickerEnd.max = dateNow.toFormat(formatDate);
+    dataPickerEnd.value = dateNow.toFormat(formatDate);
 
-    let endDate = new Date(dataPickerEnd.value);
-    const currentDateForStart = new Date();
-    currentDateForStart.setMonth(currentDateForStart.getMonth() - 3);
-    dataPickerStart.max = currentDateForStart.toISOString().split("T")[0];
-    updateDate(endDate);
+    const dataPickerStart = chart.querySelector("input[name='start']");
+    dataPickerEnd.min = DateTime.fromISO(dataPickerStart.min)
+      .plus({ month: 3 })
+      .toFormat(formatDate);
+    dataPickerStart.max = dateNow.minus({ month: 3 }).toFormat(formatDate);
+    dataPickerStart.value = dateNow.minus({ month: 3 }).toFormat(formatDate);
 
     dataPickerStart.addEventListener("change", async (event) => {
-      endDate = new Date(event.target.value);
-      endDate.setMonth(endDate.getMonth() + 3);
-      dataPickerEnd.value = endDate.toISOString().split("T")[0];
-      updateDate(endDate);
+      dataPickerEnd.value = DateTime.fromISO(event.target.value)
+        .plus({ month: 3 })
+        .toFormat(formatDate);
       dataResponse = await fetchData(dataPickerStart.value, dataPickerEnd.value, linesNames);
       changeChart(lineChart);
     });
 
     dataPickerEnd.addEventListener("change", async (event) => {
-      endDate = new Date(event.target.value);
-      updateDate(endDate);
+      dataPickerStart.value = DateTime.fromISO(event.target.value)
+        .minus({ month: 3 })
+        .toFormat(formatDate);
       dataResponse = await fetchData(dataPickerStart.value, dataPickerEnd.value, linesNames);
       changeChart(lineChart);
     });
@@ -112,12 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
       chart.data.labels = labels;
       chart.data.datasets = datasets;
       chart.update();
-    }
-
-    function updateDate(startDate) {
-      startDate.setMonth(startDate.getMonth() - 3);
-      const currentDate = startDate.toISOString().split("T")[0];
-      dataPickerStart.value = currentDate;
     }
   });
 
