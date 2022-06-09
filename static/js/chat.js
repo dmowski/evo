@@ -1,7 +1,3 @@
-// document.addEventListener("DOMContentLoaded", () => {
-//
-// });
-
 (() => {
   const chatUrl = "/api/v1/chat.message";
 
