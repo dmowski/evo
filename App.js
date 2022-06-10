@@ -328,7 +328,7 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
 
 /*
 Данные для чарта
-GET /api/v1/chart.get
+POST /api/v1/chart.get
 {
   "start": 1652227681587,
   "end": 1654819640158,
