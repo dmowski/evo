@@ -2,6 +2,11 @@
   padding-bottom: 30px;
   display: grid;
   grid-template-columns: minmax(0, 3fr) 1fr;
+  border: var(--color-light-gray) 1px solid;
+  border-radius: 13px;
+  background-color: white;
+  margin: 0 0 20px 0;
+  padding: 10px;
   @media screen and (max-width: 1000px) {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -9,8 +14,6 @@
 }
 
 .chart {
-  border: var(--color-light-gray) 1px solid;
-  border-radius: 13px;
   padding: 15px;
 }
 
@@ -18,6 +21,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 5px 15px;
+  padding: 10px 0;
   @media screen and (max-width: 1000px) {
     grid-template-columns: 1fr;
     gap: 15px;
@@ -47,11 +51,17 @@
       max-height: 30px;
     }
   }
+
   .period {
     margin-top: 10px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 10px;
+    button {
+      padding: 2px 6px;
+    }
   }
+
   ul {
     font-size: 0;
     padding: 0;
@@ -64,70 +74,49 @@
       padding: 0;
     }
   }
+
   .legend {
-    display: flex;
+    display: grid;
+    width: 100%;
+    height: 40px;
+    gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    div {
+      display: flex;
+      gap: 4px;
+      font-size: 10px;
+      justify-content: start;
+      align-items: center;
+    }
     .color {
-      &--1 {
-        background: rgba(254, 95, 85, 1);
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        margin-top: 7px;
-      }
-
-      &--2 {
-        background: rgba(95, 211, 234, 1);
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        margin-top: 7px;
-      }
-
-      &--3 {
-        background: rgb(238, 130, 238);
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        margin-top: 7px;
-      }
-
-      &--4 {
-        background: rgb(60, 179, 113);
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        margin-top: 7px;
-      }
-
-      &--5 {
-        background: rgb(255, 165, 0);
-        width: 10px;
-        height: 10px;
-        margin-left: 5px;
-        margin-top: 7px;
-      }
+      background: rgba(254, 95, 85, 1);
+      width: 10px;
+      height: 10px;
     }
   }
 }
 
 .indicators {
   padding-top: 15px;
-  display: grid;
-  grid-template-columns: 1fr;
-  border: var(--color-light-gray) 1px solid;
+  display: flex;
+  flex-direction: column;
   border-radius: 13px;
-  gap: 10px;
+  gap: 20px;
   padding: 15px;
-  .radio-btn {
-    display: inline-block;
+  .indicator-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
     width: 100%;
 
     h4 {
       color: var(--color-gray);
+      padding: 0;
+      margin: 0;
     }
 
-    input[type="radio"] {
-      display: none;
+    input[type="checkbox"] {
     }
 
     label {
@@ -147,7 +136,7 @@
       }
     }
 
-    input[type="radio"]:checked + label {
+    input[type="checkbox"]:checked + label {
       background: #ffe0a6;
       color: var(--color-primary);
 
@@ -163,8 +152,5 @@
         color: black;
       }
     }
-  }
-  @media screen and (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr;
   }
 }

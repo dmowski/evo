@@ -120,63 +120,68 @@
           </div>
         </div>
       </div>
-      <div class="chart-container">
+
+      <div class="chart-container" data-chart-name="comparing-chart">
         <div class="chart">
           <div class="chart-panel">
             <h4>Сравнительный график</h4>
+
             <div class="dates-inputs">
               <span>С</span>
-              <input type="date" name="start" min="2021-05-01" />
+              <input type="date" name="start" />
               <span>по</span>
               <input type="date" name="end" />
             </div>
+
             <div class="period">
-              <span>Изобразить:</span>
-              <select>
-                <option value="7">Последнюю неделю</option>
-                <option value="31">Последний месяц</option>
-                <option value="62">Последние 2 месяца</option>
-                <option value="0">Все данные</option>
-              </select>
-              <span>выбранного периода</span>
+              <button type="button" data-time="1" class="btn btn-outline-dark">1d</button>
+              <button type="button" data-time="7" class="btn btn-outline-dark">7d</button>
+              <button type="button" data-time="30" class="btn btn-outline-dark">30d</button>
+              <button type="button" data-time="90" class="btn btn-outline-dark">90d</button>
             </div>
-            <ul>
-              <li class="line-name" value="line1">
-                <div class="legend">
-                  <span>line1</span>
-                  <div class="color--1"></div>
-                </div>
-              </li>
-            </ul>
+
+            <div class="legend"></div>
           </div>
+
           <canvas class="line-chart"></canvas>
         </div>
+
         <div class="indicators">
-          <div class="radio-btn">
-            <input type="radio" id="Indicator_1_Choice_1" name="indicator_1" value="index1" />
-            <label for="Indicator_1_Choice_1">
-              <h4>Показатель</h4>
-              <h2>250</h2>
-            </label>
-          </div>
-          <div class="radio-btn">
+          <div class="indicator-button">
             <input
-              type="radio"
-              id="Indicator_1_Choice_2"
-              checked
-              name="indicator_1"
-              value="index2"
+              type="checkbox"
+              class="form-check-input mt-0"
+              name="indicator_level"
+              id="indicator_level_id"
             />
-            <label for="Indicator_1_Choice_2">
-              <h4>Показатель</h4>
-              <h2>250</h2>
+            <label for="indicator_level_id">
+              <h4>Level line</h4>
+              <span>243</span>
             </label>
           </div>
-          <div class="radio-btn">
-            <input type="radio" id="Indicator_1_Choice_3" name="indicator_1" value="index3" />
-            <label for="Indicator_1_Choice_3">
-              <h4>Показатель</h4>
-              <h2>250</h2>
+
+          <div class="indicator-button">
+            <input
+              type="checkbox"
+              class="form-check-input mt-0"
+              checked
+              name="indicator_speed"
+              id="indicator_speed_id"
+            />
+            <label for="indicator_speed_id">
+              <h4>Speed line</h4>
+            </label>
+          </div>
+
+          <div class="indicator-button">
+            <input
+              type="checkbox"
+              class="form-check-input mt-0"
+              name="quality_indicator"
+              id="quality_indicator_id"
+            />
+            <label for="quality_indicator_id">
+              <h4>Quality line</h4>
             </label>
           </div>
         </div>

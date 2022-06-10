@@ -329,67 +329,69 @@ app.get("/api/v1/dialo_graph.list", function (req, res) {
 /*
 Данные для чарта
 GET /api/v1/chart.get
-req.json({
-    data: {
-    start: "2022-03-01" //начальная дата
-    end: "2022-06-01" //конечная дата (между начальной и конечной датой всегда промежуток в 3 месяца
-    linesNames: ['line1', 'line2'] //В массиве передаются название линий, данные для которых нужно прислать
-  }
-});
+{
+  "start": 1652227681587,
+  "end": 1654819640158,
+  "chart_name": "bot_1"
+}
+
 Ответ:
+[
+  {
+    "position": "2022-5-10",
+    "name": "indicator_1",
+    "value": 0.109085
+  }
+]
+
 */
 
 app.post("/api/v1/chart.get", function (req, res) {
-  const { data } = req.body;
-  res.json({
-    chart: generateData(data.start, data.end, data.linesNames),
-  });
-});
+  const { start, end, chart_name } = req.body;
+  if (!start) {
+    return res.json({ error: "'start' param is required" });
+  }
 
-const linesForOneData = (lines) => {
-  const result = {};
-  for (let i = 0; i < lines.length; i++) {
-    result[lines[i]] = [{ index1: Math.random(), index2: Math.random(), index3: Math.random() }];
+  if (!end) {
+    return res.json({ error: "'end' param is required" });
   }
-  return result;
-};
-const generateData = (startDate, endDate, lines) => {
-  const data = [];
-  let currentDate = new Date(startDate);
-  while (currentDate <= new Date(endDate)) {
-    data.push({
-      date: new Date(currentDate).toISOString().split("T")[0],
-      lines: linesForOneData(lines),
+
+  if (!chart_name) {
+    return res.json({ error: "'chart_name' param is required" });
+  }
+
+  const indicators = [
+    "quality_indicator",
+    "indicator_speed",
+    "indicator_SUPER",
+    "indicator_level",
+    "indicator_A",
+    "indicator_B",
+  ];
+  const result = [];
+  let currentTime = start;
+
+  while (currentTime <= end) {
+    indicators.forEach((indicator) => {
+      var currentDate = new Date(currentTime);
+      const humanDate =
+        currentDate.getFullYear() +
+        "-" +
+        (currentDate.getMonth() + 1) +
+        "-" +
+        currentDate.getDate();
+
+      const resultObject = {
+        position: humanDate,
+        value: Math.random() * 1000,
+        name: indicator,
+      };
+      result.push(resultObject);
     });
-    currentDate.setUTCDate(currentDate.getUTCDate() + 1);
+    currentTime += 1000 * 60 * 60 * 24;
   }
-  return data;
-};
-// res.json({
-//   сhart: Array(93)
-//   0:
-//       {
-//         date: "2022-03-01"
-//         lines: {
-//           line1: {index1: 0.109085, index2: 0.114064, index3: 0.24928},
-//           line2: {index1: 0.109085, index2: 0.114064, index3: 0.24928}}
-//       }
-//   1:
-//       {
-//         date: "2022-03-02"
-//         lines: {
-//           line1: {index1: 0.109085, index2: 0.114064, index3: 0.24928},
-//           line2: {index1: 0.109085, index2: 0.114064, index3: 0.24928}}
-//       }
-//   ...
-//       92: {
-//   date: "2022-06-01"
-//   lines: {
-//     line1: {index1: 0.109085, index2: 0.114064, index3: 0.24928},
-//     line2: {index1: 0.109085, index2: 0.114064, index3: 0.24928}}
-// }
-// }
-// }
+  res.json(result);
+});
 
 const listOfChats = [];
 // Отправка сообщения чат-боту
